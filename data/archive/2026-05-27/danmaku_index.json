@@ -1,0 +1,44 @@
+{
+  "version": "split-json-2026-06-03",
+  "module": "popular_archive",
+  "date": "2026-05-27",
+  "video_count": 5,
+  "danmaku_count": 4278,
+  "videos": {
+    "BV14TLA6FEBf": {
+      "file": "danmakus/BV14TLA6FEBf.json",
+      "count": 847,
+      "title": "《异环》安魂曲角色短片丨晚安，我温柔的星光",
+      "rank": 0,
+      "duration": 151
+    },
+    "BV1yVVw6EEBE": {
+      "file": "danmakus/BV1yVVw6EEBE.json",
+      "count": 1200,
+      "title": "聪明的猫是要多承担一点的…",
+      "rank": 0,
+      "duration": 343
+    },
+    "BV1vYVw6vEuE": {
+      "file": "danmakus/BV1vYVw6vEuE.json",
+      "count": 1430,
+      "title": "【原创短剧】第二季01：飞升失败 开局成为人渣",
+      "rank": 0,
+      "duration": 1607
+    },
+    "BV1GPVP6PEdj": {
+      "file": "danmakus/BV1GPVP6PEdj.json",
+      "count": 459,
+      "title": "取一个好的标题更能吸引观众哦～～",
+      "rank": 0,
+      "duration": 171
+    },
+    "BV1ZT5X6EEvA": {
+      "file": "danmakus/BV1ZT5X6EEvA.json",
+      "count": 342,
+      "title": "【剧情】黑爵士 第一季（1983）01【罗温·艾金森 / 布耐恩·布莱塞得】",
+      "rank": 0,
+      "duration": 2000
+    }
+  }
+}

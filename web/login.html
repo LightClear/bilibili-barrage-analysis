@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>账号中心 - B站弹幕数据可视化</title>
+  <link rel="stylesheet" href="./css/shared.css">
+  <link rel="stylesheet" href="./css/login.css?v=20260602-bili-cookie">
+</head>
+<body>
+  <header class="account-header">
+    <a class="header-link" href="./start.html">返回首页</a>
+    <div>
+      <h1>账号中心</h1>
+      <p>Bilibili Danmaku Dashboard Account</p>
+    </div>
+    <a class="header-link" href="./index.html">进入平台</a>
+  </header>
+
+  <main class="account-main">
+    <section id="authPanel" class="auth-layout">
+      <article class="auth-panel">
+        <div class="auth-tabs">
+          <button id="loginTab" class="auth-tab active" type="button">登入</button>
+          <button id="registerTab" class="auth-tab" type="button">注册</button>
+        </div>
+
+        <form id="loginForm" class="auth-form">
+          <h2>账号登入</h2>
+          <label>账号<input id="loginAccount" type="text" autocomplete="username" placeholder="admin_demo 或 user_demo"></label>
+          <label>密码<input id="loginPassword" type="password" autocomplete="current-password" placeholder="请输入密码"></label>
+          <label id="loginCaptchaPanel" hidden>
+            AI 验证码
+            <span class="captcha-row">
+              <span id="loginAiQuestion" class="captcha-question">加载中</span>
+              <button id="refreshLoginCaptchaBtn" class="inline-btn" type="button">换题</button>
+            </span>
+            <input id="loginAiAnswer" type="text" inputmode="numeric" placeholder="请输入答案">
+          </label>
+          <button class="primary-action" type="submit">登入</button>
+          <p class="demo-tip">默认账号：admin_demo / Admin12345，user_demo / User12345</p>
+        </form>
+
+        <form id="registerForm" class="auth-form" hidden>
+          <h2>创建账号</h2>
+          <div class="form-grid">
+            <label>用户名<input id="registerUsername" type="text" autocomplete="nickname" placeholder="2-16 个字符"></label>
+            <label>账号<input id="registerAccount" type="text" autocomplete="username" placeholder="6-20 位字母/数字/下划线"></label>
+            <label>密码<input id="registerPassword" type="password" autocomplete="new-password" placeholder="8-32 位，含字母和数字"></label>
+            <label>确认密码<input id="registerPasswordConfirm" type="password" autocomplete="new-password" placeholder="再次输入密码"></label>
+            <label>邮箱<input id="registerEmail" type="email" autocomplete="email" placeholder="name@example.com"></label>
+            <label>
+              邮箱验证码
+              <span class="inline-control">
+                <input id="registerEmailCode" type="text" inputmode="numeric" placeholder="6 位验证码">
+                <button id="emailCodeBtn" class="inline-btn" type="button">获取</button>
+              </span>
+            </label>
+            <label>
+              AI 验证码
+              <span class="captcha-row">
+                <span id="aiQuestion" class="captcha-question">加载中</span>
+                <button id="refreshCaptchaBtn" class="inline-btn" type="button">换题</button>
+              </span>
+              <input id="registerAiAnswer" type="text" inputmode="numeric" placeholder="请输入答案">
+            </label>
+          </div>
+          <button class="primary-action" type="submit">注册并登入</button>
+        </form>
+
+        <p id="authStatus" class="status-line"></p>
+      </article>
+
+      <aside class="rules-panel">
+        <h2>账号规则</h2>
+        <ul>
+          <li>账号支持字母、数字、下划线，可为纯数字。</li>
+          <li>密码需要 8-32 位，并同时包含字母和数字。</li>
+          <li>邮箱验证码和 AI 验证码为本地 DEMO，用于模拟防攻击流程。</li>
+          <li>真实部署时应替换为数据库、邮件服务和服务端会话。</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section id="accountPanel" class="account-layout" hidden>
+      <article class="profile-panel">
+        <div class="section-title">
+          <h2>个人资料</h2>
+          <button id="logoutBtn" class="ghost-action" type="button">退出登入</button>
+        </div>
+        <div id="profileSummary" class="profile-summary"></div>
+        <form id="profileForm" class="profile-form">
+          <label>用户名<input id="profileUsername" type="text"></label>
+          <label>性别
+            <select id="profileGender">
+              <option value="未设置">未设置</option>
+              <option value="男">男</option>
+              <option value="女">女</option>
+              <option value="其他">其他</option>
+              <option value="不愿透露">不愿透露</option>
+            </select>
+          </label>
+          <label>生日<input id="profileBirthday" type="date"></label>
+          <button class="primary-action" type="submit">保存资料</button>
+        </form>
+      </article>
+
+      <article class="api-panel">
+        <div class="section-title">
+          <h2>API 接入</h2>
+          <label class="switch-line">
+            <input id="apiEnabled" type="checkbox">
+            <span>启用 API</span>
+          </label>
+        </div>
+        <p class="panel-desc">这里控制当前账号是否启用 AI/API 功能。开启开关后仍需保存本账号自己的模型 API 配置，主页面才会显示并允许使用 AI 评价。</p>
+        <label>本地访问令牌<input id="apiKeyInput" type="text" readonly placeholder="开启 API 后生成"></label>
+        <div class="action-row">
+          <button id="copyApiKeyBtn" class="ghost-action" type="button">复制令牌</button>
+          <button id="resetApiKeyBtn" class="ghost-action" type="button">重置令牌</button>
+        </div>
+
+        <div class="provider-settings">
+          <h3>自带模型 API</h3>
+          <p class="panel-desc">用于接入 DeepSeek、OpenAI 或其他 OpenAI-compatible 服务。真实 Key 只保存在后端本机加密存储中，页面仅显示脱敏结果。</p>
+          <div class="provider-grid">
+            <label>服务商
+              <select id="aiProviderSelect">
+                <option value="deepseek">DeepSeek</option>
+              </select>
+            </label>
+            <label>模型<input id="aiProviderModel" type="text" value="deepseek-v4-flash" placeholder="deepseek-v4-flash"></label>
+            <label class="provider-wide">Base URL<input id="aiProviderBaseUrl" type="text" value="https://api.deepseek.com"></label>
+            <label class="provider-wide">模型 API Key<input id="aiProviderKey" type="password" autocomplete="off" placeholder="sk-..."></label>
+          </div>
+          <div class="action-row">
+            <button id="saveAiProviderBtn" class="primary-action" type="button">保存自带 API</button>
+            <button id="testAiProviderBtn" class="ghost-action" type="button">测试连接</button>
+            <button id="clearAiProviderBtn" class="ghost-action" type="button">清除</button>
+          </div>
+          <p id="aiProviderStatus" class="status-line"></p>
+        </div>
+      </article>
+
+      <article class="api-panel">
+        <div class="section-title">
+          <h2>B站历史弹幕补抓</h2>
+          <button id="clearBiliCookieBtn" class="ghost-action" type="button">清除</button>
+        </div>
+        <p class="panel-desc">用于“历史补抓”。凭证只保存在后端本机加密存储中，不写入前端文件，也不会在页面回显完整内容。SESSDATA 等同登录凭证，请勿截图或提交到仓库。</p>
+        <div class="credential-grid">
+          <label>凭证类型
+            <select id="biliCredentialType">
+              <option value="sessdata">BILI_SESSDATA</option>
+              <option value="cookie">BILI_COOKIE</option>
+            </select>
+          </label>
+          <label class="provider-wide">凭证内容
+            <textarea id="biliCookieValue" class="secret-textarea" rows="4" autocomplete="off" placeholder="只填 SESSDATA 的值，或切换为 BILI_COOKIE 后粘贴完整 Cookie"></textarea>
+          </label>
+        </div>
+        <div class="action-row">
+          <button id="saveBiliCookieBtn" class="primary-action" type="button">保存 B站凭证</button>
+        </div>
+        <p id="biliCookieStatus" class="status-line"></p>
+      </article>
+
+      <article class="api-panel">
+        <div class="section-title">
+          <h2>AI 使用统计</h2>
+          <button id="refreshAiUsageBtn" class="ghost-action" type="button">刷新统计</button>
+        </div>
+        <p class="panel-desc">这里只统计本项目内的 AI 分析请求、缓存命中和外部模型调用次数，不读取第三方 API 余额或账单。</p>
+        <div id="accountAiUsageStatus" class="server-status"></div>
+        <p id="accountAiUsageMessage" class="status-line"></p>
+      </article>
+
+      <article class="block-panel">
+        <div class="section-title">
+          <h2>屏蔽词设置</h2>
+          <button id="saveBlockWordsBtn" class="primary-action" type="button">保存屏蔽词</button>
+        </div>
+        <p class="panel-desc">每行一个屏蔽词，最多 200 个。当前模式为整条删除，保存后在重新获取弹幕或管理员更新热门榜单时生效。</p>
+        <div id="blockWordStats" class="block-word-stats"></div>
+        <textarea id="blockWordsInput" rows="7" placeholder="例如：剧透&#10;引战&#10;刷屏"></textarea>
+        <p id="blockWordsStatus" class="status-line"></p>
+      </article>
+
+      <section id="adminPanel" class="admin-panel" hidden>
+        <div class="section-title">
+          <h2>管理员界面</h2>
+          <button id="reloadAdminBtn" class="ghost-action" type="button">刷新状态</button>
+        </div>
+
+        <div class="admin-grid">
+          <article class="admin-card">
+            <h3>演示身份切换</h3>
+            <p class="panel-desc">只影响主功能页的演示权限，不改变当前账号的管理员权限。</p>
+            <div class="identity-admin-row">
+              <button class="identity-admin-btn" type="button" data-role="normal">普通用户</button>
+              <button class="identity-admin-btn" type="button" data-role="api">API用户</button>
+              <button class="identity-admin-btn" type="button" data-role="admin">管理员</button>
+              <button class="identity-admin-btn owner-identity-only" type="button" data-role="owner" hidden>项目负责人</button>
+            </div>
+          </article>
+
+          <article class="admin-card">
+            <h3>热门榜单更新</h3>
+            <p class="panel-desc">按默认 50 个视频更新当前热门榜单，并写入当天归档。</p>
+            <button id="refreshPopularBtn" class="primary-action" type="button">更新热门榜单</button>
+            <div id="refreshJobPanel" class="job-panel">
+              <div class="job-head">
+                <span id="refreshJobState">等待更新</span>
+                <strong id="refreshJobProgressText">0%</strong>
+              </div>
+              <div class="job-progress"><span id="refreshJobProgressBar"></span></div>
+              <p id="refreshJobMessage" class="status-line">点击更新后会显示采集步骤。</p>
+              <div id="refreshJobMetrics" class="job-metrics"></div>
+              <div id="refreshJobEvents" class="job-events"></div>
+            </div>
+          </article>
+
+          <article class="admin-card admin-card-wide">
+            <div class="section-title compact-title">
+              <h3>全局屏蔽词</h3>
+              <button id="saveGlobalBlockWordsBtn" class="primary-action" type="button">保存全局词库</button>
+            </div>
+            <p class="panel-desc">全局词库会叠加到所有账号的个人屏蔽词上，适合放通用广告、刷屏和明显无意义表达。</p>
+            <textarea id="globalBlockWordsInput" class="admin-block-textarea" rows="6" placeholder="每行一个全局屏蔽词"></textarea>
+            <p id="globalBlockWordsStatus" class="status-line"></p>
+          </article>
+
+          <article class="admin-card admin-card-wide">
+            <div class="section-title compact-title">
+              <h3>AI 缓存</h3>
+              <div class="cache-action-row">
+                <button id="pruneAiCacheBtn" class="ghost-action" type="button">清理7天前</button>
+                <button id="clearAiCacheBtn" class="ghost-action danger-action" type="button">清空缓存</button>
+              </div>
+            </div>
+            <p class="panel-desc">缓存命中时不会再次调用外部模型，可减少用户 API 开支；清理只会影响缓存，不会删除最新报告文件。</p>
+            <div id="aiCacheStatus" class="server-status"></div>
+            <p id="aiCacheMessage" class="status-line"></p>
+          </article>
+
+          <article class="admin-card admin-card-wide">
+            <div class="section-title compact-title">
+              <h3>本地储存清理</h3>
+              <div class="cache-action-row">
+                <button id="refreshStorageUsageBtn" class="ghost-action" type="button">刷新占用</button>
+                <button id="previewStorageCleanupBtn" class="ghost-action" type="button">预览清理</button>
+                <button id="runStorageCleanupBtn" class="ghost-action danger-action" type="button">执行清理</button>
+              </div>
+            </div>
+            <p class="panel-desc">用于控制本地文件模式下的磁盘占用。默认只清理旧前端大文件、孤儿弹幕分库和过期 AI 缓存；历史归档需要单独输入保留天数并确认。</p>
+            <div class="credential-grid">
+              <label><input id="storageCleanupLegacy" type="checkbox" checked> 清理旧前端 danmakus.json</label>
+              <label><input id="storageCleanupRuntimeFlat" type="checkbox" checked> 清理运行时原始/处理弹幕副本</label>
+              <label><input id="storageCleanupCurrentOrphans" type="checkbox" checked> 清理当前榜单孤儿弹幕文件</label>
+              <label><input id="storageCleanupArchiveOrphans" type="checkbox" checked> 清理归档孤儿弹幕文件</label>
+              <label><input id="storageCleanupArchiveLegacy" type="checkbox" checked> 清理已迁移归档旧全量弹幕</label>
+              <label><input id="storageCleanupAiCache" type="checkbox" checked> 清理过期 AI 缓存</label>
+              <label>AI 缓存保留天数<input id="storageAiCacheDays" type="number" min="0" max="3650" value="7"></label>
+              <label>历史归档保留天数<input id="storageArchiveDays" type="number" min="0" max="3650" value="0"></label>
+              <label class="provider-wide"><input id="storageArchiveConfirm" type="checkbox"> 确认允许删除超过保留天数的历史归档</label>
+            </div>
+            <div id="storageUsageStatus" class="server-status"></div>
+            <div id="storageCleanupCandidates" class="job-events"></div>
+            <p id="storageCleanupMessage" class="status-line"></p>
+          </article>
+
+          <article id="ownerAiUsageCard" class="admin-card admin-card-wide" hidden>
+            <div class="section-title compact-title">
+              <h3>AI 调用统计</h3>
+              <button id="refreshAdminAiUsageBtn" class="ghost-action" type="button">刷新统计</button>
+            </div>
+            <p class="panel-desc">统计本项目观察到的调用、缓存和失败回退；真实余额和扣费以模型平台控制台为准。</p>
+            <div id="adminAiUsageStatus" class="server-status"></div>
+            <div id="adminAiUsageRecent" class="job-events"></div>
+            <p id="adminAiUsageMessage" class="status-line"></p>
+          </article>
+
+          <article class="admin-card admin-card-wide">
+            <h3>服务器状态</h3>
+            <div id="serverStatus" class="server-status"></div>
+          </article>
+
+          <article class="admin-card admin-card-wide">
+            <h3>账号权限及数据修改</h3>
+            <div id="userAdminList" class="user-admin-list"></div>
+          </article>
+        </div>
+      </section>
+
+      <p id="accountStatus" class="status-line"></p>
+    </section>
+  </main>
+
+  <script src="./js/login.js?v=20260604-storage-cleanup"></script>
+</body>
+</html>

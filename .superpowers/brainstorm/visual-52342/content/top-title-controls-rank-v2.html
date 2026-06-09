@@ -1,0 +1,102 @@
+<h2>主功能页布局修正版</h2>
+<p class="subtitle">这版修正了结构：顶部左侧标题、右侧登入和菜单；榜单控制位于排行视频模块上方，不再作为独立侧栏。</p>
+
+<div class="mockup">
+  <div class="mockup-header">修正版预览：顶部导航 + 榜单控制 + 排行主区 + 底部对比</div>
+  <div class="mockup-body">
+    <div style="padding:18px;border-radius:24px;background:radial-gradient(circle at 16% 8%,rgba(104,245,255,.18),transparent 38%),linear-gradient(145deg,#07111f,#111a32);color:#eaf6ff;">
+      <header style="display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:16px;padding:18px 20px;border-radius:22px;background:rgba(10,18,40,.68);border:1px solid rgba(255,255,255,.10);">
+        <div>
+          <div style="font-size:12px;letter-spacing:.16em;color:#68f5ff;text-transform:uppercase;">Bilibili Danmaku Dashboard</div>
+          <div style="font-size:30px;font-weight:900;margin-top:4px;">B站弹幕数据可视化</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <button class="mock-button" style="background:rgba(15,23,42,.72);border-color:rgba(104,245,255,.35);color:#68f5ff;">登入</button>
+          <button class="mock-button" style="width:42px;padding:10px 0;background:rgba(15,23,42,.72);border-color:rgba(148,163,184,.25);color:#cbd5e1;">☰</button>
+        </div>
+      </header>
+
+      <main>
+        <section style="border-radius:24px;background:rgba(10,18,40,.64);border:1px solid rgba(255,255,255,.09);padding:14px;margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;">
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <div style="font-weight:900;margin-right:4px;color:#eaf6ff;">榜单控制</div>
+              <div style="display:flex;border:1px solid rgba(104,245,255,.35);border-radius:999px;overflow:hidden;">
+                <button class="mock-button" style="border-radius:0;background:rgba(104,245,255,.18);border:0;color:#68f5ff;">热门榜单</button>
+                <button class="mock-button" style="border-radius:0;background:transparent;border:0;color:#cbd5e1;">自定义榜单</button>
+              </div>
+              <select class="mock-input" style="width:152px;color:#cbd5e1;">
+                <option>官方排序</option>
+                <option>点赞数排序</option>
+                <option>收藏数排序</option>
+                <option>弹幕数排序</option>
+                <option>硬币数排序</option>
+              </select>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <button class="mock-button" style="background:rgba(15,23,42,.72);border-color:rgba(148,163,184,.22);color:#cbd5e1;">跳转到搜索筛选</button>
+              <button class="mock-button" style="background:rgba(167,139,250,.14);border-color:rgba(167,139,250,.35);color:#c4b5fd;">添加当前视频到自定义榜单</button>
+            </div>
+          </div>
+
+          <div style="height:158px;margin-top:14px;border-radius:24px;background:linear-gradient(135deg,rgba(56,189,248,.20),rgba(167,139,250,.16));border:1px solid rgba(255,255,255,.10);display:flex;align-items:center;justify-content:center;text-align:center;font-size:22px;font-weight:900;">
+            排行视频标题及可视化数据对比
+          </div>
+        </section>
+
+        <section style="display:grid;grid-template-columns:1.05fr .74fr 1fr;gap:12px;">
+          <div style="border-radius:18px;background:rgba(15,23,42,.76);border:1px solid rgba(255,255,255,.08);overflow:hidden;">
+            <div style="height:105px;display:flex;align-items:center;justify-content:center;color:#94a3b8;background:rgba(148,163,184,.08);">视频封面</div>
+            <div style="padding:12px;border-top:1px solid rgba(255,255,255,.08);font-weight:800;">视频标题</div>
+          </div>
+          <div style="border-radius:18px;background:rgba(15,23,42,.76);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;">
+            当前视频数据<br>播放 / 点赞 / 收藏 / 硬币
+          </div>
+          <div style="border-radius:18px;background:rgba(15,23,42,.76);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;">
+            时间分布<br>长度分布
+          </div>
+        </section>
+
+        <section id="search-section-preview" style="height:118px;margin-top:12px;border-radius:24px;background:rgba(15,23,42,.74);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;text-align:center;color:#cbd5e1;font-weight:700;">
+          词云 · user_hash · 弹幕查询筛选 · 结果表格
+        </section>
+
+        <section style="margin-top:12px;border-radius:24px;background:rgba(10,18,40,.72);border:1px solid rgba(255,255,255,.10);overflow:hidden;">
+          <div style="padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.08);font-size:18px;font-weight:900;text-align:center;">视频对比</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(255,255,255,.08);">
+            <div style="padding:18px;border-right:1px solid rgba(255,255,255,.08);text-align:center;">
+              <div style="height:90px;border-radius:16px;background:rgba(148,163,184,.08);display:flex;align-items:center;justify-content:center;color:#94a3b8;">A 封面</div>
+            </div>
+            <div style="padding:18px;text-align:center;">
+              <div style="height:90px;border-radius:16px;background:rgba(148,163,184,.08);display:flex;align-items:center;justify-content:center;color:#94a3b8;">B 封面</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(255,255,255,.08);">
+            <div style="padding:12px;border-right:1px solid rgba(255,255,255,.08);text-align:center;font-weight:800;">A 标题</div>
+            <div style="padding:12px;text-align:center;font-weight:800;">B 标题</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(255,255,255,.08);">
+            <div style="padding:12px;border-right:1px solid rgba(255,255,255,.08);text-align:center;color:#68f5ff;">A 播放数</div>
+            <div style="padding:12px;text-align:center;color:#c4b5fd;">B 播放数</div>
+          </div>
+          <div style="padding:14px;text-align:center;font-weight:800;color:#eaf6ff;">图表对比：播放 / 点赞 / 收藏 / 弹幕 / 硬币</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);">
+            <div style="padding:12px;border-right:1px solid rgba(255,255,255,.08);text-align:center;color:#68f5ff;">A 点赞数</div>
+            <div style="padding:12px;text-align:center;color:#c4b5fd;">B 点赞数</div>
+          </div>
+          <div style="padding:14px;text-align:center;font-weight:800;color:#eaf6ff;">图表对比：弹幕密度 / 时间分布 / 关键词差异</div>
+        </section>
+      </main>
+    </div>
+  </div>
+</div>
+
+<div class="options">
+  <div class="option" data-choice="approve-top-title-controls-rank-v2" onclick="toggleSelect(this)">
+    <div class="letter">✓</div>
+    <div class="content">
+      <h3>确认采用这个结构</h3>
+      <p>之后实现时将按“顶部标题导航 + 排行上方榜单控制 + 主分析区 + 底部视频对比”落地。</p>
+    </div>
+  </div>
+</div>

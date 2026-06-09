@@ -1,0 +1,71 @@
+<h2>主功能页布局方向</h2>
+<p class="subtitle">视觉辅助服务已恢复。请重点看信息层级、操作入口和图表区域的组织方式。</p>
+
+<div class="cards">
+  <div class="card" data-choice="overview-first" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mockup">
+        <div class="mockup-header">方案 A：总览优先</div>
+        <div class="mockup-body">
+          <div class="mock-nav">标题 / 榜单切换 / 视频筛选</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;">
+            <div class="placeholder">视频数</div>
+            <div class="placeholder">弹幕数</div>
+            <div class="placeholder">播放量</div>
+            <div class="placeholder">点赞量</div>
+          </div>
+          <div class="placeholder" style="height:88px;">核心排行大图表</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+            <div class="placeholder">时间分布</div>
+            <div class="placeholder">关键词</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A. 总览仪表盘</h3>
+      <p>适合先展示数据成果：摘要、排行和关键图表放在首屏，搜索筛选放到后面。</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="analysis-workbench" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mockup">
+        <div class="mockup-header">方案 B：分析工作台</div>
+        <div class="mockup-body">
+          <div class="mock-nav">标题 / 数据状态 / 管理员入口</div>
+          <div style="display:flex;gap:8px;margin-top:12px;">
+            <div class="mock-sidebar" style="width:34%;">搜索 BV<br>内容筛选<br>自定义榜单<br>导入导出</div>
+            <div class="mock-content" style="flex:1;">
+              <div class="placeholder" style="height:70px;">当前视频信息</div>
+              <div class="placeholder" style="height:86px;margin-top:8px;">联动图表</div>
+              <div class="placeholder" style="height:42px;margin-top:8px;">结果表格</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B. 分析工作台</h3>
+      <p>适合频繁搜索、筛选和切换视频：左侧集中操作，右侧显示当前分析结果。</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="story-sections" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="mockup">
+        <div class="mockup-header">方案 C：分区叙事</div>
+        <div class="mockup-body">
+          <div class="placeholder" style="height:54px;">页面导语 + 今日数据亮点</div>
+          <div class="placeholder" style="height:70px;margin-top:8px;">热门视频排行</div>
+          <div class="placeholder" style="height:70px;margin-top:8px;">弹幕时间与长度分析</div>
+          <div class="placeholder" style="height:70px;margin-top:8px;">搜索筛选与用户贡献</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C. 分区展示页</h3>
+      <p>适合课程展示或答辩：按“数据概览、排行、分析、筛选”逐段讲清项目能力。</p>
+    </div>
+  </div>
+</div>

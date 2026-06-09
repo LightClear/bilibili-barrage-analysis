@@ -1,0 +1,5 @@
+data/secure/
+data/ai_analysis/cache/
+data/mysql_export/
+config/mysql.local.json
+.env

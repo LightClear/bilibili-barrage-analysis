@@ -1,0 +1,50 @@
+{
+  "users": [
+    {
+      "account": "admin_demo",
+      "username": "演示管理员",
+      "password_hash": "pbkdf2_sha256$200000$ab6b538ee65b4352446881544ff2632b$16b3cf8f80b7f44344b9839315ae0d09e7bf6909304001620cdf7a35d953fe4d",
+      "email": "admin@example.com",
+      "role": "admin",
+      "gender": "未设置",
+      "birthday": "2000-01-01",
+      "api_enabled": true,
+      "api_key": "bili_demo_3MbEawDA1S_Vv9bAub7g5jY6DVJth6h5",
+      "search_interval_seconds": 10,
+      "disabled": false,
+      "created_at": "2026-05-29T00:00:00+08:00",
+      "last_login_at": "2026-06-09T17:09:48+08:00"
+    },
+    {
+      "account": "user_demo",
+      "username": "普通演示用户",
+      "password_hash": "pbkdf2_sha256$200000$8c494829e7f3941132e02e0318938f03$557bdde8b39473105c8874b49967f104f96aa334379453e7420627ef312c60c0",
+      "email": "user@example.com",
+      "role": "normal",
+      "gender": "不愿透露",
+      "birthday": "2007-07-13",
+      "api_enabled": false,
+      "api_key": "",
+      "search_interval_seconds": 10,
+      "disabled": false,
+      "created_at": "2026-05-29T00:00:00+08:00",
+      "last_login_at": "2026-06-02T16:37:33+08:00"
+    },
+    {
+      "account": "owner_demo",
+      "username": "项目负责人",
+      "password_hash": "pbkdf2_sha256$200000$1f7dffd5aa3e4d56e526f2989a665426$f1751f833261597ec2157a8016c6e1f8a20d1d07b25288cfea38dbfc72556d43",
+      "email": "owner@example.com",
+      "role": "owner",
+      "gender": "未设置",
+      "birthday": "2000-01-01",
+      "api_enabled": false,
+      "api_key": "",
+      "search_interval_seconds": 10,
+      "disabled": false,
+      "created_at": "2026-05-29T00:00:00+08:00",
+      "last_login_at": "2026-06-02T16:49:30+08:00"
+    }
+  ],
+  "updated_at": "2026-06-09T17:09:48+08:00"
+}

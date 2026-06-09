@@ -1,0 +1,359 @@
+{
+  "version": "split-json-2026-06-03",
+  "module": "popular_archive",
+  "date": "2026-05-26",
+  "video_count": 50,
+  "danmaku_count": 56324,
+  "videos": {
+    "BV1t2Vw6dEiE": {
+      "file": "danmakus/BV1t2Vw6dEiE.json",
+      "count": 1200,
+      "title": "【明日方舟×怪物猎人】SideStory「泡影苍霆」活动宣传PV",
+      "rank": 0,
+      "duration": 372
+    },
+    "BV1GdLw6qEtp": {
+      "file": "danmakus/BV1GdLw6qEtp.json",
+      "count": 1200,
+      "title": "《异环》安魂曲角色PV丨广告拍摄中！",
+      "rank": 0,
+      "duration": 1043
+    },
+    "BV16xVw6gEgu": {
+      "file": "danmakus/BV16xVw6gEgu.json",
+      "count": 1200,
+      "title": "《绝区零》星徽比利EP | Billy Mode",
+      "rank": 0,
+      "duration": 777
+    },
+    "BV1C1GH6NEEf": {
+      "file": "danmakus/BV1C1GH6NEEf.json",
+      "count": 600,
+      "title": "【钓鱼侠七月】我说本大师是今天最强路亚佬！没人反对吧！还好水不深希望孩子没事！",
+      "rank": 0,
+      "duration": 92
+    },
+    "BV1K3Gz6pEoo": {
+      "file": "danmakus/BV1K3Gz6pEoo.json",
+      "count": 1200,
+      "title": "全世界笑点下降1000倍而我不变",
+      "rank": 0,
+      "duration": 522
+    },
+    "BV1wTGd6FEUZ": {
+      "file": "danmakus/BV1wTGd6FEUZ.json",
+      "count": 1200,
+      "title": "我只希望所有的好妈妈出门在外都可以被善待",
+      "rank": 0,
+      "duration": 451
+    },
+    "BV11NGZ6MEER": {
+      "file": "danmakus/BV11NGZ6MEER.json",
+      "count": 1800,
+      "title": "第九季开播第一集就炸了！那位角色回归，上演世纪大战，主线彻底清零（瑞克和莫蒂第九季第一集·剧情）",
+      "rank": 0,
+      "duration": 719
+    },
+    "BV15wGn61EVp": {
+      "file": "danmakus/BV15wGn61EVp.json",
+      "count": 1200,
+      "title": "巧乐兹：叫你模仿，没让你超越！",
+      "rank": 0,
+      "duration": 455
+    },
+    "BV14iGJ6YEED": {
+      "file": "danmakus/BV14iGJ6YEED.json",
+      "count": 574,
+      "title": "《相亲是你的谎言》",
+      "rank": 0,
+      "duration": 291
+    },
+    "BV1bgGn6gEEB": {
+      "file": "danmakus/BV1bgGn6gEEB.json",
+      "count": 120,
+      "title": "不是不回你消息 是田里网太差了",
+      "rank": 0,
+      "duration": 19
+    },
+    "BV1z5Gd6WEST": {
+      "file": "danmakus/BV1z5Gd6WEST.json",
+      "count": 1200,
+      "title": "你被AI内容骗过吗？",
+      "rank": 0,
+      "duration": 433
+    },
+    "BV1d2Go6nEnj": {
+      "file": "danmakus/BV1d2Go6nEnj.json",
+      "count": 1200,
+      "title": "\"小麦，我一定会找到完美时间线的！”",
+      "rank": 0,
+      "duration": 275
+    },
+    "BV1J8GR6sESk": {
+      "file": "danmakus/BV1J8GR6sESk.json",
+      "count": 203,
+      "title": "真实事件改编",
+      "rank": 0,
+      "duration": 165
+    },
+    "BV1PGLA6dEri": {
+      "file": "danmakus/BV1PGLA6dEri.json",
+      "count": 415,
+      "title": "《异环》世界观PV丨异点有趣",
+      "rank": 0,
+      "duration": 167
+    },
+    "BV1u5GR6vELU": {
+      "file": "danmakus/BV1u5GR6vELU.json",
+      "count": 600,
+      "title": "【NiKo】我的中国首次直播，和大家聊聊近况与未来。",
+      "rank": 0,
+      "duration": 109
+    },
+    "BV1R6GR62E8G": {
+      "file": "danmakus/BV1R6GR62E8G.json",
+      "count": 1098,
+      "title": "消失的6小时：一卷胶带，如何把人类逼疯79年？",
+      "rank": 0,
+      "duration": 462
+    },
+    "BV1NpGR6FEas": {
+      "file": "danmakus/BV1NpGR6FEas.json",
+      "count": 802,
+      "title": "加盟摆摊月入过亿！？许家印后悔没刷到！【神奇组织14】",
+      "rank": 0,
+      "duration": 533
+    },
+    "BV1K2Gq6SEQ3": {
+      "file": "danmakus/BV1K2Gq6SEQ3.json",
+      "count": 600,
+      "title": "⚡功 夫 足 球⚡",
+      "rank": 0,
+      "duration": 97
+    },
+    "BV1dHGH6DEGo": {
+      "file": "danmakus/BV1dHGH6DEGo.json",
+      "count": 110,
+      "title": "当三角洲更新了百万英镑：",
+      "rank": 0,
+      "duration": 107
+    },
+    "BV1SWGB6WEy3": {
+      "file": "danmakus/BV1SWGB6WEy3.json",
+      "count": 1200,
+      "title": "真人快打1 玩家超唐对局 招架全能人对战滑步祖国人",
+      "rank": 0,
+      "duration": 197
+    },
+    "BV1bgGn6gE9N": {
+      "file": "danmakus/BV1bgGn6gE9N.json",
+      "count": 3600,
+      "title": "【STN快报第8.5季6】严查所有三角洲主播，开播用的可能是外挂软件",
+      "rank": 0,
+      "duration": 1802
+    },
+    "BV1vtGx6AEgR": {
+      "file": "danmakus/BV1vtGx6AEgR.json",
+      "count": 1800,
+      "title": "为了她，我花两万八割双眼皮",
+      "rank": 0,
+      "duration": 605
+    },
+    "BV1ehGx6cE71": {
+      "file": "danmakus/BV1ehGx6cE71.json",
+      "count": 347,
+      "title": "你愿意跟我一起签署在外父母互助协议吗？",
+      "rank": 0,
+      "duration": 303
+    },
+    "BV1yDG56mEdj": {
+      "file": "danmakus/BV1yDG56mEdj.json",
+      "count": 3600,
+      "title": "早知道不来你家了…",
+      "rank": 0,
+      "duration": 1624
+    },
+    "BV1yVVw6EEBE": {
+      "file": "danmakus/BV1yVVw6EEBE.json",
+      "count": 745,
+      "title": "聪明的猫是要多承担一点的……",
+      "rank": 0,
+      "duration": 338
+    },
+    "BV1URGn6uEDY": {
+      "file": "danmakus/BV1URGn6uEDY.json",
+      "count": 3600,
+      "title": "《王者荣耀世界》S1赛季前瞻特别节目",
+      "rank": 0,
+      "duration": 1658
+    },
+    "BV1MwGZ63EJG": {
+      "file": "danmakus/BV1MwGZ63EJG.json",
+      "count": 453,
+      "title": "虽然平时经常逗铠玩，但不得不承认铠是4大天王中最强的",
+      "rank": 0,
+      "duration": 194
+    },
+    "BV1QZGi6pEJ3": {
+      "file": "danmakus/BV1QZGi6pEJ3.json",
+      "count": 1923,
+      "title": "当你的心理年龄超过父母，就能理解他们“犯下的错”！冷门宝藏电影",
+      "rank": 0,
+      "duration": 1246
+    },
+    "BV1n4GE6DEwk": {
+      "file": "danmakus/BV1n4GE6DEwk.json",
+      "count": 1200,
+      "title": "深扒王鹤棣翻车全始末：嘲沈月身材，黄晓明半截入土，绊倒邵子恒，事迹越扒越有！",
+      "rank": 0,
+      "duration": 595
+    },
+    "BV1XZGb6uEUz": {
+      "file": "danmakus/BV1XZGb6uEUz.json",
+      "count": 1200,
+      "title": "今晚交作业成稿，唯有爱与努力不可辜负，感谢刘大师和你们的爱，也感谢一直努力的王濛队长！",
+      "rank": 0,
+      "duration": 260
+    },
+    "BV17RGJ6nEBd": {
+      "file": "danmakus/BV17RGJ6nEBd.json",
+      "count": 412,
+      "title": "我说我箭下没秘密，你尔朵隆嘛",
+      "rank": 0,
+      "duration": 125
+    },
+    "BV1FKG76jEMo": {
+      "file": "danmakus/BV1FKG76jEMo.json",
+      "count": 512,
+      "title": "午间做美食~猜猜我今天做了什么？",
+      "rank": 0,
+      "duration": 245
+    },
+    "BV1RUGf6oE74": {
+      "file": "danmakus/BV1RUGf6oE74.json",
+      "count": 656,
+      "title": "特厨探店|不惊艳，但是吃着超级舒服的家常菜—老太婆家常菜",
+      "rank": 0,
+      "duration": 214
+    },
+    "BV1ahGW6WEE9": {
+      "file": "danmakus/BV1ahGW6WEE9.json",
+      "count": 737,
+      "title": "河道治理行动，水上挖机竟然还“翻车了”？",
+      "rank": 0,
+      "duration": 370
+    },
+    "BV17PG46BEer": {
+      "file": "danmakus/BV17PG46BEer.json",
+      "count": 3600,
+      "title": "三国杀up锐评新三国re02：新三学理论取得重大突破",
+      "rank": 0,
+      "duration": 1359
+    },
+    "BV1vsGZ6sEkw": {
+      "file": "danmakus/BV1vsGZ6sEkw.json",
+      "count": 271,
+      "title": "《水调哥头》",
+      "rank": 0,
+      "duration": 118
+    },
+    "BV1CBG66QEsq": {
+      "file": "danmakus/BV1CBG66QEsq.json",
+      "count": 1200,
+      "title": "带大黑牛自律的一天",
+      "rank": 0,
+      "duration": 224
+    },
+    "BV1PuGx6jEUF": {
+      "file": "danmakus/BV1PuGx6jEUF.json",
+      "count": 1200,
+      "title": "强者不靠馈赠！败者组重回王位！拿下EWC与卡杯门票！",
+      "rank": 0,
+      "duration": 403
+    },
+    "BV1zrGL6CEES": {
+      "file": "danmakus/BV1zrGL6CEES.json",
+      "count": 1200,
+      "title": "因为无法接受黑袍的结局，我做出了心中真正的祖国人",
+      "rank": 0,
+      "duration": 204
+    },
+    "BV1A4GR64EVr": {
+      "file": "danmakus/BV1A4GR64EVr.json",
+      "count": 840,
+      "title": "决战寝室之巅！",
+      "rank": 0,
+      "duration": 154
+    },
+    "BV1k9GW6qEsr": {
+      "file": "danmakus/BV1k9GW6qEsr.json",
+      "count": 1200,
+      "title": "山西留神峪煤矿井下爆炸瞬间监控公布",
+      "rank": 0,
+      "duration": 280
+    },
+    "BV1VmGo6DEb1": {
+      "file": "danmakus/BV1VmGo6DEb1.json",
+      "count": 1025,
+      "title": "开爆8台车，我能成为车神吗？",
+      "rank": 0,
+      "duration": 1189
+    },
+    "BV1QaLk6LE1g": {
+      "file": "danmakus/BV1QaLk6LE1g.json",
+      "count": 161,
+      "title": "金 箍 框 ～ ～ ～",
+      "rank": 0,
+      "duration": 53
+    },
+    "BV1xvGJ6PERd": {
+      "file": "danmakus/BV1xvGJ6PERd.json",
+      "count": 173,
+      "title": "【MVPの小曲】【感恩の小曲】【FREE lucky+Coffee降调】“我留下 是因为妈妈没地方去.”",
+      "rank": 0,
+      "duration": 152
+    },
+    "BV1uPGE6iEmU": {
+      "file": "danmakus/BV1uPGE6iEmU.json",
+      "count": 1151,
+      "title": "现在的网吧陪玩也太离谱了！",
+      "rank": 0,
+      "duration": 749
+    },
+    "BV1e5Li6YEV8": {
+      "file": "danmakus/BV1e5Li6YEV8.json",
+      "count": 441,
+      "title": "鲁豫对话苏芒 晓雪：陪中国时尚走过30年，“女魔头们”的人生下半场 | 陈鲁豫·慢谈EP18【视频播客】",
+      "rank": 0,
+      "duration": 11265
+    },
+    "BV1h4GJ6zERi": {
+      "file": "danmakus/BV1h4GJ6zERi.json",
+      "count": 1034,
+      "title": "陈翔六点半：当所有人能听见我的心声",
+      "rank": 0,
+      "duration": 376
+    },
+    "BV1YWGJ6rETF": {
+      "file": "danmakus/BV1YWGJ6rETF.json",
+      "count": 449,
+      "title": "经济全场最低，大招一开照样吓哭牢玩家",
+      "rank": 0,
+      "duration": 139
+    },
+    "BV1dXGB6eEni": {
+      "file": "danmakus/BV1dXGB6eEni.json",
+      "count": 3600,
+      "title": "被3000名网友操控的河南之行，我竟然吃到昏厥？【超级特派员02】",
+      "rank": 0,
+      "duration": 1955
+    },
+    "BV1R7GJ61EES": {
+      "file": "danmakus/BV1R7GJ61EES.json",
+      "count": 272,
+      "title": "游客居然和NPC互动上了",
+      "rank": 0,
+      "duration": 60
+    }
+  }
+}

@@ -1,0 +1,102 @@
+<h2>基于草图的美化方向</h2>
+<p class="subtitle">三种方案都保留你给出的结构：顶部控制区、主排行可视化、当前视频详情、时间/长度分布、底部词云与弹幕筛选。</p>
+
+<div class="cards">
+  <div class="card" data-choice="dark-tech" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="padding:14px;border-radius:16px;background:linear-gradient(145deg,#07111f,#111a32);color:#eaf6ff;box-shadow:0 18px 45px rgba(0,0,0,.28);">
+        <div style="display:flex;justify-content:space-between;gap:8px;font-size:11px;">
+          <div style="padding:7px 10px;border:1px solid rgba(104,245,255,.35);border-radius:999px;">功能模块跳转</div>
+          <div style="display:flex;gap:6px;">
+            <span style="padding:7px 10px;border-radius:999px;background:rgba(104,245,255,.14);">热门榜单</span>
+            <span style="padding:7px 10px;border-radius:999px;background:rgba(167,139,250,.12);">自定义榜单</span>
+            <span style="padding:7px 10px;border:1px solid rgba(148,163,184,.22);border-radius:999px;">按弹幕数排序</span>
+          </div>
+        </div>
+        <div style="height:118px;margin:14px 0;border-radius:18px;background:linear-gradient(135deg,rgba(56,189,248,.18),rgba(167,139,250,.14));border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-weight:700;">
+          排行视频标题及可视化数据对比
+        </div>
+        <div style="display:grid;grid-template-columns:1.15fr .75fr 1fr;gap:10px;">
+          <div style="border-radius:16px;background:rgba(15,23,42,.72);border:1px solid rgba(255,255,255,.08);overflow:hidden;">
+            <div style="height:70px;display:flex;align-items:center;justify-content:center;color:#94a3b8;">视频封面</div>
+            <div style="padding:10px;border-top:1px solid rgba(255,255,255,.08);">视频标题</div>
+          </div>
+          <div style="border-radius:16px;background:rgba(15,23,42,.72);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;">视频数据</div>
+          <div style="border-radius:16px;background:rgba(15,23,42,.72);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;">时间 / 长度分布</div>
+        </div>
+        <div style="height:74px;margin-top:10px;border-radius:18px;background:rgba(15,23,42,.7);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:#cbd5e1;">
+          词云 · user_hash · 弹幕查询筛选
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A. 深色科技仪表盘</h3>
+      <p>延续现有蓝紫暗色风格，视觉统一、产品感强，适合直接改造当前页面。</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="bilibili-bright" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="padding:14px;border-radius:16px;background:linear-gradient(145deg,#fff7fb,#eefaff);color:#243044;border:1px solid #e8eef7;">
+        <div style="display:flex;justify-content:space-between;gap:8px;font-size:11px;">
+          <div style="padding:7px 10px;border-radius:999px;background:#fff;border:1px solid #ffd6e7;">功能模块跳转</div>
+          <div style="display:flex;gap:6px;">
+            <span style="padding:7px 10px;border-radius:999px;background:#ffecf5;color:#fb7299;">热门榜单</span>
+            <span style="padding:7px 10px;border-radius:999px;background:#e6f8ff;color:#00a1d6;">自定义榜单</span>
+            <span style="padding:7px 10px;border-radius:999px;background:#fff;">排序方式</span>
+          </div>
+        </div>
+        <div style="height:118px;margin:14px 0;border-radius:18px;background:linear-gradient(135deg,#ffecf5,#e4f7ff);border:1px solid #ffd6e7;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fb7299;">
+          排行视频标题及可视化数据对比
+        </div>
+        <div style="display:grid;grid-template-columns:1.15fr .75fr 1fr;gap:10px;">
+          <div style="border-radius:16px;background:#fff;border:1px solid #e8eef7;overflow:hidden;">
+            <div style="height:70px;display:flex;align-items:center;justify-content:center;color:#7b8ba3;background:#f7fbff;">视频封面</div>
+            <div style="padding:10px;border-top:1px solid #eef2f7;">视频标题</div>
+          </div>
+          <div style="border-radius:16px;background:#fff;border:1px solid #e8eef7;display:flex;align-items:center;justify-content:center;">视频数据</div>
+          <div style="border-radius:16px;background:#fff;border:1px solid #e8eef7;display:flex;align-items:center;justify-content:center;">时间 / 长度分布</div>
+        </div>
+        <div style="height:74px;margin-top:10px;border-radius:18px;background:#fff;border:1px solid #e8eef7;display:flex;align-items:center;justify-content:center;color:#516179;">
+          词云 · user_hash · 弹幕查询筛选
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B. B站粉蓝明亮风</h3>
+      <p>更贴近 B 站品牌色，亲和力强，但会和当前开始页的暗色氛围差异较大。</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="presentation-clean" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="padding:14px;border-radius:16px;background:#f8fafc;color:#0f172a;border:1px solid #dbe3ef;">
+        <div style="display:flex;justify-content:space-between;gap:8px;font-size:11px;">
+          <div style="padding:7px 10px;border-radius:8px;background:#e2e8f0;">功能模块跳转</div>
+          <div style="display:flex;gap:6px;">
+            <span style="padding:7px 10px;border-radius:8px;background:#dbeafe;">热门 / 自定义</span>
+            <span style="padding:7px 10px;border-radius:8px;background:#ede9fe;">排序方式</span>
+          </div>
+        </div>
+        <div style="height:118px;margin:14px 0;border-radius:12px;background:#fff;border:1px solid #dbe3ef;display:flex;align-items:center;justify-content:center;font-weight:700;">
+          排行视频标题及可视化数据对比
+        </div>
+        <div style="display:grid;grid-template-columns:1.15fr .75fr 1fr;gap:10px;">
+          <div style="border-radius:12px;background:#fff;border:1px solid #dbe3ef;overflow:hidden;">
+            <div style="height:70px;display:flex;align-items:center;justify-content:center;color:#64748b;background:#f1f5f9;">视频封面</div>
+            <div style="padding:10px;border-top:1px solid #e2e8f0;">视频标题</div>
+          </div>
+          <div style="border-radius:12px;background:#fff;border:1px solid #dbe3ef;display:flex;align-items:center;justify-content:center;">视频数据</div>
+          <div style="border-radius:12px;background:#fff;border:1px solid #dbe3ef;display:flex;align-items:center;justify-content:center;">时间 / 长度分布</div>
+        </div>
+        <div style="height:74px;margin-top:10px;border-radius:12px;background:#fff;border:1px solid #dbe3ef;display:flex;align-items:center;justify-content:center;color:#475569;">
+          词云 · user_hash · 弹幕查询筛选
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C. 答辩展示简洁风</h3>
+      <p>结构最清楚，适合讲解项目功能，但视觉冲击力比深色方案弱。</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,4 @@
+{"type":"server-started","port":52341,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:52341","screen_dir":"h:\\work\\python作业\\大\\.superpowers\\brainstorm\\visual-52341\\content","state_dir":"h:\\work\\python作业\\大\\.superpowers\\brainstorm\\visual-52341\\state"}
+{"type":"screen-added","file":"h:\\work\\python作业\\大\\.superpowers\\brainstorm\\visual-52341\\content\\layout-directions.html"}
+{"type":"screen-added","file":"h:\\work\\python作业\\大\\.superpowers\\brainstorm\\visual-52341\\content\\baseline-beautify-directions.html"}
+{"type":"server-stopped","reason":"idle timeout"}

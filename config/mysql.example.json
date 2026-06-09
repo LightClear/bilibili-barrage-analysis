@@ -1,0 +1,9 @@
+{
+  "host": "127.0.0.1",
+  "port": 3306,
+  "database": "danmaku_dashboard",
+  "user": "danmaku_app",
+  "password": "replace-with-local-password",
+  "charset": "utf8mb4",
+  "connect_timeout": 10
+}

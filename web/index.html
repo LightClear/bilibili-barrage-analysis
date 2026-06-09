@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B站弹幕数据可视化</title>
+  <link rel="stylesheet" href="./css/shared.css">
+  <link rel="stylesheet" href="./css/dashboard.css?v=20260601-ai-cache">
+</head>
+<body>
+
+  <header class="top-header container">
+    <div class="top-title">
+      <h1>B站弹幕数据可视化</h1>
+      <p class="eyebrow">Bilibili Danmaku Dashboard</p>
+    </div>
+    <div class="top-actions">
+      <a id="loginBtn" class="header-btn" href="./login.html">登入</a>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <section id="rankModule" class="rank-module">
+      <div class="quick-row">
+        <button id="jumpSearchBtn" type="button" class="quick-btn">搜索</button>
+        <button id="jumpCompareBtn" type="button" class="quick-btn quick-btn-purple">对比</button>
+      </div>
+      <div class="rank-control-row">
+        <div class="tab-group">
+          <button id="hotTab" class="tab-btn active">热门榜单</button>
+          <button id="customTab" class="tab-btn">自定义榜单<span id="customCount" class="badge">0/30</span></button>
+        </div>
+        <div class="rank-filter-row">
+          <label id="hotDateControl" class="hot-date-control">
+            日期
+            <select id="hotDateSelect" aria-label="热门榜单日期">
+              <option value="current">今日榜单</option>
+            </select>
+          </label>
+          <button id="refreshHotDateDataBtn" type="button" class="date-refresh-btn" title="重新抓取当前热门榜单">更新当前榜单</button>
+          <select id="sortModeSelect" aria-label="排序方式">
+            <option id="officialSortOption" value="official">官方排序</option>
+            <option value="like">点赞数排序</option>
+            <option value="favorite">收藏数排序</option>
+            <option value="danmaku">弹幕数排序</option>
+            <option value="coin">硬币数排序</option>
+          </select>
+        </div>
+      </div>
+      <div id="hotDateTaskPanel" class="task-panel hot-date-task-panel" hidden>
+        <div class="task-head">
+          <span id="hotDateTaskTitle">热门日期数据更新</span>
+          <strong id="hotDateTaskProgressText">0%</strong>
+        </div>
+        <div class="task-progress"><span id="hotDateTaskProgressBar"></span></div>
+        <p id="hotDateTaskMessage" class="task-message">等待提交任务</p>
+        <div id="hotDateTaskMetrics" class="task-metrics"></div>
+        <div id="hotDateTaskEvents" class="task-events"></div>
+      </div>
+      <article class="panel rank-panel">
+        <h2 id="rankTitle">排行视频标题及可视化数据对比</h2>
+        <div id="rankChart" class="chart rank-chart"></div>
+      </article>
+    </section>
+
+    <section class="action-row">
+      <article id="bvidSearchPanel" class="toolbar-search-panel" aria-label="BV 视频搜索及历史查看">
+        <div class="toolbar-search-heading">
+          <h2>BV 视频搜索及历史查看</h2>
+          <span id="fetchStatus" class="status-text"></span>
+        </div>
+        <div class="search-row toolbar-search-row">
+          <label>
+            BV号/链接：
+            <input id="bvidSearchInput" type="text" placeholder="BV1xx411c7mD 或 https://www.bilibili.com/video/BV...">
+          </label>
+          <label class="history-fetch-toggle" title="需要服务端配置 BILI_SESSDATA 或 BILI_COOKIE">
+            <input id="historyDanmakuFetch" type="checkbox">
+            历史补抓
+          </label>
+          <button id="fetchBvidBtn" type="button" class="btn btn-primary">获取弹幕</button>
+        </div>
+        <div class="video-refresh-row">
+          <button id="refreshCurrentVideoBtn" type="button" class="btn btn-ghost">更新当前视频数据</button>
+          <span class="video-refresh-note">仅刷新当前选中视频并写入页面历史缓存，不修改已归档榜单。</span>
+        </div>
+        <div id="bvidTaskPanel" class="task-panel" hidden>
+          <div class="task-head">
+            <span id="bvidTaskTitle">BV 获取任务</span>
+            <strong id="bvidTaskProgressText">0%</strong>
+          </div>
+          <div class="task-progress"><span id="bvidTaskProgressBar"></span></div>
+          <p id="bvidTaskMessage" class="task-message">等待提交任务</p>
+          <div id="bvidTaskMetrics" class="task-metrics"></div>
+          <div id="bvidTaskEvents" class="task-events"></div>
+        </div>
+        <div id="searchHistory" class="history-row" style="display:none;">
+          <span class="history-label">最近搜索：</span>
+          <div id="historyTags" class="history-tags"></div>
+        </div>
+      </article>
+      <div class="action-row-right">
+        <label id="aiAnalysisModeControl" class="ai-mode-control ai-only" hidden>
+          AI模式
+          <select id="aiAnalysisMode" aria-label="AI 分析模式">
+            <option value="economy">省钱模式</option>
+            <option value="deep">深度摘要</option>
+            <option value="full_raw">全量原文</option>
+          </select>
+        </label>
+        <button id="aiEvaluateCurrentBtn" type="button" class="btn btn-ai ai-only" hidden>AI评价</button>
+        <button id="aiForceCurrentBtn" type="button" class="btn btn-ai-secondary ai-only" hidden>重新分析</button>
+        <button id="addToCompareBtn" type="button" class="btn btn-compare">添加到对比中</button>
+        <button id="addToCustomBtn" type="button" class="btn btn-custom" title="添加到自定义榜单">添加到自定义榜单</button>
+      </div>
+    </section>
+
+    <section id="videoInfoBar" class="video-detail-grid" aria-label="当前视频">
+      <article class="panel video-card">
+        <a id="videoCoverLink" class="cover-link" href="#" target="_blank" rel="noopener" aria-label="打开当前视频">
+          <div class="cover-frame">
+            <img id="videoCover" class="cover" src="" alt="" referrerpolicy="no-referrer">
+            <div id="videoCoverFallback" class="cover-fallback">暂无封面</div>
+          </div>
+        </a>
+        <a id="videoTitleLink" class="title" href="#" target="_blank" rel="noopener">未选择视频</a>
+        <div class="video-title-row">
+          <span id="videoOwner" class="owner"></span>
+          <select id="partSelect" class="part-select" style="display:none;" aria-label="分P选择"></select>
+        </div>
+      </article>
+      <div class="video-side-stack">
+        <article class="panel video-stat-card">
+          <h2>当前视频数据</h2>
+          <div id="currentVideoStats" class="metric-list"></div>
+          <div id="danmakuFetchDiagnostics" class="fetch-diagnostics" hidden></div>
+          <div id="videoDescription" class="video-description"></div>
+        </article>
+      </div>
+    </section>
+
+    <div id="analysisCards" class="analysis-card-grid">
+      <article class="panel analysis-card">
+        <h2>长度分布</h2>
+        <p class="desc">按弹幕文本长度统计当前弹幕</p>
+        <div id="lengthChart" class="chart analysis-chart"></div>
+      </article>
+
+      <article class="panel analysis-card">
+        <h2>用户弹幕贡献榜</h2>
+        <p class="desc">按 user_hash 统计，取前 20 名</p>
+        <div class="table-wrap">
+          <table id="userRankTable" class="data-table">
+            <thead><tr><th>排名</th><th>user_hash</th><th>弹幕数</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+    </div>
+
+    <section id="filterBar" class="filter-bar" aria-label="屏蔽状态">
+      <span id="filterSummary"></span>
+    </section>
+
+    <section id="searchSection" class="section search-section">
+      <article class="panel panel-wide">
+        <h2>高频关键词</h2>
+        <p class="desc">按当前视频或当前榜单弹幕动态统计</p>
+        <div id="wordChart" class="chart"></div>
+      </article>
+
+      <article class="panel panel-wide time-card">
+        <h2>时间分布</h2>
+        <p class="desc">按视频内分钟统计当前弹幕</p>
+        <div id="timeChart" class="chart time-chart"></div>
+      </article>
+
+      <article class="panel panel-wide time-card send-time-card">
+        <h2>发送时间分布</h2>
+        <div class="chart-toolbar">
+          <p class="desc">按弹幕真实发送时间统计，可拖动下方时间条查看更早或更晚的弹幕</p>
+          <div id="sendTimeModeTabs" class="mode-tabs" aria-label="发送时间统计粒度">
+            <button type="button" class="mode-tab active" data-send-time-mode="auto">自动</button>
+            <button type="button" class="mode-tab" data-send-time-mode="year">年</button>
+            <button type="button" class="mode-tab" data-send-time-mode="month">月</button>
+            <button type="button" class="mode-tab" data-send-time-mode="day">日</button>
+            <button type="button" class="mode-tab" data-send-time-mode="hour">小时</button>
+          </div>
+        </div>
+        <div id="sendTimeChart" class="chart time-chart"></div>
+      </article>
+
+      <article class="panel panel-wide">
+        <h2>弹幕内容筛选</h2>
+        <p class="desc">在已加载的弹幕中按内容和 user_hash 筛选（普通用户 2 秒间隔）</p>
+        <div class="search-row">
+          <label>内容：<input id="contentInput" type="text" placeholder="例如：高能"></label>
+          <label>user_hash：<input id="userHashInput" type="text" placeholder="例如：u_demo_1"></label>
+          <label>排序：
+            <select id="sortSelect">
+              <option value="time_in_video">按出现时间</option>
+              <option value="send_time_asc">按发送时间（早到晚）</option>
+              <option value="send_time_desc">按发送时间（晚到早）</option>
+            </select>
+          </label>
+          <label class="checkbox-label"><input id="showSendTime" type="checkbox" checked>时间</label>
+          <label class="checkbox-label"><input id="showColor" type="checkbox" checked>颜色</label>
+          <div class="btn-group filter-btn-group">
+            <button id="searchBtn" type="button" class="btn btn-primary">筛选</button>
+            <button id="resetBtn" type="button" class="btn btn-ghost">重置</button>
+            <button id="exportBtn" type="button" class="btn btn-ghost">导出</button>
+            <button id="importBtn" type="button" class="btn btn-ghost">导入</button>
+            <input id="importFile" type="file" accept=".json" style="display:none;">
+          </div>
+        </div>
+        <p id="searchSummary" class="status-text" style="margin-bottom:8px;"></p>
+        <div id="searchPager" class="table-pager" hidden>
+          <label class="pager-size-label">每页
+            <select id="searchPageSize">
+              <option value="100">100</option>
+              <option value="300" selected>300</option>
+              <option value="500">500</option>
+            </select>
+          </label>
+          <button id="prevSearchPage" type="button" class="pager-btn">上一页</button>
+          <span id="searchPageInfo"></span>
+          <button id="nextSearchPage" type="button" class="pager-btn">下一页</button>
+        </div>
+        <div class="table-wrap">
+          <table id="searchResultTable" class="data-table">
+            <thead><tr><th>视频</th><th>出现时间</th><th>user_hash</th><th class="send-time-column">发送时间</th><th class="color-column">颜色</th><th>内容</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section id="aiCurrentTextPanel" class="panel ai-text-panel ai-only" hidden>
+      <h2>AI评价</h2>
+      <div class="ai-requirement-box">
+        <label for="aiCurrentRequirement">
+          分析要求
+          <span id="aiCurrentRequirementCount">0/300</span>
+        </label>
+        <textarea id="aiCurrentRequirement" maxlength="300" placeholder="例如：重点分析许愿类弹幕和观众氛围，语气更口语。不要填写隐私、密码或 API Key。"></textarea>
+      </div>
+      <div id="currentAiTaskPanel" class="task-panel ai-task-panel" hidden>
+        <div class="task-head">
+          <span id="currentAiTaskTitle">当前视频 AI 评价</span>
+          <strong id="currentAiTaskProgressText">0%</strong>
+        </div>
+        <div class="task-progress"><span id="currentAiTaskProgressBar"></span></div>
+        <p id="currentAiTaskMessage" class="task-message">等待开始分析</p>
+        <div id="currentAiTaskMetrics" class="task-metrics"></div>
+        <div id="currentAiTaskEvents" class="task-events"></div>
+      </div>
+      <p id="aiCurrentText">AI评价的文字内容模块</p>
+    </section>
+
+    <section id="compareSection" class="section compare-section">
+      <article class="panel compare-panel">
+        <div class="compare-title-row">
+          <span></span>
+          <h2>视频对比</h2>
+          <div class="compare-ai-actions ai-only" hidden>
+            <button id="aiEvaluateCompareBtn" type="button" class="btn btn-ai">AI评价</button>
+            <button id="aiForceCompareBtn" type="button" class="btn btn-ai-secondary">重新分析</button>
+          </div>
+        </div>
+        <div id="compareContent"></div>
+        <section id="aiCompareTextPanel" class="ai-text-panel ai-only" hidden>
+          <h3>AI评价</h3>
+          <div class="ai-requirement-box">
+            <label for="aiCompareRequirement">
+              分析要求
+              <span id="aiCompareRequirementCount">0/300</span>
+            </label>
+            <textarea id="aiCompareRequirement" maxlength="300" placeholder="例如：重点比较两边弹幕氛围、复读主题和峰值原因。不要填写隐私、密码或 API Key。"></textarea>
+          </div>
+          <div id="compareAiTaskPanel" class="task-panel ai-task-panel" hidden>
+            <div class="task-head">
+              <span id="compareAiTaskTitle">对比视频 AI 评价</span>
+              <strong id="compareAiTaskProgressText">0%</strong>
+            </div>
+            <div class="task-progress"><span id="compareAiTaskProgressBar"></span></div>
+            <p id="compareAiTaskMessage" class="task-message">等待开始分析</p>
+            <div id="compareAiTaskMetrics" class="task-metrics"></div>
+            <div id="compareAiTaskEvents" class="task-events"></div>
+          </div>
+          <p id="aiCompareText">AI评价的文字内容模块</p>
+        </section>
+      </article>
+    </section>
+
+    <section id="customManageSection" class="section" style="display:none;">
+      <article class="panel">
+        <h2>自定义榜单管理</h2>
+        <p class="desc">管理自定义榜单中的视频，每个视频可单独移除</p>
+        <div id="customVideoList" class="custom-list"></div>
+      </article>
+    </section>
+
+  </main>
+
+  <footer class="page-footer">
+    <p>启动：<code>python server.py</code> ｜ 生成热门数据：<code>python src/main.py --mode popular --limit 5</code></p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+  <script src="./js/app-core.js?v=20260604-first-load"></script>
+  <script src="./js/app-video-store.js?v=20260604-first-load"></script>
+  <script src="./js/app-charts.js?v=20260604-first-load"></script>
+  <script src="./js/app-ai.js?v=20260604-first-load"></script>
+  <script src="./js/app-import-export.js?v=20260604-first-load"></script>
+  <script src="./js/app.js?v=20260604-first-load"></script>
+</body>
+</html>

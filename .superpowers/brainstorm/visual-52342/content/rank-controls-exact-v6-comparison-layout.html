@@ -1,0 +1,130 @@
+<h2>主功能页布局 V6（视频对比分布确认）</h2>
+<p class="subtitle">视频对比区已改为纵向分段：A/B 数据行 + 对应整行图表，最后是弹幕时间分布和关键词差异。</p>
+
+<div class="mockup">
+  <div class="mockup-header">V6：视频对比区按最终分布图调整</div>
+  <div class="mockup-body">
+    <div style="padding:18px;border-radius:24px;background:radial-gradient(circle at 16% 8%,rgba(104,245,255,.18),transparent 38%),linear-gradient(145deg,#07111f,#111a32);color:#eaf6ff;">
+      <header style="display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:16px;padding:18px 20px;border-radius:22px;background:rgba(10,18,40,.68);border:1px solid rgba(255,255,255,.10);">
+        <div>
+          <div style="font-size:12px;letter-spacing:.16em;color:#68f5ff;text-transform:uppercase;">Bilibili Danmaku Dashboard</div>
+          <div style="font-size:30px;font-weight:900;margin-top:4px;">B站弹幕数据可视化</div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center;">
+          <button class="mock-button" style="background:rgba(15,23,42,.72);border-color:rgba(104,245,255,.35);color:#68f5ff;">登入</button>
+          <button class="mock-button" style="width:42px;padding:10px 0;background:rgba(15,23,42,.72);border-color:rgba(148,163,184,.25);color:#cbd5e1;">☰</button>
+        </div>
+      </header>
+
+      <main>
+        <section style="border-radius:24px;background:rgba(10,18,40,.64);border:1px solid rgba(255,255,255,.09);overflow:hidden;margin-bottom:12px;">
+          <div style="padding:12px 14px;border-bottom:1px solid rgba(255,255,255,.10);display:flex;gap:14px;align-items:center;">
+            <button class="mock-button" style="min-width:112px;background:rgba(15,23,42,.78);border-color:rgba(104,245,255,.35);color:#68f5ff;">搜索</button>
+            <button class="mock-button" style="min-width:112px;background:rgba(15,23,42,.78);border-color:rgba(167,139,250,.35);color:#c4b5fd;">对比</button>
+          </div>
+          <div style="padding:10px 14px;border-bottom:1px solid rgba(255,255,255,.10);display:flex;justify-content:space-between;align-items:center;gap:12px;">
+            <div style="display:flex;border:1px solid rgba(104,245,255,.35);border-radius:12px;overflow:hidden;">
+              <button class="mock-button" style="border-radius:0;background:rgba(104,245,255,.18);border:0;color:#68f5ff;">热门榜单</button>
+              <button class="mock-button" style="border-radius:0;background:transparent;border:0;color:#cbd5e1;">自定义榜单</button>
+            </div>
+            <select class="mock-input" style="width:152px;color:#cbd5e1;">
+              <option>官方排序</option>
+              <option>点赞数排序</option>
+              <option>收藏数排序</option>
+              <option>弹幕数排序</option>
+              <option>硬币数排序</option>
+            </select>
+          </div>
+          <div style="height:168px;background:linear-gradient(135deg,rgba(56,189,248,.20),rgba(167,139,250,.16));display:flex;align-items:center;justify-content:center;text-align:center;font-size:22px;font-weight:900;">
+            排行视频标题及可视化数据对比
+          </div>
+        </section>
+
+        <section style="display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px;padding:12px 14px;border-radius:18px;background:rgba(10,18,40,.58);border:1px solid rgba(255,255,255,.08);">
+          <button class="mock-button" style="background:rgba(15,23,42,.72);border-color:rgba(104,245,255,.35);color:#68f5ff;">搜索及历史查看</button>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <button class="mock-button" style="background:rgba(56,189,248,.12);border-color:rgba(56,189,248,.35);color:#68f5ff;">添加到对比中</button>
+            <button class="mock-button" style="background:rgba(167,139,250,.14);border-color:rgba(167,139,250,.35);color:#c4b5fd;">添加到自定义榜单</button>
+          </div>
+        </section>
+
+        <section style="display:grid;grid-template-columns:1.05fr .74fr 1fr;gap:12px;">
+          <div style="border-radius:18px;background:rgba(15,23,42,.76);border:1px solid rgba(255,255,255,.08);overflow:hidden;">
+            <div style="height:105px;display:flex;align-items:center;justify-content:center;color:#94a3b8;background:rgba(148,163,184,.08);">视频封面</div>
+            <div style="padding:12px;border-top:1px solid rgba(255,255,255,.08);font-weight:800;">视频标题</div>
+          </div>
+          <div style="border-radius:18px;background:rgba(15,23,42,.76);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;">
+            当前视频数据<br>播放 / 点赞 / 收藏 / 弹幕 / 硬币
+          </div>
+          <div style="border-radius:18px;background:rgba(15,23,42,.76);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;">
+            时间分布<br>长度分布
+          </div>
+        </section>
+
+        <section id="search-section-preview" style="height:118px;margin-top:12px;border-radius:24px;background:rgba(15,23,42,.74);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;text-align:center;color:#cbd5e1;font-weight:700;">
+          词云 · user_hash · 弹幕查询筛选 · 结果表格
+        </section>
+
+        <section style="margin-top:12px;border-radius:24px;background:rgba(10,18,40,.72);border:1px solid rgba(255,255,255,.10);overflow:hidden;">
+          <div style="padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.08);font-size:18px;font-weight:900;text-align:center;">视频对比</div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(255,255,255,.08);">
+            <div style="padding:12px;border-right:1px solid rgba(255,255,255,.08);text-align:center;font-weight:800;">A 标题</div>
+            <div style="padding:12px;text-align:center;font-weight:800;">B 标题</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(255,255,255,.08);">
+            <div style="padding:10px;border-right:1px solid rgba(255,255,255,.08);text-align:center;">
+              <button class="mock-button" style="background:rgba(251,113,133,.10);border-color:rgba(251,113,133,.35);color:#fb7185;">移出按钮</button>
+            </div>
+            <div style="padding:10px;text-align:center;">
+              <button class="mock-button" style="background:rgba(251,113,133,.10);border-color:rgba(251,113,133,.35);color:#fb7185;">移出按钮</button>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(255,255,255,.08);">
+            <div style="padding:16px;border-right:1px solid rgba(255,255,255,.08);text-align:center;color:#68f5ff;">A 播放</div>
+            <div style="padding:16px;text-align:center;color:#c4b5fd;">B 播放</div>
+          </div>
+          <div style="height:86px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:#cbd5e1;background:rgba(56,189,248,.07);">播放图表</div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(255,255,255,.08);">
+            <div style="padding:16px;border-right:1px solid rgba(255,255,255,.08);text-align:center;color:#68f5ff;">A 点赞</div>
+            <div style="padding:16px;text-align:center;color:#c4b5fd;">B 点赞</div>
+          </div>
+          <div style="height:86px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:#cbd5e1;background:rgba(167,139,250,.07);">点赞图表</div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(255,255,255,.08);">
+            <div style="padding:16px;border-right:1px solid rgba(255,255,255,.08);text-align:center;color:#68f5ff;">A 收藏</div>
+            <div style="padding:16px;text-align:center;color:#c4b5fd;">B 收藏</div>
+          </div>
+          <div style="height:86px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:#cbd5e1;background:rgba(56,189,248,.07);">收藏图表</div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(255,255,255,.08);">
+            <div style="padding:16px;border-right:1px solid rgba(255,255,255,.08);text-align:center;color:#68f5ff;">A 弹幕数</div>
+            <div style="padding:16px;text-align:center;color:#c4b5fd;">B 弹幕数</div>
+          </div>
+          <div style="height:86px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:#cbd5e1;background:rgba(167,139,250,.07);">弹幕数图表</div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(255,255,255,.08);">
+            <div style="padding:16px;border-right:1px solid rgba(255,255,255,.08);text-align:center;color:#68f5ff;">A 硬币</div>
+            <div style="padding:16px;text-align:center;color:#c4b5fd;">B 硬币</div>
+          </div>
+          <div style="height:86px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:#cbd5e1;background:rgba(56,189,248,.07);">硬币图表</div>
+
+          <div style="height:92px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;font-weight:800;color:#eaf6ff;">弹幕时间分布</div>
+          <div style="height:92px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#eaf6ff;">关键词差异</div>
+        </section>
+      </main>
+    </div>
+  </div>
+</div>
+
+<div class="options">
+  <div class="option" data-choice="approve-rank-controls-exact-v6-comparison-layout" onclick="toggleSelect(this)">
+    <div class="letter">✓</div>
+    <div class="content">
+      <h3>确认采用 V6 结构</h3>
+      <p>实现时将按此版本处理视频对比区的完整分段布局。</p>
+    </div>
+  </div>
+</div>

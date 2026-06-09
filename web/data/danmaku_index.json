@@ -1,0 +1,149 @@
+{
+  "version": "split-json-2026-06-03",
+  "module": "popular_current",
+  "date": "",
+  "video_count": 20,
+  "danmaku_count": 29844,
+  "videos": {
+    "BV16ZEh6zEN5": {
+      "file": "danmakus/BV16ZEh6zEN5.json",
+      "count": 1631,
+      "title": "《垫底牢大重制版》：丁真帮助科比高考逆袭清北",
+      "rank": 1,
+      "duration": 735
+    },
+    "BV1T4E36FEUh": {
+      "file": "danmakus/BV1T4E36FEUh.json",
+      "count": 3600,
+      "title": "新三国up锐评老三国01：这才叫真正的三国！",
+      "rank": 2,
+      "duration": 1406
+    },
+    "BV1zzEu6GEHW": {
+      "file": "danmakus/BV1zzEu6GEHW.json",
+      "count": 600,
+      "title": "《别替我吹了》",
+      "rank": 3,
+      "duration": 119
+    },
+    "BV1hwEG6NEE3": {
+      "file": "danmakus/BV1hwEG6NEE3.json",
+      "count": 443,
+      "title": "耗资千万的千人演出“办砸”后，我决定留住这个夜晚！",
+      "rank": 4,
+      "duration": 8851
+    },
+    "BV1fMV268E7X": {
+      "file": "danmakus/BV1fMV268E7X.json",
+      "count": 749,
+      "title": "《追逐卡蕾多》首次测试招募PV & 实机演示",
+      "rank": 5,
+      "duration": 1438
+    },
+    "BV1ALEg6UEeN": {
+      "file": "danmakus/BV1ALEg6UEeN.json",
+      "count": 207,
+      "title": "《高考固定NPC 2026》",
+      "rank": 6,
+      "duration": 79
+    },
+    "BV1TnEt6MEHn": {
+      "file": "danmakus/BV1TnEt6MEHn.json",
+      "count": 1200,
+      "title": "《原神》角色预告-「洛恩：『杰作』」",
+      "rank": 7,
+      "duration": 729
+    },
+    "BV1vUEu6KEyw": {
+      "file": "danmakus/BV1vUEu6KEyw.json",
+      "count": 1157,
+      "title": "和日本女友去她丈母娘家里",
+      "rank": 8,
+      "duration": 276
+    },
+    "BV1ZvEt6oEWR": {
+      "file": "danmakus/BV1ZvEt6oEWR.json",
+      "count": 1800,
+      "title": "锐评2026年数学高考，我雷霆大怒",
+      "rank": 9,
+      "duration": 739
+    },
+    "BV1LWEM6eEo4": {
+      "file": "danmakus/BV1LWEM6eEo4.json",
+      "count": 1769,
+      "title": "三刀六洞怎么扎？洪门、袍哥与青帮   《古惑仔》番外",
+      "rank": 10,
+      "duration": 1599
+    },
+    "BV1WpE56bErE": {
+      "file": "danmakus/BV1WpE56bErE.json",
+      "count": 1200,
+      "title": "《鸣潮》×《赛博朋克：边缘行者》联动过场动画",
+      "rank": 11,
+      "duration": 1822
+    },
+    "BV1T4E36FEim": {
+      "file": "danmakus/BV1T4E36FEim.json",
+      "count": 80,
+      "title": "来个爻光摇一摇",
+      "rank": 12,
+      "duration": 16
+    },
+    "BV1Pi7D6hEfW": {
+      "file": "danmakus/BV1Pi7D6hEfW.json",
+      "count": 278,
+      "title": "河南婚礼接亲保姆级教程",
+      "rank": 13,
+      "duration": 532
+    },
+    "BV1s3Eg6nEJK": {
+      "file": "danmakus/BV1s3Eg6nEJK.json",
+      "count": 171,
+      "title": "“做个好梦，露西...”",
+      "rank": 14,
+      "duration": 173
+    },
+    "BV17z7y6KEVT": {
+      "file": "danmakus/BV17z7y6KEVT.json",
+      "count": 520,
+      "title": "可爱的安魂曲~",
+      "rank": 15,
+      "duration": 158
+    },
+    "BV1wEEc6REms": {
+      "file": "danmakus/BV1wEEc6REms.json",
+      "count": 9600,
+      "title": "城市大富翁（5）",
+      "rank": 16,
+      "duration": 3846
+    },
+    "BV1MyEg6ZEFt": {
+      "file": "danmakus/BV1MyEg6ZEFt.json",
+      "count": 3600,
+      "title": "德国的耻辱",
+      "rank": 17,
+      "duration": 1108
+    },
+    "BV1tZET6HESW": {
+      "file": "danmakus/BV1tZET6HESW.json",
+      "count": 120,
+      "title": "“同步率”三个字已经很难概括这个视频了",
+      "rank": 18,
+      "duration": 27
+    },
+    "BV1hkEg6FExK": {
+      "file": "danmakus/BV1hkEg6FExK.json",
+      "count": 519,
+      "title": "“差点没能绷住吗...？你这家伙！”",
+      "rank": 19,
+      "duration": 110
+    },
+    "BV1xkE46PE59": {
+      "file": "danmakus/BV1xkE46PE59.json",
+      "count": 600,
+      "title": "参加了九次高考的考生采访",
+      "rank": 20,
+      "duration": 99
+    }
+  }
+}

@@ -1,0 +1,68 @@
+<h2>顶部控制区与主页面布局（细化版）</h2>
+<p class="subtitle">已按你的说明调整：热门/自定义使用按钮切换，功能模块跳转作为快速翻页入口，排序方式默认官方排序并支持多指标切换。</p>
+
+<div class="mockup">
+  <div class="mockup-header">推荐方案：深色科技仪表盘 + 清晰控制区</div>
+  <div class="mockup-body">
+    <div style="padding:18px;border-radius:22px;background:radial-gradient(circle at 16% 8%,rgba(104,245,255,.18),transparent 38%),linear-gradient(145deg,#07111f,#111a32);color:#eaf6ff;">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;">
+        <div>
+          <div style="font-size:12px;letter-spacing:.16em;color:#68f5ff;text-transform:uppercase;">Bilibili Danmaku Dashboard</div>
+          <div style="font-size:24px;font-weight:900;margin-top:4px;">B站弹幕数据可视化</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:flex-end;">
+          <button class="mock-button" style="background:rgba(15,23,42,.72);border-color:rgba(104,245,255,.35);color:#68f5ff;">跳转到搜索筛选</button>
+          <div style="display:flex;border:1px solid rgba(104,245,255,.35);border-radius:999px;overflow:hidden;">
+            <button class="mock-button" style="border-radius:0;background:rgba(104,245,255,.18);border:0;color:#68f5ff;">热门榜单</button>
+            <button class="mock-button" style="border-radius:0;background:transparent;border:0;color:#cbd5e1;">自定义榜单</button>
+          </div>
+          <select class="mock-input" style="width:150px;color:#cbd5e1;">
+            <option>官方排序</option>
+            <option>点赞数排序</option>
+            <option>收藏数排序</option>
+            <option>弹幕数排序</option>
+            <option>硬币数排序</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="height:150px;margin:18px 0 12px;border-radius:24px;background:linear-gradient(135deg,rgba(56,189,248,.20),rgba(167,139,250,.16));border:1px solid rgba(255,255,255,.10);display:flex;align-items:center;justify-content:center;text-align:center;font-size:20px;font-weight:900;">
+        排行视频标题及可视化数据对比
+      </div>
+
+      <div style="display:flex;justify-content:space-between;gap:10px;margin-bottom:10px;align-items:center;">
+        <div style="padding:8px 12px;border-radius:999px;background:rgba(15,23,42,.70);border:1px solid rgba(148,163,184,.18);font-size:12px;color:#94a3b8;">
+          搜索入口与最近搜索历史
+        </div>
+        <button class="mock-button" style="background:rgba(167,139,250,.14);border-color:rgba(167,139,250,.35);color:#c4b5fd;">添加当前视频到自定义榜单</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.1fr .72fr 1fr;gap:12px;">
+        <div style="border-radius:18px;background:rgba(15,23,42,.76);border:1px solid rgba(255,255,255,.08);overflow:hidden;">
+          <div style="height:94px;display:flex;align-items:center;justify-content:center;color:#94a3b8;background:rgba(148,163,184,.08);">视频封面</div>
+          <div style="padding:12px;border-top:1px solid rgba(255,255,255,.08);font-weight:800;">视频标题</div>
+        </div>
+        <div style="border-radius:18px;background:rgba(15,23,42,.76);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;">
+          视频数据<br>播放 / 点赞 / 收藏 / 硬币
+        </div>
+        <div style="border-radius:18px;background:rgba(15,23,42,.76);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;text-align:center;font-weight:700;">
+          时间分布<br>长度分布
+        </div>
+      </div>
+
+      <div id="search-section-preview" style="height:120px;margin-top:12px;border-radius:24px;background:rgba(15,23,42,.74);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;text-align:center;color:#cbd5e1;font-weight:700;">
+        词云 · user_hash · 弹幕查询筛选 · 结果表格
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="options">
+  <div class="option" data-choice="approve-refined-layout" onclick="toggleSelect(this)">
+    <div class="letter">✓</div>
+    <div class="content">
+      <h3>这个结构可以作为实现基准</h3>
+      <p>下一步可以把它整理成设计方案，再进入具体页面改造。</p>
+    </div>
+  </div>
+</div>

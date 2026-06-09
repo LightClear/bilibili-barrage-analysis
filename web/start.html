@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B站弹幕数据可视化平台</title>
+  <link rel="stylesheet" href="./css/shared.css">
+  <link rel="stylesheet" href="./css/start.css?v=20260529-mask2">
+</head>
+<body>
+  <div class="page">
+
+    <!-- Layer 2：中间聚焦暗区遮罩 -->
+    <div class="page-mask"></div>
+
+    <!-- 登入按钮 -->
+    <a href="./login.html" class="login-btn" id="loginBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+        <polyline points="10 17 15 12 10 7"/>
+        <line x1="15" y1="12" x2="3" y2="12"/>
+      </svg>
+      登入<span class="login-en">LOGIN</span>
+    </a>
+
+    <!-- 标题区 -->
+    <div class="hero">
+      <h1 class="hero-title">B站弹幕数据可视化</h1>
+      <p class="hero-eng">Bilibili Danmaku Dashboard</p>
+      <p class="hero-sub">热门榜单 <span>·</span> 弹幕分析 <span>·</span> 数据洞察</p>
+    </div>
+
+    <!-- 进入按钮 -->
+    <div class="enter-area">
+      <a href="./index.html" class="enter-btn">
+        <span class="btn-text-stack">
+          <span class="btn-text-default">
+            <span class="enter-zh">进入平台</span>
+            <span class="enter-en">ENTER</span>
+          </span>
+          <span class="btn-text-hover">
+            <span class="enter-zh">感谢使用</span>
+            <span class="enter-en">ENJOY IT</span>
+          </span>
+        </span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- 联系信息 -->
+    <!-- <div class="page-footer">
+      <div class="footer-inner">
+        <a href="mailto:example@qq.com" class="contact-card" id="contactQQ">
+          <div class="contact-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+            </svg>
+          </div>
+          <span class="contact-label">QQ 邮箱</span>
+          <span class="contact-value">example@qq.com</span>
+        </a>
+        <a href="https://github.com/" target="_blank" rel="noopener" class="contact-card" id="contactGitHub">
+          <div class="contact-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+          </div>
+          <span class="contact-label">GitHub</span>
+          <span class="contact-value">查看项目源码</span>
+        </a>
+        <a class="contact-card" id="contactTeam">
+          <div class="contact-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <span class="contact-label">制作小组</span>
+          <span class="contact-value">数据可视化项目组</span>
+        </a>
+      </div>
+    </div> -->
+
+  </div>
+
+  <script src="./js/start.js"></script>
+</body>
+</html>

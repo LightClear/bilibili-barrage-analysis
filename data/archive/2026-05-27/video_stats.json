@@ -1,0 +1,2263 @@
+{
+  "BV14TLA6FEBf": {
+    "source": "server",
+    "filter_signature": "",
+    "danmaku_count": 847,
+    "time_series": {
+      "labels": [
+        "0分",
+        "1分",
+        "2分",
+        "3分"
+      ],
+      "values": [
+        574,
+        137,
+        136,
+        0
+      ]
+    },
+    "length_buckets": {
+      "1-5": 180,
+      "6-10": 478,
+      "11-20": 94,
+      "20+": 95
+    },
+    "word_cloud": [
+      {
+        "name": "十连",
+        "value": 331
+      },
+      {
+        "name": "一辈子",
+        "value": 331
+      },
+      {
+        "name": "出金",
+        "value": 328
+      },
+      {
+        "name": "情报",
+        "value": 68
+      },
+      {
+        "name": "异环",
+        "value": 59
+      },
+      {
+        "name": "安魂曲",
+        "value": 50
+      },
+      {
+        "name": "白藏",
+        "value": 36
+      },
+      {
+        "name": "1040864298",
+        "value": 35
+      },
+      {
+        "name": "抽小月",
+        "value": 35
+      },
+      {
+        "name": "太守",
+        "value": 28
+      },
+      {
+        "name": "文长",
+        "value": 27
+      },
+      {
+        "name": "之责",
+        "value": 27
+      },
+      {
+        "name": "可敢",
+        "value": 26
+      },
+      {
+        "name": "许愿",
+        "value": 25
+      },
+      {
+        "name": "更新",
+        "value": 18
+      },
+      {
+        "name": "内容",
+        "value": 17
+      },
+      {
+        "name": "随时",
+        "value": 17
+      },
+      {
+        "name": "兴趣",
+        "value": 17
+      },
+      {
+        "name": "番茄",
+        "value": 16
+      },
+      {
+        "name": "867334899",
+        "value": 16
+      },
+      {
+        "name": "活跃",
+        "value": 16
+      },
+      {
+        "name": "还有",
+        "value": 15
+      },
+      {
+        "name": "1101851335Ciallo",
+        "value": 14
+      },
+      {
+        "name": "有何",
+        "value": 13
+      },
+      {
+        "name": "不敢",
+        "value": 13
+      },
+      {
+        "name": "番茄酱",
+        "value": 12
+      },
+      {
+        "name": "百分百",
+        "value": 12
+      },
+      {
+        "name": "妈妈",
+        "value": 11
+      },
+      {
+        "name": "提前",
+        "value": 11
+      },
+      {
+        "name": "一个",
+        "value": 10
+      },
+      {
+        "name": "好听",
+        "value": 10
+      },
+      {
+        "name": "十连出",
+        "value": 10
+      },
+      {
+        "name": "怎么",
+        "value": 9
+      },
+      {
+        "name": "110",
+        "value": 9
+      },
+      {
+        "name": "187",
+        "value": 9
+      },
+      {
+        "name": "1735",
+        "value": 9
+      },
+      {
+        "name": "大佬",
+        "value": 9
+      },
+      {
+        "name": "萌新来",
+        "value": 9
+      },
+      {
+        "name": "99",
+        "value": 9
+      },
+      {
+        "name": "温柔",
+        "value": 9
+      },
+      {
+        "name": "皮肤",
+        "value": 9
+      },
+      {
+        "name": "飙车",
+        "value": 8
+      },
+      {
+        "name": "美食",
+        "value": 7
+      },
+      {
+        "name": "这个",
+        "value": 7
+      },
+      {
+        "name": "带上",
+        "value": 7
+      },
+      {
+        "name": "冒险",
+        "value": 7
+      },
+      {
+        "name": "AI",
+        "value": 7
+      },
+      {
+        "name": "穿鞋",
+        "value": 6
+      },
+      {
+        "name": "坏事",
+        "value": 6
+      },
+      {
+        "name": "晚安",
+        "value": 6
+      },
+      {
+        "name": "吸血鬼",
+        "value": 6
+      },
+      {
+        "name": "宝宝",
+        "value": 6
+      },
+      {
+        "name": "幻想",
+        "value": 6
+      },
+      {
+        "name": "白安",
+        "value": 6
+      },
+      {
+        "name": "弹幕",
+        "value": 6
+      },
+      {
+        "name": "双金",
+        "value": 6
+      },
+      {
+        "name": "出必",
+        "value": 6
+      },
+      {
+        "name": "上线",
+        "value": 6
+      },
+      {
+        "name": "原来",
+        "value": 5
+      },
+      {
+        "name": "这么",
+        "value": 5
+      },
+      {
+        "name": "大哥",
+        "value": 5
+      },
+      {
+        "name": "美味",
+        "value": 5
+      },
+      {
+        "name": "wow",
+        "value": 5
+      },
+      {
+        "name": "就是",
+        "value": 5
+      },
+      {
+        "name": "衣服",
+        "value": 5
+      },
+      {
+        "name": "还愿",
+        "value": 5
+      },
+      {
+        "name": "星光",
+        "value": 5
+      },
+      {
+        "name": "cp",
+        "value": 5
+      },
+      {
+        "name": "可爱",
+        "value": 5
+      },
+      {
+        "name": "服装",
+        "value": 5
+      },
+      {
+        "name": "可以",
+        "value": 4
+      },
+      {
+        "name": "什么",
+        "value": 4
+      },
+      {
+        "name": "特写",
+        "value": 4
+      },
+      {
+        "name": "CP",
+        "value": 4
+      },
+      {
+        "name": "甜甜",
+        "value": 4
+      },
+      {
+        "name": "恶魔",
+        "value": 4
+      },
+      {
+        "name": "抽出",
+        "value": 4
+      },
+      {
+        "name": "金玩",
+        "value": 4
+      },
+      {
+        "name": "菩萨",
+        "value": 4
+      },
+      {
+        "name": "俱乐部",
+        "value": 4
+      }
+    ],
+    "user_rank": [
+      {
+        "userHash": "711905e0",
+        "count": 35
+      },
+      {
+        "userHash": "147e0da6",
+        "count": 16
+      },
+      {
+        "userHash": "7fd56b2e",
+        "count": 11
+      },
+      {
+        "userHash": "424fd96b",
+        "count": 9
+      },
+      {
+        "userHash": "aef4b3b9",
+        "count": 9
+      },
+      {
+        "userHash": "9add76f5",
+        "count": 8
+      },
+      {
+        "userHash": "3712a2b1",
+        "count": 6
+      },
+      {
+        "userHash": "1279057a",
+        "count": 6
+      },
+      {
+        "userHash": "20cf04da",
+        "count": 6
+      },
+      {
+        "userHash": "a67c8da0",
+        "count": 6
+      },
+      {
+        "userHash": "5ff05988",
+        "count": 6
+      },
+      {
+        "userHash": "d0b98752",
+        "count": 6
+      },
+      {
+        "userHash": "e6823ec7",
+        "count": 6
+      },
+      {
+        "userHash": "f53f6da0",
+        "count": 5
+      },
+      {
+        "userHash": "718f0807",
+        "count": 5
+      },
+      {
+        "userHash": "60d79197",
+        "count": 5
+      },
+      {
+        "userHash": "7c7907b5",
+        "count": 5
+      },
+      {
+        "userHash": "e4e3571f",
+        "count": 5
+      },
+      {
+        "userHash": "9df91c4c",
+        "count": 5
+      },
+      {
+        "userHash": "7194304c",
+        "count": 4
+      }
+    ]
+  },
+  "BV1yVVw6EEBE": {
+    "source": "server",
+    "filter_signature": "",
+    "danmaku_count": 1200,
+    "time_series": {
+      "labels": [
+        "0分",
+        "1分",
+        "2分",
+        "3分",
+        "4分",
+        "5分",
+        "6分"
+      ],
+      "values": [
+        120,
+        122,
+        603,
+        97,
+        114,
+        144,
+        0
+      ]
+    },
+    "length_buckets": {
+      "1-5": 337,
+      "6-10": 509,
+      "11-20": 307,
+      "20+": 47
+    },
+    "word_cloud": [
+      {
+        "name": "哈哈哈",
+        "value": 679
+      },
+      {
+        "name": "哈哈哈哈",
+        "value": 280
+      },
+      {
+        "name": "小乖",
+        "value": 84
+      },
+      {
+        "name": "哈哈",
+        "value": 56
+      },
+      {
+        "name": "小咪",
+        "value": 37
+      },
+      {
+        "name": "喜欢",
+        "value": 34
+      },
+      {
+        "name": "食堂",
+        "value": 28
+      },
+      {
+        "name": "阿姨",
+        "value": 25
+      },
+      {
+        "name": "可以",
+        "value": 22
+      },
+      {
+        "name": "可爱",
+        "value": 21
+      },
+      {
+        "name": "花猫",
+        "value": 21
+      },
+      {
+        "name": "聪明",
+        "value": 21
+      },
+      {
+        "name": "还有",
+        "value": 20
+      },
+      {
+        "name": "狸花",
+        "value": 20
+      },
+      {
+        "name": "一粒",
+        "value": 19
+      },
+      {
+        "name": "精准",
+        "value": 19
+      },
+      {
+        "name": "为什么",
+        "value": 16
+      },
+      {
+        "name": "这么",
+        "value": 16
+      },
+      {
+        "name": "一家之主",
+        "value": 15
+      },
+      {
+        "name": "真的",
+        "value": 15
+      },
+      {
+        "name": "打饭",
+        "value": 14
+      },
+      {
+        "name": "更新",
+        "value": 14
+      },
+      {
+        "name": "师傅",
+        "value": 13
+      },
+      {
+        "name": "怎么",
+        "value": 12
+      },
+      {
+        "name": "小猫",
+        "value": 12
+      },
+      {
+        "name": "种族",
+        "value": 12
+      },
+      {
+        "name": "车车",
+        "value": 11
+      },
+      {
+        "name": "这个",
+        "value": 11
+      },
+      {
+        "name": "做不了",
+        "value": 11
+      },
+      {
+        "name": "就是",
+        "value": 11
+      },
+      {
+        "name": "微操",
+        "value": 11
+      },
+      {
+        "name": "礼貌",
+        "value": 10
+      },
+      {
+        "name": "骑士",
+        "value": 10
+      },
+      {
+        "name": "亮亮",
+        "value": 9
+      },
+      {
+        "name": "知道",
+        "value": 9
+      },
+      {
+        "name": "已经",
+        "value": 9
+      },
+      {
+        "name": "自己",
+        "value": 8
+      },
+      {
+        "name": "没有",
+        "value": 8
+      },
+      {
+        "name": "手抖",
+        "value": 8
+      },
+      {
+        "name": "不是",
+        "value": 8
+      },
+      {
+        "name": "一个",
+        "value": 8
+      },
+      {
+        "name": "不会",
+        "value": 7
+      },
+      {
+        "name": "代码",
+        "value": 7
+      },
+      {
+        "name": "我们",
+        "value": 7
+      },
+      {
+        "name": "这是",
+        "value": 7
+      },
+      {
+        "name": "因为",
+        "value": 7
+      },
+      {
+        "name": "明显",
+        "value": 7
+      },
+      {
+        "name": "哆咪",
+        "value": 7
+      },
+      {
+        "name": "什么",
+        "value": 7
+      },
+      {
+        "name": "一点",
+        "value": 7
+      },
+      {
+        "name": "命中",
+        "value": 6
+      },
+      {
+        "name": "麻猫",
+        "value": 6
+      },
+      {
+        "name": "但小乖",
+        "value": 6
+      },
+      {
+        "name": "不行",
+        "value": 6
+      },
+      {
+        "name": "确实",
+        "value": 6
+      },
+      {
+        "name": "呜呜",
+        "value": 6
+      },
+      {
+        "name": "那个",
+        "value": 6
+      },
+      {
+        "name": "up",
+        "value": 6
+      },
+      {
+        "name": "区别对待",
+        "value": 6
+      },
+      {
+        "name": "绷住",
+        "value": 6
+      },
+      {
+        "name": "傻子",
+        "value": 5
+      },
+      {
+        "name": "孩子",
+        "value": 5
+      },
+      {
+        "name": "一朝",
+        "value": 5
+      },
+      {
+        "name": "冲突",
+        "value": 5
+      },
+      {
+        "name": "家里",
+        "value": 5
+      },
+      {
+        "name": "可怜",
+        "value": 5
+      },
+      {
+        "name": "真是",
+        "value": 5
+      },
+      {
+        "name": "还是",
+        "value": 5
+      },
+      {
+        "name": "居然",
+        "value": 5
+      },
+      {
+        "name": "小今",
+        "value": 5
+      },
+      {
+        "name": "赌命",
+        "value": 5
+      },
+      {
+        "name": "几几",
+        "value": 5
+      },
+      {
+        "name": "猫猫",
+        "value": 5
+      },
+      {
+        "name": "啊哈",
+        "value": 5
+      },
+      {
+        "name": "出来",
+        "value": 5
+      },
+      {
+        "name": "这里",
+        "value": 4
+      },
+      {
+        "name": "一下",
+        "value": 4
+      },
+      {
+        "name": "博士",
+        "value": 4
+      },
+      {
+        "name": "略微",
+        "value": 4
+      },
+      {
+        "name": "十年",
+        "value": 4
+      }
+    ],
+    "user_rank": [
+      {
+        "userHash": "b99c631d",
+        "count": 13
+      },
+      {
+        "userHash": "5e38ef7f",
+        "count": 10
+      },
+      {
+        "userHash": "3b7ba62a",
+        "count": 7
+      },
+      {
+        "userHash": "cf78df5a",
+        "count": 7
+      },
+      {
+        "userHash": "34fcebca",
+        "count": 6
+      },
+      {
+        "userHash": "f1e65f0c",
+        "count": 6
+      },
+      {
+        "userHash": "946aa59e",
+        "count": 6
+      },
+      {
+        "userHash": "b87f8aa4",
+        "count": 6
+      },
+      {
+        "userHash": "5a233b0e",
+        "count": 5
+      },
+      {
+        "userHash": "e619a145",
+        "count": 5
+      },
+      {
+        "userHash": "842a0c76",
+        "count": 5
+      },
+      {
+        "userHash": "ffc7872",
+        "count": 4
+      },
+      {
+        "userHash": "32e3a44f",
+        "count": 4
+      },
+      {
+        "userHash": "5bf6926c",
+        "count": 4
+      },
+      {
+        "userHash": "8c42ae86",
+        "count": 4
+      },
+      {
+        "userHash": "43f7f81e",
+        "count": 4
+      },
+      {
+        "userHash": "3aa9530",
+        "count": 4
+      },
+      {
+        "userHash": "6c70fde5",
+        "count": 4
+      },
+      {
+        "userHash": "86975fd1",
+        "count": 4
+      },
+      {
+        "userHash": "26cc2cc3",
+        "count": 4
+      }
+    ]
+  },
+  "BV1vYVw6vEuE": {
+    "source": "server",
+    "filter_signature": "",
+    "danmaku_count": 1430,
+    "time_series": {
+      "labels": [
+        "0分",
+        "1分",
+        "2分",
+        "3分",
+        "4分",
+        "5分",
+        "6分",
+        "7分",
+        "8分",
+        "9分",
+        "10分",
+        "11分",
+        "12分",
+        "13分",
+        "14分",
+        "15分",
+        "16分",
+        "17分",
+        "18分",
+        "19分",
+        "20分",
+        "21分",
+        "22分",
+        "23分",
+        "24分",
+        "25分",
+        "26分",
+        "27分"
+      ],
+      "values": [
+        92,
+        38,
+        55,
+        29,
+        36,
+        60,
+        54,
+        25,
+        30,
+        67,
+        35,
+        35,
+        54,
+        55,
+        39,
+        75,
+        64,
+        55,
+        86,
+        53,
+        63,
+        49,
+        48,
+        60,
+        46,
+        57,
+        70,
+        0
+      ]
+    },
+    "length_buckets": {
+      "1-5": 448,
+      "6-10": 563,
+      "11-20": 325,
+      "20+": 94
+    },
+    "word_cloud": [
+      {
+        "name": "还有",
+        "value": 65
+      },
+      {
+        "name": "不是",
+        "value": 54
+      },
+      {
+        "name": "666",
+        "value": 49
+      },
+      {
+        "name": "哈哈哈",
+        "value": 38
+      },
+      {
+        "name": "这么",
+        "value": 37
+      },
+      {
+        "name": "怎么",
+        "value": 36
+      },
+      {
+        "name": "这个",
+        "value": 30
+      },
+      {
+        "name": "无名",
+        "value": 25
+      },
+      {
+        "name": "细节",
+        "value": 24
+      },
+      {
+        "name": "AI",
+        "value": 24
+      },
+      {
+        "name": "哈哈哈哈",
+        "value": 23
+      },
+      {
+        "name": "一个",
+        "value": 20
+      },
+      {
+        "name": "银翼",
+        "value": 20
+      },
+      {
+        "name": "什么",
+        "value": 19
+      },
+      {
+        "name": "应该",
+        "value": 18
+      },
+      {
+        "name": "哈哈",
+        "value": 18
+      },
+      {
+        "name": "这是",
+        "value": 17
+      },
+      {
+        "name": "博士",
+        "value": 16
+      },
+      {
+        "name": "直接",
+        "value": 16
+      },
+      {
+        "name": "就是",
+        "value": 16
+      },
+      {
+        "name": "脑机",
+        "value": 15
+      },
+      {
+        "name": "巴别",
+        "value": 15
+      },
+      {
+        "name": "激素",
+        "value": 15
+      },
+      {
+        "name": "还是",
+        "value": 15
+      },
+      {
+        "name": "游戏",
+        "value": 14
+      },
+      {
+        "name": "不会",
+        "value": 14
+      },
+      {
+        "name": "有点",
+        "value": 14
+      },
+      {
+        "name": "纵横",
+        "value": 14
+      },
+      {
+        "name": "原神",
+        "value": 14
+      },
+      {
+        "name": "萨拉",
+        "value": 13
+      },
+      {
+        "name": "没有",
+        "value": 13
+      },
+      {
+        "name": "可以",
+        "value": 13
+      },
+      {
+        "name": "好像",
+        "value": 12
+      },
+      {
+        "name": "那个",
+        "value": 12
+      },
+      {
+        "name": "监狱",
+        "value": 12
+      },
+      {
+        "name": "飞鼠",
+        "value": 12
+      },
+      {
+        "name": "东西",
+        "value": 12
+      },
+      {
+        "name": "分钟",
+        "value": 12
+      },
+      {
+        "name": "控制",
+        "value": 11
+      },
+      {
+        "name": "子弹",
+        "value": 11
+      },
+      {
+        "name": "小兵",
+        "value": 11
+      },
+      {
+        "name": "老大",
+        "value": 11
+      },
+      {
+        "name": "里面",
+        "value": 11
+      },
+      {
+        "name": "蜂医",
+        "value": 10
+      },
+      {
+        "name": "真的",
+        "value": 10
+      },
+      {
+        "name": "哥们",
+        "value": 10
+      },
+      {
+        "name": "ai",
+        "value": 10
+      },
+      {
+        "name": "知道",
+        "value": 10
+      },
+      {
+        "name": "剧情",
+        "value": 10
+      },
+      {
+        "name": "感觉",
+        "value": 10
+      },
+      {
+        "name": "终于",
+        "value": 10
+      },
+      {
+        "name": "核电站",
+        "value": 10
+      },
+      {
+        "name": "猫猫",
+        "value": 10
+      },
+      {
+        "name": "投币",
+        "value": 10
+      },
+      {
+        "name": "一块",
+        "value": 9
+      },
+      {
+        "name": "作者",
+        "value": 9
+      },
+      {
+        "name": "同志",
+        "value": 9
+      },
+      {
+        "name": "两个",
+        "value": 9
+      },
+      {
+        "name": "全是",
+        "value": 9
+      },
+      {
+        "name": "26",
+        "value": 9
+      },
+      {
+        "name": "不要",
+        "value": 9
+      },
+      {
+        "name": "技术",
+        "value": 8
+      },
+      {
+        "name": "飞驰",
+        "value": 8
+      },
+      {
+        "name": "卧槽",
+        "value": 8
+      },
+      {
+        "name": "时候",
+        "value": 8
+      },
+      {
+        "name": "以为",
+        "value": 8
+      },
+      {
+        "name": "视频",
+        "value": 8
+      },
+      {
+        "name": "原来",
+        "value": 8
+      },
+      {
+        "name": "保险",
+        "value": 8
+      },
+      {
+        "name": "牛角",
+        "value": 8
+      },
+      {
+        "name": "铜币",
+        "value": 8
+      },
+      {
+        "name": "已经",
+        "value": 8
+      },
+      {
+        "name": "陷阱",
+        "value": 8
+      },
+      {
+        "name": "超人",
+        "value": 8
+      },
+      {
+        "name": "蜂哥",
+        "value": 7
+      },
+      {
+        "name": "现实",
+        "value": 7
+      },
+      {
+        "name": "这样",
+        "value": 7
+      },
+      {
+        "name": "妹妹",
+        "value": 7
+      },
+      {
+        "name": "金币",
+        "value": 7
+      },
+      {
+        "name": "看着",
+        "value": 7
+      }
+    ],
+    "user_rank": [
+      {
+        "userHash": "13fd0d02",
+        "count": 28
+      },
+      {
+        "userHash": "fe8945f7",
+        "count": 26
+      },
+      {
+        "userHash": "5e1d8fee",
+        "count": 24
+      },
+      {
+        "userHash": "e13b6a5a",
+        "count": 19
+      },
+      {
+        "userHash": "dc85e3a",
+        "count": 14
+      },
+      {
+        "userHash": "6b9dfb76",
+        "count": 13
+      },
+      {
+        "userHash": "78364a07",
+        "count": 13
+      },
+      {
+        "userHash": "b9876aa2",
+        "count": 12
+      },
+      {
+        "userHash": "5a43a665",
+        "count": 11
+      },
+      {
+        "userHash": "7fe06317",
+        "count": 11
+      },
+      {
+        "userHash": "bf93b225",
+        "count": 11
+      },
+      {
+        "userHash": "8a31c71f",
+        "count": 10
+      },
+      {
+        "userHash": "af27f5e6",
+        "count": 8
+      },
+      {
+        "userHash": "7870b541",
+        "count": 8
+      },
+      {
+        "userHash": "a821cfd7",
+        "count": 8
+      },
+      {
+        "userHash": "f20a2f84",
+        "count": 7
+      },
+      {
+        "userHash": "e0f7cb8b",
+        "count": 7
+      },
+      {
+        "userHash": "68be6b0d",
+        "count": 7
+      },
+      {
+        "userHash": "5151985c",
+        "count": 6
+      },
+      {
+        "userHash": "723bbc9",
+        "count": 6
+      }
+    ]
+  },
+  "BV1GPVP6PEdj": {
+    "source": "server",
+    "filter_signature": "",
+    "danmaku_count": 459,
+    "time_series": {
+      "labels": [
+        "0分",
+        "1分",
+        "2分",
+        "3分"
+      ],
+      "values": [
+        202,
+        150,
+        107,
+        0
+      ]
+    },
+    "length_buckets": {
+      "1-5": 148,
+      "6-10": 163,
+      "11-20": 126,
+      "20+": 22
+    },
+    "word_cloud": [
+      {
+        "name": "宫本",
+        "value": 43
+      },
+      {
+        "name": "赵云",
+        "value": 36
+      },
+      {
+        "name": "橘子",
+        "value": 23
+      },
+      {
+        "name": "闪现",
+        "value": 20
+      },
+      {
+        "name": "还有",
+        "value": 19
+      },
+      {
+        "name": "伤害",
+        "value": 15
+      },
+      {
+        "name": "就是",
+        "value": 14
+      },
+      {
+        "name": "这么",
+        "value": 13
+      },
+      {
+        "name": "技能",
+        "value": 13
+      },
+      {
+        "name": "不是",
+        "value": 12
+      },
+      {
+        "name": "怎么",
+        "value": 12
+      },
+      {
+        "name": "地球",
+        "value": 12
+      },
+      {
+        "name": "这个",
+        "value": 11
+      },
+      {
+        "name": "大招",
+        "value": 9
+      },
+      {
+        "name": "什么",
+        "value": 8
+      },
+      {
+        "name": "克制",
+        "value": 7
+      },
+      {
+        "name": "队友",
+        "value": 7
+      },
+      {
+        "name": "诸葛亮",
+        "value": 7
+      },
+      {
+        "name": "细节",
+        "value": 7
+      },
+      {
+        "name": "橘右京",
+        "value": 7
+      },
+      {
+        "name": "米莱",
+        "value": 7
+      },
+      {
+        "name": "英雄",
+        "value": 6
+      },
+      {
+        "name": "小兵",
+        "value": 6
+      },
+      {
+        "name": "立正",
+        "value": 6
+      },
+      {
+        "name": "狂暴",
+        "value": 6
+      },
+      {
+        "name": "不能",
+        "value": 5
+      },
+      {
+        "name": "已经",
+        "value": 5
+      },
+      {
+        "name": "知道",
+        "value": 5
+      },
+      {
+        "name": "这里",
+        "value": 5
+      },
+      {
+        "name": "一级",
+        "value": 5
+      },
+      {
+        "name": "诸葛",
+        "value": 5
+      },
+      {
+        "name": "注意",
+        "value": 5
+      },
+      {
+        "name": "过来",
+        "value": 4
+      },
+      {
+        "name": "这样",
+        "value": 4
+      },
+      {
+        "name": "打死",
+        "value": 4
+      },
+      {
+        "name": "对抗",
+        "value": 4
+      },
+      {
+        "name": "地图",
+        "value": 4
+      },
+      {
+        "name": "没有",
+        "value": 4
+      },
+      {
+        "name": "前期",
+        "value": 4
+      },
+      {
+        "name": "优雅",
+        "value": 4
+      },
+      {
+        "name": "一个",
+        "value": 4
+      },
+      {
+        "name": "真的",
+        "value": 4
+      },
+      {
+        "name": "心脏",
+        "value": 4
+      },
+      {
+        "name": "张良",
+        "value": 4
+      },
+      {
+        "name": "不要",
+        "value": 4
+      },
+      {
+        "name": "后期",
+        "value": 4
+      },
+      {
+        "name": "高额",
+        "value": 4
+      },
+      {
+        "name": "回复",
+        "value": 4
+      },
+      {
+        "name": "哈哈哈",
+        "value": 4
+      },
+      {
+        "name": "人机",
+        "value": 4
+      },
+      {
+        "name": "反应",
+        "value": 4
+      },
+      {
+        "name": "三回",
+        "value": 4
+      },
+      {
+        "name": "挺狂",
+        "value": 4
+      },
+      {
+        "name": "差点",
+        "value": 3
+      },
+      {
+        "name": "小伙",
+        "value": 3
+      },
+      {
+        "name": "经典",
+        "value": 3
+      },
+      {
+        "name": "我们",
+        "value": 3
+      },
+      {
+        "name": "玩家",
+        "value": 3
+      },
+      {
+        "name": "子龙",
+        "value": 3
+      },
+      {
+        "name": "赶来",
+        "value": 3
+      },
+      {
+        "name": "绷住",
+        "value": 3
+      },
+      {
+        "name": "猴子",
+        "value": 3
+      },
+      {
+        "name": "打野",
+        "value": 3
+      },
+      {
+        "name": "游戏",
+        "value": 3
+      },
+      {
+        "name": "那么",
+        "value": 3
+      },
+      {
+        "name": "一杠",
+        "value": 3
+      },
+      {
+        "name": "直接",
+        "value": 3
+      },
+      {
+        "name": "不会",
+        "value": 3
+      },
+      {
+        "name": "太帅",
+        "value": 3
+      },
+      {
+        "name": "这波",
+        "value": 3
+      },
+      {
+        "name": "其实",
+        "value": 3
+      },
+      {
+        "name": "预判",
+        "value": 3
+      },
+      {
+        "name": "别人",
+        "value": 3
+      },
+      {
+        "name": "如果",
+        "value": 3
+      },
+      {
+        "name": "标题",
+        "value": 3
+      },
+      {
+        "name": "TMD",
+        "value": 3
+      },
+      {
+        "name": "干嘛",
+        "value": 3
+      },
+      {
+        "name": "现在",
+        "value": 3
+      },
+      {
+        "name": "依旧",
+        "value": 3
+      },
+      {
+        "name": "踏马",
+        "value": 3
+      }
+    ],
+    "user_rank": [
+      {
+        "userHash": "2cd9e664",
+        "count": 10
+      },
+      {
+        "userHash": "2adc1fb4",
+        "count": 8
+      },
+      {
+        "userHash": "b21415a7",
+        "count": 4
+      },
+      {
+        "userHash": "85391361",
+        "count": 4
+      },
+      {
+        "userHash": "48a3082f",
+        "count": 4
+      },
+      {
+        "userHash": "68d69c2a",
+        "count": 4
+      },
+      {
+        "userHash": "af32bafb",
+        "count": 3
+      },
+      {
+        "userHash": "bb8cb236",
+        "count": 3
+      },
+      {
+        "userHash": "624450a8",
+        "count": 3
+      },
+      {
+        "userHash": "6b2b0e0",
+        "count": 2
+      },
+      {
+        "userHash": "ba672d85",
+        "count": 2
+      },
+      {
+        "userHash": "a58fbd83",
+        "count": 2
+      },
+      {
+        "userHash": "1632889c",
+        "count": 2
+      },
+      {
+        "userHash": "445ab896",
+        "count": 2
+      },
+      {
+        "userHash": "991aa1f2",
+        "count": 2
+      },
+      {
+        "userHash": "ffa9df0e",
+        "count": 2
+      },
+      {
+        "userHash": "4f85f54a",
+        "count": 2
+      },
+      {
+        "userHash": "2b7554a",
+        "count": 2
+      },
+      {
+        "userHash": "a227b5ed",
+        "count": 2
+      },
+      {
+        "userHash": "9a06153",
+        "count": 2
+      }
+    ]
+  },
+  "BV1ZT5X6EEvA": {
+    "source": "server",
+    "filter_signature": "",
+    "danmaku_count": 342,
+    "time_series": {
+      "labels": [
+        "0分",
+        "1分",
+        "2分",
+        "3分",
+        "4分",
+        "5分",
+        "6分",
+        "7分",
+        "8分",
+        "9分",
+        "10分",
+        "11分",
+        "12分",
+        "13分",
+        "14分",
+        "15分",
+        "16分",
+        "17分",
+        "18分",
+        "19分",
+        "20分",
+        "21分",
+        "22分",
+        "23分",
+        "24分",
+        "25分",
+        "26分",
+        "27分",
+        "28分",
+        "29分",
+        "30分",
+        "31分",
+        "32分",
+        "33分",
+        "34分"
+      ],
+      "values": [
+        68,
+        37,
+        26,
+        11,
+        20,
+        14,
+        14,
+        4,
+        11,
+        12,
+        9,
+        5,
+        4,
+        3,
+        3,
+        9,
+        9,
+        3,
+        9,
+        6,
+        9,
+        12,
+        7,
+        9,
+        4,
+        4,
+        3,
+        0,
+        1,
+        2,
+        3,
+        7,
+        2,
+        2,
+        0
+      ]
+    },
+    "length_buckets": {
+      "1-5": 120,
+      "6-10": 128,
+      "11-20": 75,
+      "20+": 19
+    },
+    "word_cloud": [
+      {
+        "name": "哈哈哈",
+        "value": 39
+      },
+      {
+        "name": "这个",
+        "value": 24
+      },
+      {
+        "name": "阿弥陀佛",
+        "value": 21
+      },
+      {
+        "name": "国王",
+        "value": 18
+      },
+      {
+        "name": "哈哈哈哈",
+        "value": 17
+      },
+      {
+        "name": "憨豆",
+        "value": 15
+      },
+      {
+        "name": "哈哈",
+        "value": 14
+      },
+      {
+        "name": "麦克白",
+        "value": 9
+      },
+      {
+        "name": "就是",
+        "value": 8
+      },
+      {
+        "name": "好像",
+        "value": 7
+      },
+      {
+        "name": "一个",
+        "value": 7
+      },
+      {
+        "name": "开始",
+        "value": 6
+      },
+      {
+        "name": "理查",
+        "value": 6
+      },
+      {
+        "name": "里克",
+        "value": 6
+      },
+      {
+        "name": "怎么",
+        "value": 6
+      },
+      {
+        "name": "还是",
+        "value": 5
+      },
+      {
+        "name": "爵士",
+        "value": 5
+      },
+      {
+        "name": "什么",
+        "value": 5
+      },
+      {
+        "name": "一匹",
+        "value": 5
+      },
+      {
+        "name": "已经",
+        "value": 4
+      },
+      {
+        "name": "历史",
+        "value": 4
+      },
+      {
+        "name": "三世",
+        "value": 4
+      },
+      {
+        "name": "看过",
+        "value": 4
+      },
+      {
+        "name": "居然",
+        "value": 4
+      },
+      {
+        "name": "亨利",
+        "value": 4
+      },
+      {
+        "name": "喜欢",
+        "value": 4
+      },
+      {
+        "name": "确实",
+        "value": 4
+      },
+      {
+        "name": "声音",
+        "value": 4
+      },
+      {
+        "name": "经典",
+        "value": 3
+      },
+      {
+        "name": "鲍里斯",
+        "value": 3
+      },
+      {
+        "name": "恶搞",
+        "value": 3
+      },
+      {
+        "name": "莎士比亚",
+        "value": 3
+      },
+      {
+        "name": "一战",
+        "value": 3
+      },
+      {
+        "name": "中世纪",
+        "value": 3
+      },
+      {
+        "name": "王朝",
+        "value": 3
+      },
+      {
+        "name": "第四部",
+        "value": 3
+      },
+      {
+        "name": "好看",
+        "value": 3
+      },
+      {
+        "name": "这是",
+        "value": 3
+      },
+      {
+        "name": "知道",
+        "value": 3
+      },
+      {
+        "name": "可以",
+        "value": 3
+      },
+      {
+        "name": "聪明",
+        "value": 3
+      },
+      {
+        "name": "一下",
+        "value": 3
+      },
+      {
+        "name": "不是",
+        "value": 3
+      },
+      {
+        "name": "卧槽",
+        "value": 3
+      },
+      {
+        "name": "不会",
+        "value": 3
+      },
+      {
+        "name": "编剧",
+        "value": 3
+      },
+      {
+        "name": "分头",
+        "value": 3
+      },
+      {
+        "name": "行动",
+        "value": 3
+      },
+      {
+        "name": "法国",
+        "value": 3
+      },
+      {
+        "name": "有点像",
+        "value": 3
+      },
+      {
+        "name": "骑马",
+        "value": 3
+      },
+      {
+        "name": "西游记",
+        "value": 2
+      },
+      {
+        "name": "妖精",
+        "value": 2
+      },
+      {
+        "name": "利七世",
+        "value": 2
+      },
+      {
+        "name": "第一部",
+        "value": 2
+      },
+      {
+        "name": "人设",
+        "value": 2
+      },
+      {
+        "name": "脑子",
+        "value": 2
+      },
+      {
+        "name": "但是",
+        "value": 2
+      },
+      {
+        "name": "后来",
+        "value": 2
+      },
+      {
+        "name": "不到",
+        "value": 2
+      },
+      {
+        "name": "贸易",
+        "value": 2
+      },
+      {
+        "name": "发达",
+        "value": 2
+      },
+      {
+        "name": "迟到",
+        "value": 2
+      },
+      {
+        "name": "书记官",
+        "value": 2
+      },
+      {
+        "name": "哔哩",
+        "value": 2
+      },
+      {
+        "name": "记住",
+        "value": 2
+      },
+      {
+        "name": "名字",
+        "value": 2
+      },
+      {
+        "name": "其他",
+        "value": 2
+      },
+      {
+        "name": "部分",
+        "value": 2
+      },
+      {
+        "name": "王位",
+        "value": 2
+      },
+      {
+        "name": "这部",
+        "value": 2
+      },
+      {
+        "name": "架空",
+        "value": 2
+      },
+      {
+        "name": "后面",
+        "value": 2
+      },
+      {
+        "name": "王子",
+        "value": 2
+      },
+      {
+        "name": "变成",
+        "value": 2
+      },
+      {
+        "name": "现在",
+        "value": 2
+      },
+      {
+        "name": "一世",
+        "value": 2
+      },
+      {
+        "name": "简单",
+        "value": 2
+      },
+      {
+        "name": "和谐",
+        "value": 2
+      },
+      {
+        "name": "地狱",
+        "value": 2
+      }
+    ],
+    "user_rank": [
+      {
+        "userHash": "329d6f01",
+        "count": 14
+      },
+      {
+        "userHash": "a4174d87",
+        "count": 7
+      },
+      {
+        "userHash": "5c676354",
+        "count": 6
+      },
+      {
+        "userHash": "c9140070",
+        "count": 6
+      },
+      {
+        "userHash": "30588978",
+        "count": 6
+      },
+      {
+        "userHash": "4517644f",
+        "count": 5
+      },
+      {
+        "userHash": "ea5b5d69",
+        "count": 4
+      },
+      {
+        "userHash": "91461ed8",
+        "count": 4
+      },
+      {
+        "userHash": "48cc94ee",
+        "count": 4
+      },
+      {
+        "userHash": "3116ce99",
+        "count": 3
+      },
+      {
+        "userHash": "e180a675",
+        "count": 3
+      },
+      {
+        "userHash": "c4ebb56b",
+        "count": 3
+      },
+      {
+        "userHash": "194e2c65",
+        "count": 3
+      },
+      {
+        "userHash": "d5801285",
+        "count": 3
+      },
+      {
+        "userHash": "8df85866",
+        "count": 3
+      },
+      {
+        "userHash": "80e2a550",
+        "count": 3
+      },
+      {
+        "userHash": "db7f7f4",
+        "count": 3
+      },
+      {
+        "userHash": "d8c7449f",
+        "count": 2
+      },
+      {
+        "userHash": "2dedc77",
+        "count": 2
+      },
+      {
+        "userHash": "c2361a4d",
+        "count": 2
+      }
+    ]
+  }
+}

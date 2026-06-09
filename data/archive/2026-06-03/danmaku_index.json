@@ -1,0 +1,359 @@
+{
+  "version": "split-json-2026-06-03",
+  "module": "popular_archive",
+  "date": "2026-06-03",
+  "video_count": 50,
+  "danmaku_count": 37969,
+  "videos": {
+    "BV1YcVf69ECW": {
+      "file": "danmakus/BV1YcVf69ECW.json",
+      "count": 649,
+      "title": "此树扎根之时 便是沧海化桑田之始",
+      "rank": 1,
+      "duration": 895
+    },
+    "BV1FNV26YEZo": {
+      "file": "danmakus/BV1FNV26YEZo.json",
+      "count": 48,
+      "title": "【战双帕弥什】剧情动画 | “最好的一日”",
+      "rank": 2,
+      "duration": 1357
+    },
+    "BV15wVB6YECT": {
+      "file": "danmakus/BV15wVB6YECT.json",
+      "count": 198,
+      "title": "一顿饭只要三块钱，客人吃着吃着，人就“没了”",
+      "rank": 3,
+      "duration": 187
+    },
+    "BV1vkVB6NEuR": {
+      "file": "danmakus/BV1vkVB6NEuR.json",
+      "count": 401,
+      "title": "“超微距”下的瑞士长什么样？",
+      "rank": 4,
+      "duration": 1369
+    },
+    "BV1RvVo6QEqo": {
+      "file": "danmakus/BV1RvVo6QEqo.json",
+      "count": 762,
+      "title": "不儿，你俩来真的啊？！",
+      "rank": 5,
+      "duration": 265
+    },
+    "BV1jwV663EjR": {
+      "file": "danmakus/BV1jwV663EjR.json",
+      "count": 363,
+      "title": "我的世界杯主题曲！IShowSpeed - World Cup (Champions)",
+      "rank": 6,
+      "duration": 299
+    },
+    "BV16BVy6wEfx": {
+      "file": "danmakus/BV16BVy6wEfx.json",
+      "count": 173,
+      "title": "《你来真的啊》",
+      "rank": 7,
+      "duration": 116
+    },
+    "BV1oqVB6BECd": {
+      "file": "danmakus/BV1oqVB6BECd.json",
+      "count": 393,
+      "title": "《原神》洛恩角色PV——「标准化考核」",
+      "rank": 8,
+      "duration": 702
+    },
+    "BV1ogV26FEhB": {
+      "file": "danmakus/BV1ogV26FEhB.json",
+      "count": 271,
+      "title": "兄弟们！今天给良子做一个入营测试，这身体身体素质，跟我想的不太一样啊!",
+      "rank": 9,
+      "duration": 246
+    },
+    "BV1H9V86REuf": {
+      "file": "danmakus/BV1H9V86REuf.json",
+      "count": 105,
+      "title": "12个脑洞大开的做饭方式！",
+      "rank": 10,
+      "duration": 421
+    },
+    "BV1CYVy6vETT": {
+      "file": "danmakus/BV1CYVy6vETT.json",
+      "count": 1868,
+      "title": "【IGN】《战神：劳菲（God of War Laufey）》深度玩法演示 |  State of Play",
+      "rank": 11,
+      "duration": 1425
+    },
+    "BV1VcVf69EBu": {
+      "file": "danmakus/BV1VcVf69EBu.json",
+      "count": 42,
+      "title": "开车被追尾了，还需要承担责任吗？",
+      "rank": 12,
+      "duration": 105
+    },
+    "BV1xuVC6AEbg": {
+      "file": "danmakus/BV1xuVC6AEbg.json",
+      "count": 88,
+      "title": "今天把我关于《丧尸清道夫》的创作思路分享给大家，如果能帮到你，我会很开心。",
+      "rank": 13,
+      "duration": 2573
+    },
+    "BV1RVVy6EE3B": {
+      "file": "danmakus/BV1RVVy6EE3B.json",
+      "count": 76,
+      "title": "《潜水员戴夫》团队官宣新作！《料理人班乔》已开放愿望单！",
+      "rank": 14,
+      "duration": 74
+    },
+    "BV1T2V161E6J": {
+      "file": "danmakus/BV1T2V161E6J.json",
+      "count": 248,
+      "title": "地牢酒馆-12集 《蜕皮的蜥蜴人与神奇薄荷》",
+      "rank": 15,
+      "duration": 212
+    },
+    "BV1gzVC6kE1S": {
+      "file": "danmakus/BV1gzVC6kE1S.json",
+      "count": 93,
+      "title": "【低成本在家实现牛排自由‼️ 】",
+      "rank": 16,
+      "duration": 329
+    },
+    "BV1QzVR63E3L": {
+      "file": "danmakus/BV1QzVR63E3L.json",
+      "count": 502,
+      "title": "回忆永远都是加分项",
+      "rank": 17,
+      "duration": 184
+    },
+    "BV1WgVC6YERr": {
+      "file": "danmakus/BV1WgVC6YERr.json",
+      "count": 319,
+      "title": "理财PK两个月，6位UP主已经彻底疯狂...【理财王5月战绩汇报】",
+      "rank": 18,
+      "duration": 779
+    },
+    "BV1dzVB6TEcg": {
+      "file": "danmakus/BV1dzVB6TEcg.json",
+      "count": 556,
+      "title": "假如你和十万人一起吃麻辣烫",
+      "rank": 19,
+      "duration": 145
+    },
+    "BV1ztVP62ELW": {
+      "file": "danmakus/BV1ztVP62ELW.json",
+      "count": 1200,
+      "title": "《重返未来：1999》3.8版本PV：世纪末尺度",
+      "rank": 20,
+      "duration": 668
+    },
+    "BV15nVz6uEyY": {
+      "file": "danmakus/BV15nVz6uEyY.json",
+      "count": 1,
+      "title": "\"那些节奏感拉满的硬核BGM\"",
+      "rank": 21,
+      "duration": 2022
+    },
+    "BV1K9Vm6UEHW": {
+      "file": "danmakus/BV1K9Vm6UEHW.json",
+      "count": 721,
+      "title": "传奇捡漏王",
+      "rank": 22,
+      "duration": 250
+    },
+    "BV1jBVS6qEPK": {
+      "file": "danmakus/BV1jBVS6qEPK.json",
+      "count": 1200,
+      "title": "竹丝镶嵌",
+      "rank": 23,
+      "duration": 577
+    },
+    "BV12XVi6SEwe": {
+      "file": "danmakus/BV12XVi6SEwe.json",
+      "count": 1200,
+      "title": "兄弟们，良子最后一顿面花了我4000多。后面看我怎么练他就完了。",
+      "rank": 24,
+      "duration": 256
+    },
+    "BV1B75w6zEG1": {
+      "file": "danmakus/BV1B75w6zEG1.json",
+      "count": 1200,
+      "title": "二次元老资历童年都在听什么？！老番串烧34首大连唱！",
+      "rank": 25,
+      "duration": 462
+    },
+    "BV1cmVz6DEmi": {
+      "file": "danmakus/BV1cmVz6DEmi.json",
+      "count": 1200,
+      "title": "初代跑男团战力排行",
+      "rank": 26,
+      "duration": 600
+    },
+    "BV1WBVZ6zEZF": {
+      "file": "danmakus/BV1WBVZ6zEZF.json",
+      "count": 165,
+      "title": "朋克的扑满完整版！六一变身巴啦啦小魔丸！",
+      "rank": 27,
+      "duration": 87
+    },
+    "BV11BVU6mEUe": {
+      "file": "danmakus/BV11BVU6mEUe.json",
+      "count": 1104,
+      "title": "做了一把千机伞，能变十三个形态的那种｜最强的武器一定是自制的",
+      "rank": 28,
+      "duration": 172
+    },
+    "BV12QVi6nEQ1": {
+      "file": "danmakus/BV12QVi6nEQ1.json",
+      "count": 490,
+      "title": "给我净身出户！听懂了吗！",
+      "rank": 29,
+      "duration": 73
+    },
+    "BV1hNVm6HEBY": {
+      "file": "danmakus/BV1hNVm6HEBY.json",
+      "count": 66,
+      "title": "深夜本想吃顿辣火锅，花了200块，没想到当场闹翻了...",
+      "rank": 30,
+      "duration": 1104
+    },
+    "BV1xWG16qEBn": {
+      "file": "danmakus/BV1xWG16qEBn.json",
+      "count": 453,
+      "title": "我打孔子，真的假的？",
+      "rank": 31,
+      "duration": 281
+    },
+    "BV1pAVz6DEDB": {
+      "file": "danmakus/BV1pAVz6DEDB.json",
+      "count": 1800,
+      "title": "5.14马尔代夫潜水事故，5人洞穴潜水全部遇难",
+      "rank": 32,
+      "duration": 812
+    },
+    "BV1YmV666EoR": {
+      "file": "danmakus/BV1YmV666EoR.json",
+      "count": 2242,
+      "title": "坏了，这下特朗普都反犹了",
+      "rank": 33,
+      "duration": 915
+    },
+    "BV15tVr6GE6V": {
+      "file": "danmakus/BV15tVr6GE6V.json",
+      "count": 259,
+      "title": "《马老师啊》",
+      "rank": 34,
+      "duration": 85
+    },
+    "BV1iEVz66E6x": {
+      "file": "danmakus/BV1iEVz66E6x.json",
+      "count": 1200,
+      "title": "从国民女神到一剪没：她的崩塌，一点不冤",
+      "rank": 35,
+      "duration": 404
+    },
+    "BV1eoVZ64EDP": {
+      "file": "danmakus/BV1eoVZ64EDP.json",
+      "count": 1055,
+      "title": "卡 布 达 买 瓜",
+      "rank": 36,
+      "duration": 165
+    },
+    "BV1dCV66GEgM": {
+      "file": "danmakus/BV1dCV66GEgM.json",
+      "count": 1200,
+      "title": "《明日方舟：终末地》干员叙事 [弭弗：煞星]",
+      "rank": 37,
+      "duration": 637
+    },
+    "BV1y8Vk6fEwn": {
+      "file": "danmakus/BV1y8Vk6fEwn.json",
+      "count": 1200,
+      "title": "【速凌宇宙】第十九集：哈基蜂化身哈夫克安保队长？？准备摇人？",
+      "rank": 38,
+      "duration": 582
+    },
+    "BV12SVo6GE6E": {
+      "file": "danmakus/BV12SVo6GE6E.json",
+      "count": 1800,
+      "title": "杀人热浪如何卡死印度发展命脉？",
+      "rank": 39,
+      "duration": 884
+    },
+    "BV1gWVd6GEna": {
+      "file": "danmakus/BV1gWVd6GEna.json",
+      "count": 826,
+      "title": "期末到了，你们寝室准备好应对之策了吗",
+      "rank": 40,
+      "duration": 200
+    },
+    "BV1MDVf6nEy1": {
+      "file": "danmakus/BV1MDVf6nEy1.json",
+      "count": 383,
+      "title": "【硬核】以地道功夫硬刚AI铁甲！传承的，不是冰冷数据，而是滚烫筋骨！",
+      "rank": 41,
+      "duration": 182
+    },
+    "BV1F9Vz62ExS": {
+      "file": "danmakus/BV1F9Vz62ExS.json",
+      "count": 1200,
+      "title": "一辈子一定要体验一次的游戏，绝对不能被剧透的神作",
+      "rank": 42,
+      "duration": 537
+    },
+    "BV1jqVS6MECE": {
+      "file": "danmakus/BV1jqVS6MECE.json",
+      "count": 504,
+      "title": "【野餐】你醒啦 现在是2012年的5月份呀",
+      "rank": 43,
+      "duration": 182
+    },
+    "BV1NCVz6WESh": {
+      "file": "danmakus/BV1NCVz6WESh.json",
+      "count": 702,
+      "title": "除了它以外，你见过的紫色都是假的…？",
+      "rank": 44,
+      "duration": 206
+    },
+    "BV1oDVv6wENJ": {
+      "file": "danmakus/BV1oDVv6wENJ.json",
+      "count": 1800,
+      "title": "探访世界上最大的活死人墓，几万人抢着住，直接在坟头做饭，拿棺材当床",
+      "rank": 45,
+      "duration": 620
+    },
+    "BV1iCV66GEMq": {
+      "file": "danmakus/BV1iCV66GEMq.json",
+      "count": 1200,
+      "title": "【大鸣王潮1566】谁才是护",
+      "rank": 46,
+      "duration": 222
+    },
+    "BV14FVE6AEze": {
+      "file": "danmakus/BV14FVE6AEze.json",
+      "count": 3600,
+      "title": "不止抽象！内娱唯一的硬汉！盘点嘎子谢孟伟职业生涯高光演技",
+      "rank": 47,
+      "duration": 1050
+    },
+    "BV1izVB6TE7i": {
+      "file": "danmakus/BV1izVB6TE7i.json",
+      "count": 174,
+      "title": "小时候以为的事情",
+      "rank": 48,
+      "duration": 38
+    },
+    "BV1sgVC6aEy2": {
+      "file": "danmakus/BV1sgVC6aEy2.json",
+      "count": 364,
+      "title": "【抢发】真·特朗普250美元",
+      "rank": 49,
+      "duration": 159
+    },
+    "BV185V66AEyX": {
+      "file": "danmakus/BV185V66AEyX.json",
+      "count": 305,
+      "title": "反野发现对面打野是最菜的，必须带他跑两圈",
+      "rank": 50,
+      "duration": 174
+    }
+  }
+}

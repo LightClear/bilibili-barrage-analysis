@@ -1,0 +1,385 @@
+/* ── 开始页面样式 ── */
+
+/* ── 背景图片接口 ──
+   本地：url('../images/start_background_01.png')
+   后端：改为后端返回的图片地址，例如 url('http://127.0.0.1:8000/api/bg-image')
+── */
+:root {
+  --bg-image: url('../images/start_background_01.png');
+}
+
+html {
+  min-height: 100%;
+  background: #070b15;
+}
+
+/* ── body 背景层 ── */
+body {
+  position: relative;
+  isolation: isolate;
+  background-color: #070b15;
+  background-image: var(--bg-image),
+    linear-gradient(165deg,
+      #0a1628 0%, #0f2440 20%, #162d55 40%,
+      #0f2440 60%, #1a3a5c 80%, #0a1628 100%);
+  background-size: cover, cover;
+  background-position: center center, center center;
+  background-repeat: no-repeat, no-repeat;
+  background-attachment: fixed, fixed;
+}
+
+/* Layer 0：背景图片直接放在 body，避免伪元素层级被浏览器压到根背景后面 */
+body::before {
+  content: none;
+}
+
+/* Layer 1：中间聚焦暗区 */
+.page-mask {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    circle at center,
+    rgba(5, 10, 25, 0.04) 0%,
+    rgba(5, 10, 25, 0.18) 55%,
+    rgba(5, 10, 25, 0.34) 100%
+  );
+}
+
+/* ── 页面主体 ── */
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+  z-index: 1;
+  padding: 0;
+}
+
+/* ── 登入按钮 ── */
+.login-btn {
+  position: fixed;
+  top: 36px;
+  right: 44px;
+  z-index: 20;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 40px;
+  font-size: 22px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(15, 25, 50, 0.42);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-family: var(--font-cjk);
+  cursor: pointer;
+  transition: all var(--transition);
+  text-decoration: none;
+}
+.login-btn:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+  background: rgba(56, 189, 248, 0.14);
+}
+.login-btn svg { width: 24px; height: 24px; flex-shrink: 0; }
+.login-en {
+  font-family: var(--font-body);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.38);
+  margin-left: 4px;
+}
+
+/* ── 标题区 ── */
+.hero {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  text-align: center;
+  padding: 0 72px 3vh;
+}
+
+.hero-title {
+  font-family: var(--font-cjk);
+  font-size: 96px;
+  font-weight: 900;
+  line-height: 1.06;
+  color: rgba(255, 255, 255, 0.94);
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  text-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+  animation: fadeInUp 0.8s ease both 0.1s;
+}
+
+.hero-eng {
+  font-family: var(--font-novecento-cond-demibold);
+  font-size: 44px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(235, 245, 255, 0.78);
+  margin-bottom: 16px;
+  text-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+  animation: fadeInUp 0.8s ease both 0.2s;
+}
+
+.hero-sub {
+  font-family: var(--font-cjk);
+  font-size: 18px;
+  color: rgba(235, 245, 255, 0.72);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  animation: fadeInUp 0.8s ease both 0.3s;
+}
+.hero-sub span {
+  display: inline-block;
+  margin: 0 12px;
+  color: rgba(255, 255, 255, 0.2);
+}
+
+/* ── 进入按钮 ── */
+.enter-area {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  padding: 0 72px;
+}
+.enter-btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  width: 580px;
+  padding: 10px 0 10px 30px;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: var(--radius-full);
+  background: linear-gradient(100deg, #68f5ff 0%, #b8fff8 48%, #ffe4ff 100%);
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: var(--font-cjk);
+  cursor: pointer;
+  box-shadow:
+    0 0 24px rgba(104, 245, 255, 0.38),
+    0 12px 36px rgba(0, 0, 0, 0.28);
+  animation: fadeInUp 0.8s ease both 0.35s;
+  text-decoration: none;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  transition: transform 0.4s ease, box-shadow 0.4s ease, color 0.45s ease, border-color 0.4s ease;
+}
+
+/* 绿色扫光层 */
+.enter-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  background: linear-gradient(100deg, #34d399 0%, #10b981 35%, #059669 70%, #047857 100%);
+  transform: translateX(-101%);
+  transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+}
+.enter-btn:hover::before {
+  transform: translateX(0);
+}
+
+.enter-btn:hover {
+  transform: translateY(-3px) scale(1.03);
+  color: #0a1628;
+  border-color: rgba(52, 211, 153, 0.55);
+  box-shadow:
+    0 0 40px rgba(52, 211, 153, 0.42),
+    0 16px 48px rgba(0, 0, 0, 0.35);
+  text-shadow: none;
+}
+.enter-btn:active { transform: translateY(0) scale(0.98); }
+
+/* ── 文字堆叠容器 ── */
+.btn-text-stack {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 默认文字：移出 */
+.btn-text-default {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+}
+.enter-btn:hover .btn-text-default {
+  transform: translateX(64px);
+  opacity: 0;
+}
+
+/* hover 文字：从左侧移入 */
+.btn-text-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateX(-64px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+}
+.enter-btn:hover .btn-text-hover {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* 共用文字样式 */
+.enter-zh {
+  font-size: 36px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.enter-en {
+  font-family: var(--font-novecento-bold);
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+  white-space: nowrap;
+}
+.enter-btn:hover .btn-text-hover .enter-en,
+.enter-btn:hover .btn-text-hover .enter-zh {
+  color: #0a1628;
+}
+
+/* 箭头：向右移出并淡出 */
+.enter-btn svg {
+  position: relative;
+  z-index: 1;
+  width: 36px;
+  height: 36px;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+}
+.enter-btn:hover svg {
+  transform: translateX(64px);
+  opacity: 0;
+}
+
+/* ── 联系信息 ── */
+.page-footer {
+  position: relative;
+  z-index: 1;
+  padding: 44px 72px 44px;
+}
+.footer-inner {
+  width: min(700px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.contact-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 26px 22px;
+  border-radius: var(--radius-md);
+  background: rgba(10, 18, 40, 0.42);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.22);
+  transition: all var(--transition);
+  text-decoration: none;
+  color: var(--text-primary);
+}
+.contact-card:hover {
+  border-color: rgba(104, 245, 255, 0.3);
+  background: rgba(104, 245, 255, 0.06);
+  transform: translateY(-3px);
+  box-shadow: 0 20px 56px rgba(0, 0, 0, 0.3);
+}
+.contact-card:nth-child(2):hover {
+  border-color: rgba(167, 139, 250, 0.3);
+  background: rgba(167, 139, 250, 0.06);
+}
+.contact-card:nth-child(3):hover {
+  border-color: rgba(255, 228, 255, 0.3);
+  background: rgba(255, 228, 255, 0.06);
+}
+.contact-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  background: rgba(104, 245, 255, 0.07);
+  color: #68f5ff;
+}
+.contact-card:nth-child(2) .contact-icon {
+  background: rgba(167, 139, 250, 0.07);
+  color: var(--accent-purple);
+}
+.contact-card:nth-child(3) .contact-icon {
+  background: rgba(255, 228, 255, 0.07);
+  color: #ffe4ff;
+}
+.contact-label {
+  font-family: var(--font-cjk);
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.05em;
+}
+.contact-value {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+  transition: color var(--transition);
+}
+.contact-card:hover .contact-value { color: rgba(255, 255, 255, 0.9); }
+
+/* ── 响应式 ── */
+@media (max-width: 720px) {
+  .login-btn { top: 20px; right: 20px; padding: 10px 20px; font-size: 16px; gap: 10px; }
+  .login-btn svg { width: 18px; height: 18px; }
+  .login-en { font-size: 14px; }
+  .hero { padding: 0 28px 3vh; }
+  .hero-title { font-size: 48px; }
+  .hero-eng { font-size: 22px; letter-spacing: 0.15em; }
+  .hero-sub { font-size: 15px; }
+  .enter-area { padding: 0 28px; }
+  .enter-btn { width: auto; padding: 12px 40px; gap: 12px; }
+  .enter-btn svg { width: 24px; height: 24px; }
+  .enter-btn:hover svg { transform: translateX(40px); }
+  .enter-btn:hover .btn-text-default { transform: translateX(44px); }
+  .btn-text-hover { transform: translateX(-44px); }
+  .enter-btn:hover .btn-text-hover { transform: translateX(0); }
+  .enter-zh { font-size: 22px; }
+  .enter-en { font-size: 18px; }
+  .page-footer { padding: 28px 28px 32px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 14px; }
+  .contact-card { padding: 20px 18px; }
+  .contact-icon { width: 42px; height: 42px; }
+}
