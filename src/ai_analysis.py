@@ -10,6 +10,8 @@ from __future__ import annotations
 from collections import Counter
 from typing import Any
 
+from src.ai_evidence import build_evidence_report, build_highlight_timeline
+
 
 POSITIVE_WORDS = {"好", "强", "神", "爽", "笑", "爱", "牛", "稳", "燃", "高能", "厉害", "可爱"}
 QUESTION_WORDS = {"?", "？", "啥", "什么", "怎么", "为何", "为什么", "哪里", "谁"}
@@ -39,6 +41,8 @@ def _build_current_analysis(payload: dict[str, Any]) -> dict[str, Any]:
     rows = _as_rows(payload.get("danmakus"))
     words = _top_words_from_payload(payload.get("words"), rows)
     metrics = _metrics_from_payload(payload, rows, video, words)
+    evidence_report = _evidence_from_payload(payload, rows, words, metrics)
+    highlight_timeline = _highlights_from_payload(payload, rows, words)
     suggestions = _suggestions(metrics, words)
     title = video.get("title") or video.get("bvid") or "这个视频"
     top_words = _format_words(words)
@@ -61,6 +65,8 @@ def _build_current_analysis(payload: dict[str, Any]) -> dict[str, Any]:
         "text": text,
         "words": words[:30],
         "metrics": metrics,
+        "evidence_report": evidence_report,
+        "highlight_timeline": highlight_timeline,
         "suggestions": suggestions,
     }
 
@@ -293,6 +299,29 @@ def _common_words(a: list[dict[str, Any]], b: list[dict[str, Any]]) -> str:
     a_names = {str(item.get("name")) for item in a[:12]}
     common = [str(item.get("name")) for item in b[:12] if str(item.get("name")) in a_names]
     return "、".join(common[:8])
+
+
+def _evidence_from_payload(
+    payload: dict[str, Any],
+    rows: list[dict[str, Any]],
+    words: list[dict[str, Any]],
+    metrics: dict[str, Any],
+) -> dict[str, Any]:
+    supplied = payload.get("evidence_report")
+    if isinstance(supplied, dict) and isinstance(supplied.get("claims"), list):
+        return supplied
+    return build_evidence_report(rows, words=words, metrics=metrics)
+
+
+def _highlights_from_payload(
+    payload: dict[str, Any],
+    rows: list[dict[str, Any]],
+    words: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    supplied = payload.get("highlight_timeline")
+    if isinstance(supplied, list):
+        return [item for item in supplied if isinstance(item, dict)][:8]
+    return build_highlight_timeline(rows, words=words)
 
 
 def _compare_dominant(a: dict[str, Any], b: dict[str, Any]) -> str:

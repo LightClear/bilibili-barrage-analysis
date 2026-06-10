@@ -922,6 +922,71 @@ def test_ai_provider_is_bound_to_current_account(tmp_path, monkeypatch):
         assert admin_toggled["identity"]["ai_available"] is False
 
 
+def test_ai_analyze_endpoint_returns_evidence_and_highlights(tmp_path, monkeypatch):
+    monkeypatch.setattr(server, "call_deepseek_analysis", lambda provider, data, result: result)
+    with run_test_server(tmp_path, monkeypatch) as base_url:
+        opener = build_opener(HTTPCookieProcessor(CookieJar()))
+        status, _, login = request_json(
+            opener,
+            base_url,
+            "/api/account/login",
+            method="POST",
+            payload={"account": "user_demo", "password": "User12345"},
+        )
+        assert status == 200
+
+        status, _, toggled = request_json(
+            opener,
+            base_url,
+            "/api/account/api-toggle",
+            method="POST",
+            payload={"enabled": True},
+            headers={"X-CSRF-Token": login["csrf_token"]},
+        )
+        assert status == 200
+        assert toggled["identity"]["api_switch_enabled"] is True
+
+        status, _, provider = request_json(
+            opener,
+            base_url,
+            "/api/account/ai-provider",
+            method="POST",
+            payload={
+                "provider": "deepseek",
+                "api_key": "sk-abcdefghijklmnopqrstuvwxyz",
+                "base_url": "https://api.deepseek.com",
+                "model": "deepseek-v4-flash",
+            },
+            headers={"X-CSRF-Token": login["csrf_token"]},
+        )
+        assert status == 200
+        assert provider["configured"] is True
+
+        status, _, result = request_json(
+            opener,
+            base_url,
+            "/api/ai/analyze",
+            method="POST",
+            payload={
+                "scope": "current",
+                "analysis_mode": "economy",
+                "video": {"title": "Evidence HTTP demo", "duration": 120},
+                "danmakus": [
+                    {"content": "boom scene", "time_in_video": 10, "user_hash": "u1"},
+                    {"content": "boom again", "time_in_video": 12, "user_hash": "u2"},
+                    {"content": "quiet part", "time_in_video": 80, "user_hash": "u3"},
+                ],
+                "words": [{"name": "boom", "value": 2}],
+            },
+            headers={"X-CSRF-Token": login["csrf_token"]},
+        )
+
+    assert status == 200
+    assert result["ok"] is True
+    assert result["evidence_report"]["claims"][0]["keyword"] == "boom"
+    assert result["highlight_timeline"][0]["danmaku_count"] >= 2
+
+
 def test_bili_cookie_is_bound_to_current_account_and_never_echoed(tmp_path, monkeypatch):
     with run_test_server(tmp_path, monkeypatch) as base_url:
         user_opener = build_opener(HTTPCookieProcessor(CookieJar()))

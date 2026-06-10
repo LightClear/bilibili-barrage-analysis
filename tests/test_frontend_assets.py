@@ -54,6 +54,39 @@ def test_dashboard_contains_cross_video_panel_assets():
     assert "crossVideoKeywords" in core
 
 
+def test_dashboard_contains_ai_evidence_and_highlight_assets():
+    index = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
+    ai = (ROOT / "web" / "js" / "app-ai.js").read_text(encoding="utf-8")
+
+    assert 'id="aiEvidenceReport"' in index
+    assert 'id="aiHighlightTimeline"' in index
+    assert "buildEvidenceReportForAi" in ai
+    assert "buildHighlightTimelineForAi" in ai
+    assert "renderAiEvidenceReport" in ai
+    assert "renderAiHighlightTimeline" in ai
+
+
+def test_dashboard_ai_insight_console_design_assets():
+    index = (ROOT / "web" / "index.html").read_text(encoding="utf-8")
+    css = (ROOT / "web" / "css" / "dashboard.css").read_text(encoding="utf-8")
+    ai = (ROOT / "web" / "js" / "app-ai.js").read_text(encoding="utf-8")
+
+    assert 'class="panel ai-text-panel ai-insight-console ai-only"' in index
+    assert 'class="ai-console-head"' in index
+    assert 'class="ai-mode-pill"' in index
+    assert 'class="ai-command-bar"' in index
+    assert 'class="ai-report-body"' in index
+    assert 'class="ai-insight-section ai-evidence-report"' in index
+    assert 'class="ai-insight-section ai-highlight-timeline"' in index
+    assert ".ai-insight-console" in css
+    assert ".ai-console-head" in css
+    assert ".ai-command-bar" in css
+    assert ".ai-report-body" in css
+    assert ".ai-highlight-item::before" in css
+    assert "ai-evidence-kicker" in ai
+    assert "ai-highlight-meta" in ai
+
+
 def test_login_page_references_existing_local_assets():
     login = (ROOT / "web" / "login.html").read_text(encoding="utf-8")
 

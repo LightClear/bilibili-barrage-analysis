@@ -19,6 +19,8 @@ def test_build_current_ai_analysis_uses_all_loaded_rows():
     assert result["scope"] == "current"
     assert result["metrics"]["danmaku_count"] == 3
     assert result["metrics"]["unique_users"] == 2
+    assert result["evidence_report"]["claims"]
+    assert result["highlight_timeline"]
     assert "测试视频" in result["text"]
 
 

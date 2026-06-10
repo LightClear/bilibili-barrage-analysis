@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>B站弹幕数据可视化</title>
   <link rel="stylesheet" href="./css/shared.css">
-  <link rel="stylesheet" href="./css/dashboard.css?v=20260601-ai-cache">
+  <link rel="stylesheet" href="./css/dashboard.css?v=20260610-ai-console">
 </head>
 <body>
 
@@ -279,10 +279,16 @@
       </article>
     </section>
 
-    <section id="aiCurrentTextPanel" class="panel ai-text-panel ai-only" hidden>
-      <h2>AI评价</h2>
-      <div class="ai-requirement-box">
-        <label for="aiCurrentRequirement">
+    <section id="aiCurrentTextPanel" class="panel ai-text-panel ai-insight-console ai-only" hidden>
+      <div class="ai-console-head">
+        <div>
+          <span class="ai-console-kicker">Insight Console</span>
+          <h2>AI 洞察报告</h2>
+        </div>
+        <span class="ai-mode-pill">证据增强</span>
+      </div>
+      <div class="ai-command-bar">
+        <label class="ai-requirement-box" for="aiCurrentRequirement">
           分析要求
           <span id="aiCurrentRequirementCount">0/300</span>
         </label>
@@ -298,7 +304,9 @@
         <div id="currentAiTaskMetrics" class="task-metrics"></div>
         <div id="currentAiTaskEvents" class="task-events"></div>
       </div>
-      <p id="aiCurrentText">AI评价的文字内容模块</p>
+      <p id="aiCurrentText" class="ai-report-body">AI评价的文字内容模块</p>
+      <div id="aiEvidenceReport" class="ai-insight-section ai-evidence-report" hidden></div>
+      <div id="aiHighlightTimeline" class="ai-insight-section ai-highlight-timeline" hidden></div>
     </section>
 
     <section id="compareSection" class="section compare-section">
@@ -312,10 +320,16 @@
           </div>
         </div>
         <div id="compareContent"></div>
-        <section id="aiCompareTextPanel" class="ai-text-panel ai-only" hidden>
-          <h3>AI评价</h3>
-          <div class="ai-requirement-box">
-            <label for="aiCompareRequirement">
+        <section id="aiCompareTextPanel" class="ai-text-panel ai-insight-console ai-compare-console ai-only" hidden>
+          <div class="ai-console-head">
+            <div>
+              <span class="ai-console-kicker">Compare Console</span>
+              <h3>AI 对比洞察</h3>
+            </div>
+            <span class="ai-mode-pill">双视频</span>
+          </div>
+          <div class="ai-command-bar">
+            <label class="ai-requirement-box" for="aiCompareRequirement">
               分析要求
               <span id="aiCompareRequirementCount">0/300</span>
             </label>
@@ -331,7 +345,7 @@
             <div id="compareAiTaskMetrics" class="task-metrics"></div>
             <div id="compareAiTaskEvents" class="task-events"></div>
           </div>
-          <p id="aiCompareText">AI评价的文字内容模块</p>
+          <p id="aiCompareText" class="ai-report-body">AI评价的文字内容模块</p>
         </section>
       </article>
     </section>
@@ -355,7 +369,7 @@
   <script src="./js/app-video-store.js?v=20260604-first-load"></script>
   <script src="./js/app-charts.js?v=20260604-first-load"></script>
   <script src="./js/app-playback.js?v=20260609-playback"></script>
-  <script src="./js/app-ai.js?v=20260604-first-load"></script>
+  <script src="./js/app-ai.js?v=20260610-ai-console"></script>
   <script src="./js/app-import-export.js?v=20260604-first-load"></script>
   <script src="./js/app.js?v=20260604-first-load"></script>
 </body>
