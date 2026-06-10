@@ -3,6 +3,8 @@ let statsCache = new Map();
 let statsDataVersion = 0;
 let compareChartInstances = new Map();
 let chartResizeTimer = null;
+let crossVideoPayload = null;
+let crossVideoLoading = false;
 
 function buildTimeSeries(rows, duration = 0) {
   const counts = {};
@@ -210,6 +212,8 @@ function initCharts() {
   charts.sendTime = echarts.init(byId("sendTimeChart"));
   charts.length = echarts.init(byId("lengthChart"));
   charts.word = echarts.init(byId("wordChart"));
+  if (byId("keywordSankeyChart")) charts.keywordSankey = echarts.init(byId("keywordSankeyChart"));
+  if (byId("themeRiverChart")) charts.themeRiver = echarts.init(byId("themeRiverChart"));
 
   const rankBox = byId("rankChart");
   rankBox.addEventListener("scroll", () => {
@@ -245,6 +249,93 @@ function initCharts() {
 function resizeAllCharts() {
   Object.values(charts).forEach((chart) => chart.resize());
   compareChartInstances.forEach((chart) => chart.resize());
+}
+
+async function renderCrossVideoPanel(options = {}) {
+  const status = byId("crossVideoStatus");
+  if (!charts.keywordSankey || !charts.themeRiver) return;
+  if (crossVideoPayload && !options.force) {
+    drawCrossVideoCharts(crossVideoPayload);
+    return;
+  }
+  if (crossVideoLoading) return;
+  crossVideoLoading = true;
+  if (status) status.textContent = "正在读取最近 14 天归档数据";
+  try {
+    const payload = await requestJson(`${API_ENDPOINTS.crossVideoKeywords}?days=14&top_k=30&row_limit=5000`);
+    if (!payload?.ok) throw new Error(payload?.error || "跨视频数据加载失败");
+    crossVideoPayload = payload;
+    drawCrossVideoCharts(payload);
+    if (status) status.textContent = `已读取 ${formatNumber(payload.meta?.archive_days)} 天归档数据`;
+  } catch (error) {
+    if (status) status.textContent = `跨视频数据不可用：${error.message}`;
+    charts.keywordSankey.clear();
+    charts.themeRiver.clear();
+    renderKeywordSamples({});
+  } finally {
+    crossVideoLoading = false;
+  }
+}
+
+function drawCrossVideoCharts(payload) {
+  const sankey = payload.sankey || { nodes: [], links: [] };
+  charts.keywordSankey.setOption({
+    tooltip: { trigger: "item" },
+    series: [{
+      type: "sankey",
+      data: sankey.nodes || [],
+      links: sankey.links || [],
+      nodeAlign: "justify",
+      draggable: false,
+      emphasis: { focus: "adjacency" },
+      label: { color: "rgba(226,232,240,.86)" },
+      lineStyle: { color: "gradient", opacity: 0.34 },
+    }],
+  });
+  charts.themeRiver.setOption({
+    tooltip: { trigger: "axis" },
+    singleAxis: {
+      type: "time",
+      axisLabel: { color: "rgba(226,232,240,.68)" },
+      axisLine: { lineStyle: { color: "rgba(148,163,184,.25)" } },
+    },
+    series: [{
+      type: "themeRiver",
+      data: payload.theme_river || [],
+      label: { color: "rgba(226,232,240,.82)" },
+      emphasis: { itemStyle: { shadowBlur: 12, shadowColor: "rgba(104,245,255,.28)" } },
+    }],
+  });
+  charts.keywordSankey.off("click");
+  charts.keywordSankey.on("click", (params) => {
+    if (params?.data?.category === "keyword") renderKeywordSamples(payload.samples || {}, params.data.name);
+  });
+  const firstKeyword = (sankey.nodes || []).find((node) => node.category === "keyword")?.name;
+  renderKeywordSamples(payload.samples || {}, firstKeyword);
+}
+
+function renderKeywordSamples(samples, activeKeyword = "") {
+  const box = byId("keywordSamples");
+  if (!box) return;
+  const keywords = Object.keys(samples || {});
+  if (!keywords.length) {
+    box.innerHTML = '<p class="desc">暂无可展示的关键词样本。</p>';
+    return;
+  }
+  const keyword = activeKeyword && samples[activeKeyword] ? activeKeyword : keywords[0];
+  const rows = (samples[keyword] || []).slice(0, 6);
+  box.innerHTML = `
+    <h3>样本弹幕：${escapeHtml(keyword)}</h3>
+    <div class="keyword-sample-list">
+      ${rows.map((row) => `
+        <div class="keyword-sample-item">
+          <span>${escapeHtml(row.date || "")}</span>
+          <strong>${escapeHtml(row.title || row.bvid || "")}</strong>
+          <p>${escapeHtml(row.content || "")}</p>
+        </div>
+      `).join("")}
+    </div>
+  `;
 }
 
 function renderTimeChart() {

@@ -140,6 +140,26 @@
       </div>
     </section>
 
+    <section id="playbackPanel" class="section playback-section" aria-label="弹幕回放">
+      <article class="panel playback-panel">
+        <div class="playback-head">
+          <div>
+            <h2>弹幕回放</h2>
+            <p id="playbackStatus" class="desc">选择视频后查看弹幕轨道和情绪心电图</p>
+          </div>
+          <div class="playback-controls" aria-label="回放控制">
+            <button id="playbackToggleBtn" type="button" class="btn btn-primary">播放</button>
+            <span id="playbackTimeLabel" class="playback-time">0:00</span>
+          </div>
+        </div>
+        <div class="playback-stage">
+          <canvas id="playbackCanvas" class="playback-canvas" width="960" height="260"></canvas>
+        </div>
+        <input id="playbackScrubber" class="playback-scrubber" type="range" min="0" max="0" step="0.1" value="0" aria-label="弹幕回放时间轴">
+        <div id="playbackSentimentChart" class="chart playback-sentiment-chart"></div>
+      </article>
+    </section>
+
     <div id="analysisCards" class="analysis-card-grid">
       <article class="panel analysis-card">
         <h2>长度分布</h2>
@@ -236,6 +256,29 @@
       </article>
     </section>
 
+    <section id="crossVideoPanel" class="section cross-video-section" aria-label="跨视频传播">
+      <article class="panel panel-wide cross-video-panel">
+        <div class="cross-video-head">
+          <div>
+            <h2>跨视频关键词传播</h2>
+            <p id="crossVideoStatus" class="desc">读取最近归档数据，追踪高频词在视频之间的迁移</p>
+          </div>
+          <button id="reloadCrossVideoBtn" type="button" class="btn btn-ghost">刷新</button>
+        </div>
+        <div class="cross-video-grid">
+          <div>
+            <h3>关键词-视频桑基图</h3>
+            <div id="keywordSankeyChart" class="chart cross-video-chart"></div>
+          </div>
+          <div>
+            <h3>主题河流</h3>
+            <div id="themeRiverChart" class="chart cross-video-chart"></div>
+          </div>
+        </div>
+        <div id="keywordSamples" class="keyword-samples"></div>
+      </article>
+    </section>
+
     <section id="aiCurrentTextPanel" class="panel ai-text-panel ai-only" hidden>
       <h2>AI评价</h2>
       <div class="ai-requirement-box">
@@ -311,6 +354,7 @@
   <script src="./js/app-core.js?v=20260604-first-load"></script>
   <script src="./js/app-video-store.js?v=20260604-first-load"></script>
   <script src="./js/app-charts.js?v=20260604-first-load"></script>
+  <script src="./js/app-playback.js?v=20260609-playback"></script>
   <script src="./js/app-ai.js?v=20260604-first-load"></script>
   <script src="./js/app-import-export.js?v=20260604-first-load"></script>
   <script src="./js/app.js?v=20260604-first-load"></script>

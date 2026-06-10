@@ -587,6 +587,68 @@ def test_popular_date_reads_archived_files(tmp_path, monkeypatch):
     assert detail["stats"]["danmaku_count"] == 1
 
 
+def test_cross_video_keywords_endpoint_reads_archive_data(tmp_path, monkeypatch):
+    monkeypatch.setattr(server, "ROOT", tmp_path)
+    for date, bvid, title, rows in [
+        (
+            "2026-05-01",
+            "BVCROSS0001",
+            "跨视频甲",
+            [
+                {"bvid": "BVCROSS0001", "title": "跨视频甲", "content": "破防 破防 高能", "time_in_video": 1},
+            ],
+        ),
+        (
+            "2026-05-02",
+            "BVCROSS0002",
+            "跨视频乙",
+            [
+                {"bvid": "BVCROSS0002", "title": "跨视频乙", "content": "破防 名场面", "time_in_video": 2},
+            ],
+        ),
+    ]:
+        archive_dir = tmp_path / "data" / "archive" / date
+        write_json(archive_dir / "today_hot_videos.json", [{"bvid": bvid, "title": title, "danmaku": len(rows)}])
+        write_json(archive_dir / "today_danmakus.json", rows)
+    write_json(tmp_path / "web" / "data" / "dashboard.json", {"raw_videos": []})
+
+    with run_test_server(tmp_path, monkeypatch) as base_url:
+        opener = build_opener(HTTPCookieProcessor(CookieJar()))
+        status, _, payload = request_json(opener, base_url, "/api/cross-video/keywords?days=14&top_k=2")
+
+    assert status == 200
+    assert payload["ok"] is True
+    assert payload["meta"]["archive_days"] == 2
+    assert {"name": "破防", "category": "keyword"} in payload["sankey"]["nodes"]
+    assert {"source": "破防", "target": "跨视频甲", "value": 2} in payload["sankey"]["links"]
+    assert ["2026-05-02", 1, "破防"] in payload["theme_river"]
+    assert "破防 破防 高能" in [item["content"] for item in payload["samples"]["破防"]]
+
+
+def test_cross_video_keywords_endpoint_supports_row_limit(tmp_path, monkeypatch):
+    monkeypatch.setattr(server, "ROOT", tmp_path)
+    archive_dir = tmp_path / "data" / "archive" / "2026-05-01"
+    write_json(archive_dir / "today_hot_videos.json", [{"bvid": "BVCROSSLIM1", "title": "采样视频", "danmaku": 2}])
+    write_json(
+        archive_dir / "today_danmakus.json",
+        [
+            {"bvid": "BVCROSSLIM1", "title": "采样视频", "content": "破防", "time_in_video": 1},
+            {"bvid": "BVCROSSLIM1", "title": "采样视频", "content": "高能", "time_in_video": 2},
+        ],
+    )
+    write_json(tmp_path / "web" / "data" / "dashboard.json", {"raw_videos": []})
+
+    with run_test_server(tmp_path, monkeypatch) as base_url:
+        opener = build_opener(HTTPCookieProcessor(CookieJar()))
+        status, _, payload = request_json(opener, base_url, "/api/cross-video/keywords?days=14&top_k=5&row_limit=1")
+
+    assert status == 200
+    assert payload["meta"]["row_limit"] == 1
+    assert payload["meta"]["danmaku_rows"] == 1
+    assert {"name": "破防", "category": "keyword"} in payload["sankey"]["nodes"]
+    assert {"name": "高能", "category": "keyword"} not in payload["sankey"]["nodes"]
+
+
 def test_popular_date_current_returns_lightweight_dashboard(tmp_path, monkeypatch):
     monkeypatch.setattr(server, "ROOT", tmp_path)
     video = {
@@ -637,6 +699,67 @@ def test_popular_date_current_returns_lightweight_dashboard(tmp_path, monkeypatc
     assert payload["danmaku_index"]["videos"]["BVCURRENT001"]["file"] == "danmakus/BVCURRENT001.json"
     assert detail_status == 200
     assert detail["danmakus"][0]["content"] == "当前弹幕"
+
+
+def test_playback_track_endpoint_returns_timeline_and_track(tmp_path, monkeypatch):
+    monkeypatch.setattr(server, "ROOT", tmp_path)
+    video = {
+        "bvid": "BVPLAY000001",
+        "title": "回放测试视频",
+        "view": 100,
+        "danmaku": 3,
+        "like": 10,
+        "coin": 1,
+        "duration": 120,
+    }
+    rows = [
+        {
+            "bvid": "BVPLAY000001",
+            "title": "回放测试视频",
+            "cid": 1,
+            "time_in_video": 12,
+            "send_timestamp": 0,
+            "user_hash": "u3",
+            "content": "无聊",
+        },
+        {
+            "bvid": "BVPLAY000001",
+            "title": "回放测试视频",
+            "cid": 1,
+            "time_in_video": 1,
+            "send_timestamp": 0,
+            "user_hash": "u1",
+            "content": "好看",
+            "color": 16777215,
+        },
+        {
+            "bvid": "BVPLAY000001",
+            "title": "回放测试视频",
+            "cid": 1,
+            "time_in_video": 3,
+            "send_timestamp": 0,
+            "user_hash": "u2",
+            "content": "燃爆",
+        },
+    ]
+    write_json(tmp_path / "web" / "data" / "dashboard.json", {"raw_videos": [video]})
+    write_json(tmp_path / "web" / "data" / "danmakus.json", rows)
+
+    with run_test_server(tmp_path, monkeypatch) as base_url:
+        opener = build_opener(HTTPCookieProcessor(CookieJar()))
+        status, _, payload = request_json(opener, base_url, "/api/playback/track?date=current&bvid=BVPLAY000001")
+
+    assert status == 200
+    assert payload["ok"] is True
+    assert payload["date"] == "current"
+    assert payload["video"]["bvid"] == "BVPLAY000001"
+    assert [item["text"] for item in payload["track"]] == ["好看", "燃爆", "无聊"]
+    assert payload["track"][0]["color"] == "#ffffff"
+    assert payload["sentiment_timeline"] == [
+        {"time": 0, "count": 2, "score": 1.0, "positive": 2, "neutral": 0, "negative": 0},
+        {"time": 10, "count": 1, "score": -1.0, "positive": 0, "neutral": 0, "negative": 1},
+    ]
+    assert payload["meta"]["track_count"] == 3
 
 
 def test_popular_dates_hide_today_archive_to_avoid_current_duplicate(tmp_path, monkeypatch):

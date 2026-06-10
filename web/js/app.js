@@ -154,6 +154,8 @@ function setupEvents() {
   on("partSelect", "change", (e) => switchPart(selectedBvid, Number(e.target.value)));
   on("showSendTime", "change", () => renderSearchResults());
   on("showColor", "change", () => renderSearchResults());
+  if (typeof setupPlaybackEvents === "function") setupPlaybackEvents();
+  on("reloadCrossVideoBtn", "click", () => renderCrossVideoPanel({ force: true }));
   on("sortSelect", "change", () => filterDanmakus());
   on("searchPageSize", "change", () => {
     const value = Number(byId("searchPageSize").value);
@@ -554,6 +556,7 @@ function renderSelectionViews() {
   renderLengthChart();
   renderWordChart();
   renderUserRanking();
+  if (typeof renderPlaybackPanel === "function") renderPlaybackPanel();
   filterDanmakus();
   renderSearchHistory();
   renderCompareSection();
@@ -1207,6 +1210,8 @@ function renderAll() {
   renderLengthChart();
   renderWordChart();
   renderUserRanking();
+  if (typeof renderPlaybackPanel === "function") renderPlaybackPanel();
+  renderCrossVideoPanel();
   renderCustomManage();
   updateCustomCount();
   applyIdentity(currentRole);
