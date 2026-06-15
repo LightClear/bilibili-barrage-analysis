@@ -317,6 +317,125 @@ function setAiText(id, text, isError = false) {
   el.classList.toggle("is-error", isError);
 }
 
+function renderAiMarkdown(text) {
+  if (!text) return "";
+
+  const lines = String(text).split("\n");
+  const out = [];
+  const context = { list: null, index: 0 };
+
+  function closeList() {
+    if (context.list === "ul") { out.push("</ul>"); context.list = null; }
+    if (context.list === "ol") { out.push("</ol>"); context.list = null; }
+  }
+
+  function pushBlock(tag, content, extraClass = "") {
+    closeList();
+    const cls = extraClass ? ` class="${extraClass}"` : "";
+    out.push(`<${tag}${cls}>${content}</${tag}>`);
+  }
+
+  for (let i = context.index; i < lines.length; i += 1) {
+    context.index = i;
+    let raw = lines[i];
+    // Detect indent for nested content
+    const indent = raw.match(/^(\s*)/)[1].length;
+
+    // Trim trailing spaces but preserve structure
+    const trimmed = raw.trim();
+    if (!trimmed) {
+      closeList();
+      continue;
+    }
+
+    // Inline formatting helper
+    const fmt = (s) =>
+      escapeHtml(s)
+        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+        .replace(/`([^`]+)`/g, "<code>$1</code>")
+        .replace(/\*(.+?)\*/g, "<em>$1</em>");
+
+    // Horizontal rule
+    if (/^[-*_]{3,}$/.test(trimmed)) {
+      closeList();
+      out.push('<hr class="ai-hr">');
+      continue;
+    }
+
+    // Heading
+    const hMatch = trimmed.match(/^(#{1,3})\s+(.+)/);
+    if (hMatch) {
+      const level = Math.min(hMatch[1].length, 3);
+      closeList();
+      out.push(`<h${level + 1} class="ai-h">${fmt(hMatch[2])}</h${level + 1}>`);
+      continue;
+    }
+
+    // Blockquote
+    if (trimmed.startsWith("> ")) {
+      closeList();
+      const quoteLines = [];
+      let j = i;
+      while (j < lines.length) {
+        const qLine = lines[j].trim();
+        if (qLine.startsWith("> ")) {
+          quoteLines.push(fmt(qLine.slice(2)));
+          j += 1;
+        } else if (!qLine && j + 1 < lines.length && lines[j + 1].trim().startsWith("> ")) {
+          j += 1;
+        } else {
+          break;
+        }
+      }
+      out.push(`<blockquote class="ai-quote"><p>${quoteLines.join("<br>")}</p></blockquote>`);
+      i = j - 1;
+      continue;
+    }
+
+    // Unordered list
+    const ulMatch = trimmed.match(/^[-*]\s+(.+)/);
+    if (ulMatch) {
+      if (context.list !== "ul") { closeList(); out.push('<ul class="ai-ul">'); context.list = "ul"; }
+      out.push(`<li>${fmt(ulMatch[1])}</li>`);
+      continue;
+    }
+
+    // Ordered list
+    const olMatch = trimmed.match(/^(\d+)\.\s+(.+)/);
+    if (olMatch) {
+      if (context.list !== "ol") { closeList(); out.push('<ol class="ai-ol">'); context.list = "ol"; }
+      out.push(`<li>${fmt(olMatch[2])}</li>`);
+      continue;
+    }
+
+    // Regular paragraph — merge consecutive non-empty non-special lines
+    closeList();
+    const paraLines = [fmt(trimmed)];
+    let k = i + 1;
+    while (k < lines.length) {
+      const nxt = lines[k].trim();
+      if (!nxt) break;
+      if (/^[-*_]{3,}$/.test(nxt) || /^#{1,3}\s/.test(nxt) || nxt.startsWith("> ")
+        || /^[-*]\s/.test(nxt) || /^\d+\.\s/.test(nxt)) break;
+      paraLines.push(fmt(nxt));
+      k += 1;
+    }
+    out.push(`<p>${paraLines.join("<br>")}</p>`);
+    i = k - 1;
+  }
+
+  closeList();
+  return out.join("\n");
+}
+
+function setAiResultHtml(id, markdownText) {
+  const el = byId(id);
+  if (!el) return;
+  const html = renderAiMarkdown(markdownText);
+  el.innerHTML = html;
+  el.classList.remove("is-error");
+}
+
 async function requestAiAnalysis(payload) {
   if (payload.analysis_mode === "full_raw") {
     const bytes = new TextEncoder().encode(JSON.stringify(payload)).length;
@@ -351,21 +470,21 @@ function renderAiEvidenceReport(report) {
   }
   box.hidden = false;
   box.innerHTML = `
-    <div class="ai-insight-head">
+    <div class="ai-insight-head ai-reveal">
       <h3>证据链</h3>
       <span>${formatNumber(report?.summary?.sample_count || 0)} 条样本</span>
     </div>
     <div class="ai-evidence-grid">
-      ${claims.map((claim) => `
-        <article class="ai-evidence-card">
+      ${claims.map((claim, i) => `
+        <article class="ai-evidence-card ai-reveal" style="animation-delay:${0.08 + i * 0.07}s">
           <span class="ai-evidence-kicker">${escapeHtml(claim.type || "evidence")}</span>
           <div class="ai-evidence-card-head">
             <strong>${escapeHtml(claim.title || claim.keyword || claim.type || "证据")}</strong>
             <span>${Math.round(Number(claim.confidence || 0) * 100)}%</span>
           </div>
           <div class="ai-anchor-list">
-            ${(claim.anchors || []).slice(0, 4).map((anchor) => `
-              <p><span>${formatTime(anchor.time)}</span>${escapeHtml(anchor.text || "")}</p>
+            ${(claim.anchors || []).slice(0, 4).map((anchor, j) => `
+              <p style="animation-delay:${0.12 + i * 0.07 + j * 0.04}s"><span>${formatTime(anchor.time)}</span>${escapeHtml(anchor.text || "")}</p>
             `).join("")}
           </div>
         </article>
@@ -385,13 +504,13 @@ function renderAiHighlightTimeline(timeline) {
   }
   box.hidden = false;
   box.innerHTML = `
-    <div class="ai-insight-head">
+    <div class="ai-insight-head ai-reveal">
       <h3>高能片段时间线</h3>
       <span>${segments.length} 段</span>
     </div>
     <div class="ai-highlight-list">
-      ${segments.map((segment) => `
-        <article class="ai-highlight-item">
+      ${segments.map((segment, i) => `
+        <article class="ai-highlight-item ai-reveal" style="animation-delay:${0.1 + i * 0.09}s">
           <div class="ai-highlight-time">
             <strong>${formatTime(segment.start)}-${formatTime(segment.end)}</strong>
             <span>${formatNumber(segment.score || 0)}</span>
@@ -407,8 +526,8 @@ function renderAiHighlightTimeline(timeline) {
               ${(segment.keywords || []).slice(0, 4).map((keyword) => `<span>${escapeHtml(keyword)}</span>`).join("")}
             </div>
             <div class="ai-anchor-list">
-              ${(segment.samples || []).slice(0, 3).map((sample) => `
-                <p><span>${formatTime(sample.time)}</span>${escapeHtml(sample.text || "")}</p>
+              ${(segment.samples || []).slice(0, 3).map((sample, j) => `
+                <p style="animation-delay:${0.14 + i * 0.09 + j * 0.04}s"><span>${formatTime(sample.time)}</span>${escapeHtml(sample.text || "")}</p>
               `).join("")}
             </div>
           </div>
@@ -489,7 +608,7 @@ async function evaluateCurrentVideo(forceRefresh = false) {
       metrics: [["模式", aiModeLabel(mode)], ["词云词数", formatNumber((result.words || []).length)], ["缓存", result.cached ? "是" : "否"]],
       events,
     });
-    setAiText("aiCurrentText", aiResultText(result));
+    setAiResultHtml("aiCurrentText", aiResultText(result));
     renderAiEvidenceReport(result.evidence_report);
     renderAiHighlightTimeline(result.highlight_timeline);
   } catch (err) {
@@ -597,7 +716,7 @@ async function evaluateCompareVideos(forceRefresh = false) {
       metrics: [["模式", aiModeLabel(mode)], ["视频数", formatNumber(datasets.length)], ["缓存", result.cached ? "是" : "否"]],
       events,
     });
-    setAiText("aiCompareText", aiResultText(result));
+    setAiResultHtml("aiCompareText", aiResultText(result));
   } catch (err) {
     events.push(taskEvent(err.message, "error"));
     renderTaskState("compareAi", {

@@ -13,7 +13,7 @@
       "search_interval_seconds": 10,
       "disabled": false,
       "created_at": "2026-05-29T00:00:00+08:00",
-      "last_login_at": "2026-06-10T10:49:03+08:00"
+      "last_login_at": "2026-06-15T20:43:47+08:00"
     },
     {
       "account": "user_demo",
@@ -46,5 +46,5 @@
       "last_login_at": "2026-06-02T16:49:30+08:00"
     }
   ],
-  "updated_at": "2026-06-10T10:49:03+08:00"
+  "updated_at": "2026-06-15T20:43:47+08:00"
 }

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import threading
+import time
 from contextlib import contextmanager
 from datetime import timedelta
 from http.cookiejar import CookieJar
@@ -301,6 +302,118 @@ def test_legacy_refresh_popular_endpoint_is_disabled(tmp_path, monkeypatch):
         )
         assert status == 410
         assert "已停用" in payload["error"]
+
+
+def test_refresh_popular_job_accepts_limit_parameter(tmp_path, monkeypatch):
+    monkeypatch.setattr(server, "ROOT", tmp_path)
+    captured_calls = []
+
+    def fake_collect(collector, limit, progress_callback=None):
+        captured_calls.append(limit)
+        video = {
+            "rank": 1,
+            "bvid": "BVTEST001",
+            "title": "测试视频",
+            "owner": "测试UP",
+            "view": 100,
+            "danmaku": 10,
+            "like": 5,
+            "favorite": 3,
+            "coin": 2,
+            "duration": 120,
+        }
+        return [video], [{"bvid": "BVTEST001", "title": "测试视频", "content": "测试弹幕", "time_in_video": 1}]
+
+    monkeypatch.setattr(server, "collect_popular_dataset", fake_collect)
+
+    with run_test_server(tmp_path, monkeypatch) as base_url:
+        admin_opener = build_opener(HTTPCookieProcessor(CookieJar()))
+        status, _, login = request_json(
+            admin_opener,
+            base_url,
+            "/api/account/login",
+            method="POST",
+            payload={"account": "admin_demo", "password": "Admin12345"},
+        )
+        assert status == 200
+
+        # Test with custom limit
+        status, _, payload = request_json(
+            admin_opener,
+            base_url,
+            "/api/jobs/refresh-popular",
+            method="POST",
+            payload={"limit": 25},
+            headers={"X-CSRF-Token": login["csrf_token"]},
+        )
+        assert status == 202
+        assert payload["ok"] is True
+        assert payload["job"]["job_id"]
+
+        # Wait for job to complete
+        job_id = payload["job"]["job_id"]
+        deadline = time.time() + 15
+        job_status = None
+        while time.time() < deadline:
+            _, _, status_resp = request_json(
+                admin_opener, base_url, f"/api/jobs/status?job_id={job_id}"
+            )
+            job_status = status_resp.get("job", {})
+            if job_status.get("status") in ("success", "failed"):
+                break
+            time.sleep(0.3)
+        assert job_status["status"] == "success"
+        assert captured_calls == [25]
+
+        # Clear rate limit to allow the second request
+        with server.STATE_LOCK:
+            server.RATE_LIMITS.pop("refresh-popular:admin_demo", None)
+
+        # Test default limit (no body)
+        status, _, payload2 = request_json(
+            admin_opener,
+            base_url,
+            "/api/jobs/refresh-popular",
+            method="POST",
+            payload={},
+            headers={"X-CSRF-Token": login["csrf_token"]},
+        )
+        assert status == 202
+
+        job_id2 = payload2["job"]["job_id"]
+        deadline = time.time() + 15
+        job2_status = None
+        while time.time() < deadline:
+            _, _, status_resp2 = request_json(
+                admin_opener, base_url, f"/api/jobs/status?job_id={job_id2}"
+            )
+            job2_status = status_resp2.get("job", {})
+            if job2_status.get("status") in ("success", "failed"):
+                break
+            time.sleep(0.3)
+        assert job2_status["status"] == "success"
+        assert captured_calls == [25, 50]
+
+        # Test non-admin cannot create job
+        user_opener = build_opener(HTTPCookieProcessor(CookieJar()))
+        status, _, user_login = request_json(
+            user_opener,
+            base_url,
+            "/api/account/login",
+            method="POST",
+            payload={"account": "user_demo", "password": "User12345"},
+        )
+        assert status == 200
+
+        status, _, user_payload = request_json(
+            user_opener,
+            base_url,
+            "/api/jobs/refresh-popular",
+            method="POST",
+            payload={"limit": 10},
+            headers={"X-CSRF-Token": user_login["csrf_token"]},
+        )
+        assert status == 403
 
 
 def test_admin_ai_usage_is_owner_only(tmp_path, monkeypatch):

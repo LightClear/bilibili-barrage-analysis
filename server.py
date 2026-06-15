@@ -2217,6 +2217,11 @@ class Handler(SimpleHTTPRequestHandler):
     def _handle_create_refresh_popular_job(self):
         if not self._require_admin():
             return
+        try:
+            data = self._read_json_body(SMALL_JSON_BODY_LIMIT)
+        except (json.JSONDecodeError, RequestBodyTooLarge, ValueError):
+            data = {}
+        limit = max(1, min(100, int(data.get("limit", 50) or 50)))
         existing = JOB_MANAGER.latest_running(REFRESH_POPULAR_JOB_TYPE)
         if existing:
             self._send_json(200, {"ok": True, "existing": True, "job": existing})
@@ -2226,11 +2231,11 @@ class Handler(SimpleHTTPRequestHandler):
         job = JOB_MANAGER.create(
             REFRESH_POPULAR_JOB_TYPE,
             account=self._current_account(),
-            message="热门榜单更新任务已创建",
+            message=f"热门榜单更新任务已创建（抓取 {limit} 个视频）",
         )
         thread = threading.Thread(
             target=run_refresh_popular_job,
-            args=(job["job_id"], 50),
+            args=(job["job_id"], limit),
             name=f"refresh-popular-{job['job_id'][:8]}",
             daemon=True,
         )

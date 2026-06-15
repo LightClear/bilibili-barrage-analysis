@@ -39,6 +39,13 @@
             </select>
           </label>
           <button id="refreshHotDateDataBtn" type="button" class="date-refresh-btn" title="重新抓取当前热门榜单">更新当前榜单</button>
+          <select id="popularLimitSelect" class="date-limit-select" aria-label="抓取视频数量" title="每次抓取的视频数量">
+            <option value="5">5 个</option>
+            <option value="10">10 个</option>
+            <option value="25">25 个</option>
+            <option value="50" selected>50 个</option>
+            <option value="100">100 个</option>
+          </select>
           <select id="sortModeSelect" aria-label="排序方式">
             <option id="officialSortOption" value="official">官方排序</option>
             <option value="like">点赞数排序</option>
