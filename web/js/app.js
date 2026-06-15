@@ -154,6 +154,8 @@ function setupEvents() {
   on("partSelect", "change", (e) => switchPart(selectedBvid, Number(e.target.value)));
   on("showSendTime", "change", () => renderSearchResults());
   on("showColor", "change", () => renderSearchResults());
+  if (typeof setupPlaybackEvents === "function") setupPlaybackEvents();
+  on("reloadCrossVideoBtn", "click", () => renderCrossVideoPanel({ force: true }));
   on("sortSelect", "change", () => filterDanmakus());
   on("searchPageSize", "change", () => {
     const value = Number(byId("searchPageSize").value);
@@ -320,7 +322,7 @@ function syncDebugPanelVisibility() {
 
 function canRefreshHotDateData(date = hotDate) {
   if (date === "current") {
-    return isAdmin();
+    return accountSession?.logged_in || isAdmin();
   }
   return false;
 }
@@ -342,14 +344,14 @@ function syncSortOptions() {
   const officialOption = byId("officialSortOption");
   const dateControl = byId("hotDateControl");
   const dateRefreshButton = byId("refreshHotDateDataBtn");
+  const dateLimitSelect = byId("popularLimitSelect");
   const dateTaskPanel = byId("hotDateTaskPanel");
   if (!select || !officialOption) return;
   const isCustom = activeList === "custom";
   if (dateControl) dateControl.hidden = isCustom;
-  if (dateRefreshButton) {
-    const selectedDate = byId("hotDateSelect")?.value || hotDate || "current";
-    dateRefreshButton.hidden = isCustom || !canRefreshHotDateData(selectedDate);
-  }
+  const showRefresh = !isCustom && canRefreshHotDateData(byId("hotDateSelect")?.value || hotDate || "current");
+  if (dateRefreshButton) dateRefreshButton.hidden = !showRefresh;
+  if (dateLimitSelect) dateLimitSelect.hidden = !showRefresh;
   if (dateTaskPanel && isCustom) dateTaskPanel.hidden = true;
   officialOption.hidden = isCustom;
   officialOption.disabled = isCustom;
@@ -413,7 +415,9 @@ async function loadPopularDate(date, force = false) {
 
 function setHotDateRefreshBusy(isBusy) {
   const button = byId("refreshHotDateDataBtn");
+  const limitSelect = byId("popularLimitSelect");
   if (button) button.disabled = Boolean(isBusy);
+  if (limitSelect) limitSelect.disabled = Boolean(isBusy);
 }
 
 function stopHotDateJobPolling() {
@@ -521,9 +525,10 @@ async function refreshHotDateData() {
     events: [taskEvent(isCurrent ? "准备更新当前热门榜单" : `准备刷新 ${date} 的归档视频数据`)],
   });
   try {
+    const limit = parseInt(byId("popularLimitSelect")?.value || "50", 10) || 50;
     const data = await requestJson(API_ENDPOINTS.refreshPopularJob, {
       method: "POST",
-      body: JSON.stringify({}),
+      body: JSON.stringify({ limit }),
     });
     renderJobTask("hotDate", data.job, hotDateJobTitle(date));
     startHotDateJobPolling(data.job.job_id, date);
@@ -554,6 +559,7 @@ function renderSelectionViews() {
   renderLengthChart();
   renderWordChart();
   renderUserRanking();
+  if (typeof renderPlaybackPanel === "function") renderPlaybackPanel();
   filterDanmakus();
   renderSearchHistory();
   renderCompareSection();
@@ -1207,6 +1213,8 @@ function renderAll() {
   renderLengthChart();
   renderWordChart();
   renderUserRanking();
+  if (typeof renderPlaybackPanel === "function") renderPlaybackPanel();
+  renderCrossVideoPanel();
   renderCustomManage();
   updateCustomCount();
   applyIdentity(currentRole);

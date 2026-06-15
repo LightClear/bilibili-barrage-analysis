@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import threading
+import time
 from contextlib import contextmanager
 from datetime import timedelta
 from http.cookiejar import CookieJar
@@ -303,6 +304,118 @@ def test_legacy_refresh_popular_endpoint_is_disabled(tmp_path, monkeypatch):
         assert "已停用" in payload["error"]
 
 
+def test_refresh_popular_job_accepts_limit_parameter(tmp_path, monkeypatch):
+    monkeypatch.setattr(server, "ROOT", tmp_path)
+    captured_calls = []
+
+    def fake_collect(collector, limit, progress_callback=None):
+        captured_calls.append(limit)
+        video = {
+            "rank": 1,
+            "bvid": "BVTEST001",
+            "title": "测试视频",
+            "owner": "测试UP",
+            "view": 100,
+            "danmaku": 10,
+            "like": 5,
+            "favorite": 3,
+            "coin": 2,
+            "duration": 120,
+        }
+        return [video], [{"bvid": "BVTEST001", "title": "测试视频", "content": "测试弹幕", "time_in_video": 1}]
+
+    monkeypatch.setattr(server, "collect_popular_dataset", fake_collect)
+
+    with run_test_server(tmp_path, monkeypatch) as base_url:
+        admin_opener = build_opener(HTTPCookieProcessor(CookieJar()))
+        status, _, login = request_json(
+            admin_opener,
+            base_url,
+            "/api/account/login",
+            method="POST",
+            payload={"account": "admin_demo", "password": "Admin12345"},
+        )
+        assert status == 200
+
+        # Test with custom limit
+        status, _, payload = request_json(
+            admin_opener,
+            base_url,
+            "/api/jobs/refresh-popular",
+            method="POST",
+            payload={"limit": 25},
+            headers={"X-CSRF-Token": login["csrf_token"]},
+        )
+        assert status == 202
+        assert payload["ok"] is True
+        assert payload["job"]["job_id"]
+
+        # Wait for job to complete
+        job_id = payload["job"]["job_id"]
+        deadline = time.time() + 15
+        job_status = None
+        while time.time() < deadline:
+            _, _, status_resp = request_json(
+                admin_opener, base_url, f"/api/jobs/status?job_id={job_id}"
+            )
+            job_status = status_resp.get("job", {})
+            if job_status.get("status") in ("success", "failed"):
+                break
+            time.sleep(0.3)
+        assert job_status["status"] == "success"
+        assert captured_calls == [25]
+
+        # Clear rate limit to allow the second request
+        with server.STATE_LOCK:
+            server.RATE_LIMITS.pop("refresh-popular:admin_demo", None)
+
+        # Test default limit (no body)
+        status, _, payload2 = request_json(
+            admin_opener,
+            base_url,
+            "/api/jobs/refresh-popular",
+            method="POST",
+            payload={},
+            headers={"X-CSRF-Token": login["csrf_token"]},
+        )
+        assert status == 202
+
+        job_id2 = payload2["job"]["job_id"]
+        deadline = time.time() + 15
+        job2_status = None
+        while time.time() < deadline:
+            _, _, status_resp2 = request_json(
+                admin_opener, base_url, f"/api/jobs/status?job_id={job_id2}"
+            )
+            job2_status = status_resp2.get("job", {})
+            if job2_status.get("status") in ("success", "failed"):
+                break
+            time.sleep(0.3)
+        assert job2_status["status"] == "success"
+        assert captured_calls == [25, 50]
+
+        # Test non-admin cannot create job
+        user_opener = build_opener(HTTPCookieProcessor(CookieJar()))
+        status, _, user_login = request_json(
+            user_opener,
+            base_url,
+            "/api/account/login",
+            method="POST",
+            payload={"account": "user_demo", "password": "User12345"},
+        )
+        assert status == 200
+
+        status, _, user_payload = request_json(
+            user_opener,
+            base_url,
+            "/api/jobs/refresh-popular",
+            method="POST",
+            payload={"limit": 10},
+            headers={"X-CSRF-Token": user_login["csrf_token"]},
+        )
+        assert status == 403
+
+
 def test_admin_ai_usage_is_owner_only(tmp_path, monkeypatch):
     with run_test_server(tmp_path, monkeypatch) as base_url:
         admin_opener = build_opener(HTTPCookieProcessor(CookieJar()))
@@ -587,6 +700,68 @@ def test_popular_date_reads_archived_files(tmp_path, monkeypatch):
     assert detail["stats"]["danmaku_count"] == 1
 
 
+def test_cross_video_keywords_endpoint_reads_archive_data(tmp_path, monkeypatch):
+    monkeypatch.setattr(server, "ROOT", tmp_path)
+    for date, bvid, title, rows in [
+        (
+            "2026-05-01",
+            "BVCROSS0001",
+            "跨视频甲",
+            [
+                {"bvid": "BVCROSS0001", "title": "跨视频甲", "content": "破防 破防 高能", "time_in_video": 1},
+            ],
+        ),
+        (
+            "2026-05-02",
+            "BVCROSS0002",
+            "跨视频乙",
+            [
+                {"bvid": "BVCROSS0002", "title": "跨视频乙", "content": "破防 名场面", "time_in_video": 2},
+            ],
+        ),
+    ]:
+        archive_dir = tmp_path / "data" / "archive" / date
+        write_json(archive_dir / "today_hot_videos.json", [{"bvid": bvid, "title": title, "danmaku": len(rows)}])
+        write_json(archive_dir / "today_danmakus.json", rows)
+    write_json(tmp_path / "web" / "data" / "dashboard.json", {"raw_videos": []})
+
+    with run_test_server(tmp_path, monkeypatch) as base_url:
+        opener = build_opener(HTTPCookieProcessor(CookieJar()))
+        status, _, payload = request_json(opener, base_url, "/api/cross-video/keywords?days=14&top_k=2")
+
+    assert status == 200
+    assert payload["ok"] is True
+    assert payload["meta"]["archive_days"] == 2
+    assert {"name": "破防", "category": "keyword"} in payload["sankey"]["nodes"]
+    assert {"source": "破防", "target": "跨视频甲", "value": 2} in payload["sankey"]["links"]
+    assert ["2026-05-02", 1, "破防"] in payload["theme_river"]
+    assert "破防 破防 高能" in [item["content"] for item in payload["samples"]["破防"]]
+
+
+def test_cross_video_keywords_endpoint_supports_row_limit(tmp_path, monkeypatch):
+    monkeypatch.setattr(server, "ROOT", tmp_path)
+    archive_dir = tmp_path / "data" / "archive" / "2026-05-01"
+    write_json(archive_dir / "today_hot_videos.json", [{"bvid": "BVCROSSLIM1", "title": "采样视频", "danmaku": 2}])
+    write_json(
+        archive_dir / "today_danmakus.json",
+        [
+            {"bvid": "BVCROSSLIM1", "title": "采样视频", "content": "破防", "time_in_video": 1},
+            {"bvid": "BVCROSSLIM1", "title": "采样视频", "content": "高能", "time_in_video": 2},
+        ],
+    )
+    write_json(tmp_path / "web" / "data" / "dashboard.json", {"raw_videos": []})
+
+    with run_test_server(tmp_path, monkeypatch) as base_url:
+        opener = build_opener(HTTPCookieProcessor(CookieJar()))
+        status, _, payload = request_json(opener, base_url, "/api/cross-video/keywords?days=14&top_k=5&row_limit=1")
+
+    assert status == 200
+    assert payload["meta"]["row_limit"] == 1
+    assert payload["meta"]["danmaku_rows"] == 1
+    assert {"name": "破防", "category": "keyword"} in payload["sankey"]["nodes"]
+    assert {"name": "高能", "category": "keyword"} not in payload["sankey"]["nodes"]
+
+
 def test_popular_date_current_returns_lightweight_dashboard(tmp_path, monkeypatch):
     monkeypatch.setattr(server, "ROOT", tmp_path)
     video = {
@@ -637,6 +812,67 @@ def test_popular_date_current_returns_lightweight_dashboard(tmp_path, monkeypatc
     assert payload["danmaku_index"]["videos"]["BVCURRENT001"]["file"] == "danmakus/BVCURRENT001.json"
     assert detail_status == 200
     assert detail["danmakus"][0]["content"] == "当前弹幕"
+
+
+def test_playback_track_endpoint_returns_timeline_and_track(tmp_path, monkeypatch):
+    monkeypatch.setattr(server, "ROOT", tmp_path)
+    video = {
+        "bvid": "BVPLAY000001",
+        "title": "回放测试视频",
+        "view": 100,
+        "danmaku": 3,
+        "like": 10,
+        "coin": 1,
+        "duration": 120,
+    }
+    rows = [
+        {
+            "bvid": "BVPLAY000001",
+            "title": "回放测试视频",
+            "cid": 1,
+            "time_in_video": 12,
+            "send_timestamp": 0,
+            "user_hash": "u3",
+            "content": "无聊",
+        },
+        {
+            "bvid": "BVPLAY000001",
+            "title": "回放测试视频",
+            "cid": 1,
+            "time_in_video": 1,
+            "send_timestamp": 0,
+            "user_hash": "u1",
+            "content": "好看",
+            "color": 16777215,
+        },
+        {
+            "bvid": "BVPLAY000001",
+            "title": "回放测试视频",
+            "cid": 1,
+            "time_in_video": 3,
+            "send_timestamp": 0,
+            "user_hash": "u2",
+            "content": "燃爆",
+        },
+    ]
+    write_json(tmp_path / "web" / "data" / "dashboard.json", {"raw_videos": [video]})
+    write_json(tmp_path / "web" / "data" / "danmakus.json", rows)
+
+    with run_test_server(tmp_path, monkeypatch) as base_url:
+        opener = build_opener(HTTPCookieProcessor(CookieJar()))
+        status, _, payload = request_json(opener, base_url, "/api/playback/track?date=current&bvid=BVPLAY000001")
+
+    assert status == 200
+    assert payload["ok"] is True
+    assert payload["date"] == "current"
+    assert payload["video"]["bvid"] == "BVPLAY000001"
+    assert [item["text"] for item in payload["track"]] == ["好看", "燃爆", "无聊"]
+    assert payload["track"][0]["color"] == "#ffffff"
+    assert payload["sentiment_timeline"] == [
+        {"time": 0, "count": 2, "score": 1.0, "positive": 2, "neutral": 0, "negative": 0},
+        {"time": 10, "count": 1, "score": -1.0, "positive": 0, "neutral": 0, "negative": 1},
+    ]
+    assert payload["meta"]["track_count"] == 3
 
 
 def test_popular_dates_hide_today_archive_to_avoid_current_duplicate(tmp_path, monkeypatch):
@@ -797,6 +1033,71 @@ def test_ai_provider_is_bound_to_current_account(tmp_path, monkeypatch):
         assert admin_toggled["identity"]["api_switch_enabled"] is True
         assert admin_toggled["identity"]["api_configured"] is False
         assert admin_toggled["identity"]["ai_available"] is False
+
+
+def test_ai_analyze_endpoint_returns_evidence_and_highlights(tmp_path, monkeypatch):
+    monkeypatch.setattr(server, "call_deepseek_analysis", lambda provider, data, result: result)
+    with run_test_server(tmp_path, monkeypatch) as base_url:
+        opener = build_opener(HTTPCookieProcessor(CookieJar()))
+        status, _, login = request_json(
+            opener,
+            base_url,
+            "/api/account/login",
+            method="POST",
+            payload={"account": "user_demo", "password": "User12345"},
+        )
+        assert status == 200
+
+        status, _, toggled = request_json(
+            opener,
+            base_url,
+            "/api/account/api-toggle",
+            method="POST",
+            payload={"enabled": True},
+            headers={"X-CSRF-Token": login["csrf_token"]},
+        )
+        assert status == 200
+        assert toggled["identity"]["api_switch_enabled"] is True
+
+        status, _, provider = request_json(
+            opener,
+            base_url,
+            "/api/account/ai-provider",
+            method="POST",
+            payload={
+                "provider": "deepseek",
+                "api_key": "sk-abcdefghijklmnopqrstuvwxyz",
+                "base_url": "https://api.deepseek.com",
+                "model": "deepseek-v4-flash",
+            },
+            headers={"X-CSRF-Token": login["csrf_token"]},
+        )
+        assert status == 200
+        assert provider["configured"] is True
+
+        status, _, result = request_json(
+            opener,
+            base_url,
+            "/api/ai/analyze",
+            method="POST",
+            payload={
+                "scope": "current",
+                "analysis_mode": "economy",
+                "video": {"title": "Evidence HTTP demo", "duration": 120},
+                "danmakus": [
+                    {"content": "boom scene", "time_in_video": 10, "user_hash": "u1"},
+                    {"content": "boom again", "time_in_video": 12, "user_hash": "u2"},
+                    {"content": "quiet part", "time_in_video": 80, "user_hash": "u3"},
+                ],
+                "words": [{"name": "boom", "value": 2}],
+            },
+            headers={"X-CSRF-Token": login["csrf_token"]},
+        )
+
+    assert status == 200
+    assert result["ok"] is True
+    assert result["evidence_report"]["claims"][0]["keyword"] == "boom"
+    assert result["highlight_timeline"][0]["danmaku_count"] >= 2
 
 
 def test_bili_cookie_is_bound_to_current_account_and_never_echoed(tmp_path, monkeypatch):

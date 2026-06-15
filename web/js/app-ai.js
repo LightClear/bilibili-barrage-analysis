@@ -109,6 +109,116 @@ function buildAiMetrics(rows, video, words, timeSeries) {
   };
 }
 
+function aiRowTime(row) {
+  const value = Number(row?.time_in_video || 0);
+  return Number.isFinite(value) && value >= 0 ? value : 0;
+}
+
+function aiAnchor(row) {
+  return {
+    time: Number(aiRowTime(row).toFixed(3)),
+    text: String(row?.content || "").trim().slice(0, 160),
+  };
+}
+
+function buildEvidenceReportForAi(rows, words = [], metrics = {}) {
+  const cleaned = (rows || [])
+    .filter((row) => String(row?.content || "").trim())
+    .sort((left, right) => aiRowTime(left) - aiRowTime(right));
+  const claims = [];
+  const uniqueUsers = new Set(cleaned.map((row) => String(row.user_hash || "")).filter(Boolean));
+
+  (words || []).slice(0, 4).forEach((word) => {
+    const keyword = String(word?.name || "").trim();
+    if (!keyword) return;
+    const lowerKeyword = keyword.toLowerCase();
+    const anchors = cleaned
+      .filter((row) => String(row.content || "").toLowerCase().includes(lowerKeyword))
+      .slice(0, 5)
+      .map(aiAnchor);
+    if (!anchors.length) return;
+    claims.push({
+      type: "keyword",
+      title: `关键词证据：${keyword}`,
+      keyword,
+      evidence_count: anchors.length,
+      confidence: Math.min(0.95, 0.35 + anchors.length / Math.max(cleaned.length, 1)),
+      anchors,
+    });
+  });
+
+  const peakMinute = Number(metrics?.peak_minute || 0);
+  const peakStart = Math.max(0, Math.floor(peakMinute) * 60);
+  const peakAnchors = cleaned
+    .filter((row) => aiRowTime(row) >= peakStart && aiRowTime(row) < peakStart + 60)
+    .slice(0, 5)
+    .map(aiAnchor);
+  if (peakAnchors.length) {
+    claims.push({
+      type: "peak",
+      title: `峰值证据：${formatTime(peakStart)}-${formatTime(peakStart + 60)}`,
+      start: peakStart,
+      end: peakStart + 60,
+      evidence_count: peakAnchors.length,
+      confidence: Math.min(0.95, 0.35 + peakAnchors.length / Math.max(cleaned.length, 1)),
+      anchors: peakAnchors,
+    });
+  }
+
+  return {
+    summary: {
+      sample_count: cleaned.length,
+      unique_users: uniqueUsers.size,
+      keyword_count: (words || []).length,
+    },
+    claims: claims.slice(0, 6),
+  };
+}
+
+function buildHighlightTimelineForAi(rows, words = [], segmentSeconds = 60, maxSegments = 5) {
+  const cleaned = (rows || [])
+    .filter((row) => String(row?.content || "").trim())
+    .sort((left, right) => aiRowTime(left) - aiRowTime(right));
+  const keywords = (words || []).slice(0, 10).map((word) => String(word?.name || "").trim()).filter(Boolean);
+  const bucketSize = Math.max(10, Number(segmentSeconds || 60));
+  const buckets = new Map();
+  cleaned.forEach((row) => {
+    const start = Math.floor(aiRowTime(row) / bucketSize) * bucketSize;
+    if (!buckets.has(start)) buckets.set(start, []);
+    buckets.get(start).push(row);
+  });
+
+  return Array.from(buckets.entries())
+    .map(([start, bucketRows]) => {
+      const keywordHits = keywords
+        .map((keyword) => ({
+          keyword,
+          count: bucketRows.filter((row) => String(row.content || "").toLowerCase().includes(keyword.toLowerCase())).length,
+        }))
+        .filter((item) => item.count > 0)
+        .sort((left, right) => right.count - left.count)
+        .slice(0, 3);
+      const uniqueUsers = new Set(bucketRows.map((row) => String(row.user_hash || "")).filter(Boolean)).size;
+      const score = bucketRows.length * 10 + keywordHits.reduce((sum, item) => sum + item.count * 6, 0) + uniqueUsers * 2;
+      const topKeywords = keywordHits.map((item) => item.keyword);
+      return {
+        start,
+        end: start + bucketSize,
+        title: topKeywords.length ? `${formatTime(start)} ${topKeywords[0]} 高能段` : `${formatTime(start)} 弹幕集中段`,
+        score,
+        danmaku_count: bucketRows.length,
+        unique_users: uniqueUsers,
+        keywords: topKeywords,
+        reason: topKeywords.length
+          ? `${formatNumber(bucketRows.length)} 条弹幕集中出现，关键词 ${topKeywords.slice(0, 2).join("、")} 较突出。`
+          : `${formatNumber(bucketRows.length)} 条弹幕集中出现，适合回看画面内容。`,
+        samples: bucketRows.slice(0, 4).map(aiAnchor),
+      };
+    })
+    .sort((left, right) => right.score - left.score || left.start - right.start)
+    .slice(0, maxSegments);
+}
+
 function aiModeConfig(mode) {
   if (mode === "deep") {
     return { sourceMode: "deep-summary", phraseLimit: 160, sampleLimit: 260, scanLimit: 120000 };
@@ -183,6 +293,8 @@ function buildAiDataset(video, label = "当前", mode = getAiAnalysisMode()) {
     time_series: timeSeries,
     phrase_candidates: buildPhraseCandidates(rows, config.phraseLimit, config.scanLimit),
     danmaku_samples: buildAiSamples(rows, timeSeries, config.sampleLimit),
+    evidence_report: buildEvidenceReportForAi(rows, words, buildAiMetrics(rows, video, words, timeSeries)),
+    highlight_timeline: buildHighlightTimelineForAi(rows, words),
     source: {
       mode: config.sourceMode,
       danmaku_count: rows.length,
@@ -203,6 +315,125 @@ function setAiText(id, text, isError = false) {
   if (!el) return;
   el.textContent = text;
   el.classList.toggle("is-error", isError);
+}
+
+function renderAiMarkdown(text) {
+  if (!text) return "";
+
+  const lines = String(text).split("\n");
+  const out = [];
+  const context = { list: null, index: 0 };
+
+  function closeList() {
+    if (context.list === "ul") { out.push("</ul>"); context.list = null; }
+    if (context.list === "ol") { out.push("</ol>"); context.list = null; }
+  }
+
+  function pushBlock(tag, content, extraClass = "") {
+    closeList();
+    const cls = extraClass ? ` class="${extraClass}"` : "";
+    out.push(`<${tag}${cls}>${content}</${tag}>`);
+  }
+
+  for (let i = context.index; i < lines.length; i += 1) {
+    context.index = i;
+    let raw = lines[i];
+    // Detect indent for nested content
+    const indent = raw.match(/^(\s*)/)[1].length;
+
+    // Trim trailing spaces but preserve structure
+    const trimmed = raw.trim();
+    if (!trimmed) {
+      closeList();
+      continue;
+    }
+
+    // Inline formatting helper
+    const fmt = (s) =>
+      escapeHtml(s)
+        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+        .replace(/`([^`]+)`/g, "<code>$1</code>")
+        .replace(/\*(.+?)\*/g, "<em>$1</em>");
+
+    // Horizontal rule
+    if (/^[-*_]{3,}$/.test(trimmed)) {
+      closeList();
+      out.push('<hr class="ai-hr">');
+      continue;
+    }
+
+    // Heading
+    const hMatch = trimmed.match(/^(#{1,3})\s+(.+)/);
+    if (hMatch) {
+      const level = Math.min(hMatch[1].length, 3);
+      closeList();
+      out.push(`<h${level + 1} class="ai-h">${fmt(hMatch[2])}</h${level + 1}>`);
+      continue;
+    }
+
+    // Blockquote
+    if (trimmed.startsWith("> ")) {
+      closeList();
+      const quoteLines = [];
+      let j = i;
+      while (j < lines.length) {
+        const qLine = lines[j].trim();
+        if (qLine.startsWith("> ")) {
+          quoteLines.push(fmt(qLine.slice(2)));
+          j += 1;
+        } else if (!qLine && j + 1 < lines.length && lines[j + 1].trim().startsWith("> ")) {
+          j += 1;
+        } else {
+          break;
+        }
+      }
+      out.push(`<blockquote class="ai-quote"><p>${quoteLines.join("<br>")}</p></blockquote>`);
+      i = j - 1;
+      continue;
+    }
+
+    // Unordered list
+    const ulMatch = trimmed.match(/^[-*]\s+(.+)/);
+    if (ulMatch) {
+      if (context.list !== "ul") { closeList(); out.push('<ul class="ai-ul">'); context.list = "ul"; }
+      out.push(`<li>${fmt(ulMatch[1])}</li>`);
+      continue;
+    }
+
+    // Ordered list
+    const olMatch = trimmed.match(/^(\d+)\.\s+(.+)/);
+    if (olMatch) {
+      if (context.list !== "ol") { closeList(); out.push('<ol class="ai-ol">'); context.list = "ol"; }
+      out.push(`<li>${fmt(olMatch[2])}</li>`);
+      continue;
+    }
+
+    // Regular paragraph — merge consecutive non-empty non-special lines
+    closeList();
+    const paraLines = [fmt(trimmed)];
+    let k = i + 1;
+    while (k < lines.length) {
+      const nxt = lines[k].trim();
+      if (!nxt) break;
+      if (/^[-*_]{3,}$/.test(nxt) || /^#{1,3}\s/.test(nxt) || nxt.startsWith("> ")
+        || /^[-*]\s/.test(nxt) || /^\d+\.\s/.test(nxt)) break;
+      paraLines.push(fmt(nxt));
+      k += 1;
+    }
+    out.push(`<p>${paraLines.join("<br>")}</p>`);
+    i = k - 1;
+  }
+
+  closeList();
+  return out.join("\n");
+}
+
+function setAiResultHtml(id, markdownText) {
+  const el = byId(id);
+  if (!el) return;
+  const html = renderAiMarkdown(markdownText);
+  el.innerHTML = html;
+  el.classList.remove("is-error");
 }
 
 async function requestAiAnalysis(payload) {
@@ -228,9 +459,93 @@ function aiResultText(result) {
   return prefix + (result.text || "AI 分析完成，但没有返回文字内容。");
 }
 
+function renderAiEvidenceReport(report) {
+  const box = byId("aiEvidenceReport");
+  if (!box) return;
+  const claims = Array.isArray(report?.claims) ? report.claims.slice(0, 6) : [];
+  if (!claims.length) {
+    box.hidden = true;
+    box.innerHTML = "";
+    return;
+  }
+  box.hidden = false;
+  box.innerHTML = `
+    <div class="ai-insight-head ai-reveal">
+      <h3>证据链</h3>
+      <span>${formatNumber(report?.summary?.sample_count || 0)} 条样本</span>
+    </div>
+    <div class="ai-evidence-grid">
+      ${claims.map((claim, i) => `
+        <article class="ai-evidence-card ai-reveal" style="animation-delay:${0.08 + i * 0.07}s">
+          <span class="ai-evidence-kicker">${escapeHtml(claim.type || "evidence")}</span>
+          <div class="ai-evidence-card-head">
+            <strong>${escapeHtml(claim.title || claim.keyword || claim.type || "证据")}</strong>
+            <span>${Math.round(Number(claim.confidence || 0) * 100)}%</span>
+          </div>
+          <div class="ai-anchor-list">
+            ${(claim.anchors || []).slice(0, 4).map((anchor, j) => `
+              <p style="animation-delay:${0.12 + i * 0.07 + j * 0.04}s"><span>${formatTime(anchor.time)}</span>${escapeHtml(anchor.text || "")}</p>
+            `).join("")}
+          </div>
+        </article>
+      `).join("")}
+    </div>
+  `;
+}
+
+function renderAiHighlightTimeline(timeline) {
+  const box = byId("aiHighlightTimeline");
+  if (!box) return;
+  const segments = Array.isArray(timeline) ? timeline.slice(0, 5) : [];
+  if (!segments.length) {
+    box.hidden = true;
+    box.innerHTML = "";
+    return;
+  }
+  box.hidden = false;
+  box.innerHTML = `
+    <div class="ai-insight-head ai-reveal">
+      <h3>高能片段时间线</h3>
+      <span>${segments.length} 段</span>
+    </div>
+    <div class="ai-highlight-list">
+      ${segments.map((segment, i) => `
+        <article class="ai-highlight-item ai-reveal" style="animation-delay:${0.1 + i * 0.09}s">
+          <div class="ai-highlight-time">
+            <strong>${formatTime(segment.start)}-${formatTime(segment.end)}</strong>
+            <span>${formatNumber(segment.score || 0)}</span>
+          </div>
+          <div class="ai-highlight-body">
+            <div class="ai-highlight-meta">
+              <span>${formatNumber(segment.danmaku_count || 0)} 条弹幕</span>
+              <span>${formatNumber(segment.unique_users || 0)} 位用户</span>
+            </div>
+            <h4>${escapeHtml(segment.title || "高能片段")}</h4>
+            <p>${escapeHtml(segment.reason || "")}</p>
+            <div class="ai-highlight-tags">
+              ${(segment.keywords || []).slice(0, 4).map((keyword) => `<span>${escapeHtml(keyword)}</span>`).join("")}
+            </div>
+            <div class="ai-anchor-list">
+              ${(segment.samples || []).slice(0, 3).map((sample, j) => `
+                <p style="animation-delay:${0.14 + i * 0.09 + j * 0.04}s"><span>${formatTime(sample.time)}</span>${escapeHtml(sample.text || "")}</p>
+              `).join("")}
+            </div>
+          </div>
+        </article>
+      `).join("")}
+    </div>
+  `;
+}
+
+function clearCurrentAiInsights() {
+  renderAiEvidenceReport(null);
+  renderAiHighlightTimeline(null);
+}
+
 async function evaluateCurrentVideo(forceRefresh = false) {
   const video = currentVideo();
   scrollToSection("aiCurrentTextPanel");
+  clearCurrentAiInsights();
   if (!video) {
     setAiText("aiCurrentText", "请先选择一个视频后再进行 AI 评价。", true);
     renderTaskState("currentAi", {
@@ -293,7 +608,9 @@ async function evaluateCurrentVideo(forceRefresh = false) {
       metrics: [["模式", aiModeLabel(mode)], ["词云词数", formatNumber((result.words || []).length)], ["缓存", result.cached ? "是" : "否"]],
       events,
     });
-    setAiText("aiCurrentText", aiResultText(result));
+    setAiResultHtml("aiCurrentText", aiResultText(result));
+    renderAiEvidenceReport(result.evidence_report);
+    renderAiHighlightTimeline(result.highlight_timeline);
   } catch (err) {
     events.push(taskEvent(err.message, "error"));
     renderTaskState("currentAi", {
@@ -305,6 +622,7 @@ async function evaluateCurrentVideo(forceRefresh = false) {
       events,
     });
     setAiText("aiCurrentText", err.message, true);
+    clearCurrentAiInsights();
   }
 }
 
@@ -398,7 +716,7 @@ async function evaluateCompareVideos(forceRefresh = false) {
       metrics: [["模式", aiModeLabel(mode)], ["视频数", formatNumber(datasets.length)], ["缓存", result.cached ? "是" : "否"]],
       events,
     });
-    setAiText("aiCompareText", aiResultText(result));
+    setAiResultHtml("aiCompareText", aiResultText(result));
   } catch (err) {
     events.push(taskEvent(err.message, "error"));
     renderTaskState("compareAi", {

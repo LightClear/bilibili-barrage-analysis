@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>B站弹幕数据可视化</title>
   <link rel="stylesheet" href="./css/shared.css">
-  <link rel="stylesheet" href="./css/dashboard.css?v=20260601-ai-cache">
+  <link rel="stylesheet" href="./css/dashboard.css?v=20260610-ai-console">
 </head>
 <body>
 
@@ -39,6 +39,13 @@
             </select>
           </label>
           <button id="refreshHotDateDataBtn" type="button" class="date-refresh-btn" title="重新抓取当前热门榜单">更新当前榜单</button>
+          <select id="popularLimitSelect" class="date-limit-select" aria-label="抓取视频数量" title="每次抓取的视频数量">
+            <option value="5">5 个</option>
+            <option value="10">10 个</option>
+            <option value="25">25 个</option>
+            <option value="50" selected>50 个</option>
+            <option value="100">100 个</option>
+          </select>
           <select id="sortModeSelect" aria-label="排序方式">
             <option id="officialSortOption" value="official">官方排序</option>
             <option value="like">点赞数排序</option>
@@ -140,6 +147,26 @@
       </div>
     </section>
 
+    <section id="playbackPanel" class="section playback-section" aria-label="弹幕回放">
+      <article class="panel playback-panel">
+        <div class="playback-head">
+          <div>
+            <h2>弹幕回放</h2>
+            <p id="playbackStatus" class="desc">选择视频后查看弹幕轨道和情绪心电图</p>
+          </div>
+          <div class="playback-controls" aria-label="回放控制">
+            <button id="playbackToggleBtn" type="button" class="btn btn-primary">播放</button>
+            <span id="playbackTimeLabel" class="playback-time">0:00</span>
+          </div>
+        </div>
+        <div class="playback-stage">
+          <canvas id="playbackCanvas" class="playback-canvas" width="960" height="260"></canvas>
+        </div>
+        <input id="playbackScrubber" class="playback-scrubber" type="range" min="0" max="0" step="0.1" value="0" aria-label="弹幕回放时间轴">
+        <div id="playbackSentimentChart" class="chart playback-sentiment-chart"></div>
+      </article>
+    </section>
+
     <div id="analysisCards" class="analysis-card-grid">
       <article class="panel analysis-card">
         <h2>长度分布</h2>
@@ -236,10 +263,39 @@
       </article>
     </section>
 
-    <section id="aiCurrentTextPanel" class="panel ai-text-panel ai-only" hidden>
-      <h2>AI评价</h2>
-      <div class="ai-requirement-box">
-        <label for="aiCurrentRequirement">
+    <section id="crossVideoPanel" class="section cross-video-section" aria-label="跨视频传播">
+      <article class="panel panel-wide cross-video-panel">
+        <div class="cross-video-head">
+          <div>
+            <h2>跨视频关键词传播</h2>
+            <p id="crossVideoStatus" class="desc">读取最近归档数据，追踪高频词在视频之间的迁移</p>
+          </div>
+          <button id="reloadCrossVideoBtn" type="button" class="btn btn-ghost">刷新</button>
+        </div>
+        <div class="cross-video-grid">
+          <div>
+            <h3>关键词-视频桑基图</h3>
+            <div id="keywordSankeyChart" class="chart cross-video-chart"></div>
+          </div>
+          <div>
+            <h3>主题河流</h3>
+            <div id="themeRiverChart" class="chart cross-video-chart"></div>
+          </div>
+        </div>
+        <div id="keywordSamples" class="keyword-samples"></div>
+      </article>
+    </section>
+
+    <section id="aiCurrentTextPanel" class="panel ai-text-panel ai-insight-console ai-only" hidden>
+      <div class="ai-console-head">
+        <div>
+          <span class="ai-console-kicker">Insight Console</span>
+          <h2>AI 洞察报告</h2>
+        </div>
+        <span class="ai-mode-pill">证据增强</span>
+      </div>
+      <div class="ai-command-bar">
+        <label class="ai-requirement-box" for="aiCurrentRequirement">
           分析要求
           <span id="aiCurrentRequirementCount">0/300</span>
         </label>
@@ -255,7 +311,9 @@
         <div id="currentAiTaskMetrics" class="task-metrics"></div>
         <div id="currentAiTaskEvents" class="task-events"></div>
       </div>
-      <p id="aiCurrentText">AI评价的文字内容模块</p>
+      <p id="aiCurrentText" class="ai-report-body">AI评价的文字内容模块</p>
+      <div id="aiEvidenceReport" class="ai-insight-section ai-evidence-report" hidden></div>
+      <div id="aiHighlightTimeline" class="ai-insight-section ai-highlight-timeline" hidden></div>
     </section>
 
     <section id="compareSection" class="section compare-section">
@@ -269,10 +327,16 @@
           </div>
         </div>
         <div id="compareContent"></div>
-        <section id="aiCompareTextPanel" class="ai-text-panel ai-only" hidden>
-          <h3>AI评价</h3>
-          <div class="ai-requirement-box">
-            <label for="aiCompareRequirement">
+        <section id="aiCompareTextPanel" class="ai-text-panel ai-insight-console ai-compare-console ai-only" hidden>
+          <div class="ai-console-head">
+            <div>
+              <span class="ai-console-kicker">Compare Console</span>
+              <h3>AI 对比洞察</h3>
+            </div>
+            <span class="ai-mode-pill">双视频</span>
+          </div>
+          <div class="ai-command-bar">
+            <label class="ai-requirement-box" for="aiCompareRequirement">
               分析要求
               <span id="aiCompareRequirementCount">0/300</span>
             </label>
@@ -288,7 +352,7 @@
             <div id="compareAiTaskMetrics" class="task-metrics"></div>
             <div id="compareAiTaskEvents" class="task-events"></div>
           </div>
-          <p id="aiCompareText">AI评价的文字内容模块</p>
+          <p id="aiCompareText" class="ai-report-body">AI评价的文字内容模块</p>
         </section>
       </article>
     </section>
@@ -311,7 +375,8 @@
   <script src="./js/app-core.js?v=20260604-first-load"></script>
   <script src="./js/app-video-store.js?v=20260604-first-load"></script>
   <script src="./js/app-charts.js?v=20260604-first-load"></script>
-  <script src="./js/app-ai.js?v=20260604-first-load"></script>
+  <script src="./js/app-playback.js?v=20260609-playback"></script>
+  <script src="./js/app-ai.js?v=20260610-ai-console"></script>
   <script src="./js/app-import-export.js?v=20260604-first-load"></script>
   <script src="./js/app.js?v=20260604-first-load"></script>
 </body>

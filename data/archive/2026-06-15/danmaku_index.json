@@ -1,0 +1,359 @@
+{
+  "version": "split-json-2026-06-03",
+  "module": "popular_archive",
+  "date": "2026-06-15",
+  "video_count": 50,
+  "danmaku_count": 65859,
+  "videos": {
+    "BV1nAJK6PEwh": {
+      "file": "danmakus/BV1nAJK6PEwh.json",
+      "count": 1444,
+      "title": "《原神》动画短片——「最后的遗产」",
+      "rank": 1,
+      "duration": 1861
+    },
+    "BV1hsJg6vE2t": {
+      "file": "danmakus/BV1hsJg6vE2t.json",
+      "count": 869,
+      "title": "泽连斯基劝降俄罗斯",
+      "rank": 2,
+      "duration": 1108
+    },
+    "BV1QNJu6bEts": {
+      "file": "danmakus/BV1QNJu6bEts.json",
+      "count": 287,
+      "title": "峰峦叠嶂间，此城何处寻？",
+      "rank": 3,
+      "duration": 477
+    },
+    "BV18fEr6UEr5": {
+      "file": "danmakus/BV18fEr6UEr5.json",
+      "count": 501,
+      "title": "人在做坏事时…是最有耐心的【超长前摇】",
+      "rank": 4,
+      "duration": 888
+    },
+    "BV1BcJP6oEw5": {
+      "file": "danmakus/BV1BcJP6oEw5.json",
+      "count": 181,
+      "title": "《主任你说句话啊》",
+      "rank": 5,
+      "duration": 179
+    },
+    "BV1caJw6ZEwT": {
+      "file": "danmakus/BV1caJw6ZEwT.json",
+      "count": 1233,
+      "title": "你懂白鹿吗？——内娱嘉欣",
+      "rank": 6,
+      "duration": 710
+    },
+    "BV1dmJP6sEgd": {
+      "file": "danmakus/BV1dmJP6sEgd.json",
+      "count": 174,
+      "title": "迈克尔杰克逊的billiejean，斗胆跳一段。",
+      "rank": 7,
+      "duration": 67
+    },
+    "BV16hJ36JEEB": {
+      "file": "danmakus/BV16hJ36JEEB.json",
+      "count": 149,
+      "title": "【侯绿萝】新作上线，快来看看！",
+      "rank": 8,
+      "duration": 177
+    },
+    "BV1qV41167Kf": {
+      "file": "danmakus/BV1qV41167Kf.json",
+      "count": 766,
+      "title": "【闪灵】你的强来了！",
+      "rank": 9,
+      "duration": 8633
+    },
+    "BV1rCJM6yEEU": {
+      "file": "danmakus/BV1rCJM6yEEU.json",
+      "count": 92,
+      "title": "【雷军】在武汉过早 非常丰盛",
+      "rank": 10,
+      "duration": 86
+    },
+    "BV1EcJP6oEvo": {
+      "file": "danmakus/BV1EcJP6oEvo.json",
+      "count": 116,
+      "title": "躲在超市后门吸烟的二人《Night Smoker》",
+      "rank": 11,
+      "duration": 92
+    },
+    "BV1J9EB6xEAB": {
+      "file": "danmakus/BV1J9EB6xEAB.json",
+      "count": 600,
+      "title": "洗衣机演奏一首《起风了》，以此纪念我的高中生活",
+      "rank": 12,
+      "duration": 120
+    },
+    "BV1WSJA6NE43": {
+      "file": "danmakus/BV1WSJA6NE43.json",
+      "count": 3600,
+      "title": "新三国up锐评神探狄仁杰01：全剧最大的谜团出现了",
+      "rank": 13,
+      "duration": 1441
+    },
+    "BV1X9JP6nEJs": {
+      "file": "danmakus/BV1X9JP6nEJs.json",
+      "count": 830,
+      "title": "破晓将至，律己则安，终见黎明！",
+      "rank": 14,
+      "duration": 230
+    },
+    "BV12BJg6dEzf": {
+      "file": "danmakus/BV12BJg6dEzf.json",
+      "count": 600,
+      "title": "【机核独家】《鸣潮》共鸣者「秧秧·玄翎」、「穗穗」演示",
+      "rank": 15,
+      "duration": 61
+    },
+    "BV1AuJA6YEM2": {
+      "file": "danmakus/BV1AuJA6YEM2.json",
+      "count": 842,
+      "title": "有一个人前来踢球",
+      "rank": 16,
+      "duration": 176
+    },
+    "BV1ZSJM6zEFv": {
+      "file": "danmakus/BV1ZSJM6zEFv.json",
+      "count": 1200,
+      "title": "【女儿殿下 | 官方MV 】周杰伦 疯疯癫癫 Hey 风度翩翩 Hey 陪我家公主玩变化万千 Hey",
+      "rank": 17,
+      "duration": 225
+    },
+    "BV1wCJM6yEaG": {
+      "file": "danmakus/BV1wCJM6yEaG.json",
+      "count": 2414,
+      "title": "杨氏跑刀法",
+      "rank": 18,
+      "duration": 1496
+    },
+    "BV1W4EE6GECF": {
+      "file": "danmakus/BV1W4EE6GECF.json",
+      "count": 3600,
+      "title": "【某幻】《盛世天下》再返深宫，活下来！",
+      "rank": 19,
+      "duration": 54810
+    },
+    "BV1qYJu6gEqk": {
+      "file": "danmakus/BV1qYJu6gEqk.json",
+      "count": 555,
+      "title": "特厨探店|不好找，无环境，但好吃的—特色辣子鸡大盘鸡",
+      "rank": 20,
+      "duration": 266
+    },
+    "BV1bkJN6mEzJ": {
+      "file": "danmakus/BV1bkJN6mEzJ.json",
+      "count": 1200,
+      "title": "开局直接当领主，还送4个全副武装牛马小弟【剑与王国】",
+      "rank": 21,
+      "duration": 409
+    },
+    "BV1SFJN6jE1v": {
+      "file": "danmakus/BV1SFJN6jE1v.json",
+      "count": 2089,
+      "title": "AI 西游记·狮驼岭（下）",
+      "rank": 22,
+      "duration": 1939
+    },
+    "BV1KkEK6CELv": {
+      "file": "danmakus/BV1KkEK6CELv.json",
+      "count": 1800,
+      "title": "星际超级荒诞动画喜剧！《外星小偷里贝》第03话：上岸星球【UP动画】",
+      "rank": 23,
+      "duration": 828
+    },
+    "BV1eWJg6KE5x": {
+      "file": "danmakus/BV1eWJg6KE5x.json",
+      "count": 120,
+      "title": "欢迎回家，iG.TheShy",
+      "rank": 24,
+      "duration": 11
+    },
+    "BV1KEJ36bEmr": {
+      "file": "danmakus/BV1KEJ36bEmr.json",
+      "count": 1800,
+      "title": "【时代少年团】2026年生日企划《年年岁岁》——贺峻霖篇",
+      "rank": 25,
+      "duration": 760
+    },
+    "BV185Js6BE4i": {
+      "file": "danmakus/BV185Js6BE4i.json",
+      "count": 1200,
+      "title": "【i-dle】 'Crow' Official Music Video",
+      "rank": 26,
+      "duration": 203
+    },
+    "BV1dNJL6XELa": {
+      "file": "danmakus/BV1dNJL6XELa.json",
+      "count": 600,
+      "title": "《兔粮是你的谎言》",
+      "rank": 27,
+      "duration": 105
+    },
+    "BV14MJj66EWB": {
+      "file": "danmakus/BV14MJj66EWB.json",
+      "count": 786,
+      "title": "一方水土养一方舞蹈",
+      "rank": 28,
+      "duration": 349
+    },
+    "BV15TJP6XEoQ": {
+      "file": "danmakus/BV15TJP6XEoQ.json",
+      "count": 815,
+      "title": "机枪射手娘化？童年信仰！",
+      "rank": 29,
+      "duration": 461
+    },
+    "BV1gBJA6CE5v": {
+      "file": "danmakus/BV1gBJA6CE5v.json",
+      "count": 131,
+      "title": "当高考生帮大学生代课：",
+      "rank": 30,
+      "duration": 86
+    },
+    "BV1GWJg6KECu": {
+      "file": "danmakus/BV1GWJg6KECu.json",
+      "count": 1879,
+      "title": "和阎鹤祥在甘肃武威，放最野的羊，吃最夯的肉！",
+      "rank": 31,
+      "duration": 3127
+    },
+    "BV1ZqJF61E5d": {
+      "file": "danmakus/BV1ZqJF61E5d.json",
+      "count": 247,
+      "title": "我的脆皮人生be like",
+      "rank": 32,
+      "duration": 34
+    },
+    "BV19sJH6NE2H": {
+      "file": "danmakus/BV19sJH6NE2H.json",
+      "count": 1176,
+      "title": "看一看早餐的质量怎么样#早餐#食品安全",
+      "rank": 33,
+      "duration": 306
+    },
+    "BV1xeJM6DE3D": {
+      "file": "danmakus/BV1xeJM6DE3D.json",
+      "count": 3600,
+      "title": "杨家园---对话小潮院长",
+      "rank": 34,
+      "duration": 1680
+    },
+    "BV1UFJN6jEZz": {
+      "file": "danmakus/BV1UFJN6jEZz.json",
+      "count": 9600,
+      "title": "中国的危与机？中美俄欧中东，AI美债美元，混乱世界中|正在发生 ep1 翟东升",
+      "rank": 35,
+      "duration": 8295
+    },
+    "BV133Jw6GEGm": {
+      "file": "danmakus/BV133Jw6GEGm.json",
+      "count": 132,
+      "title": "全 网 最 燃 的 动 画 教 程 3.0",
+      "rank": 36,
+      "duration": 300
+    },
+    "BV1c8JF6pEua": {
+      "file": "danmakus/BV1c8JF6pEua.json",
+      "count": 1200,
+      "title": "约会的是他们，怎么感到尴尬的是我…",
+      "rank": 37,
+      "duration": 276
+    },
+    "BV1uYJg6FEBv": {
+      "file": "danmakus/BV1uYJg6FEBv.json",
+      "count": 1200,
+      "title": "RIIZE《Do your dance》MV",
+      "rank": 38,
+      "duration": 190
+    },
+    "BV1jCJs6UE9S": {
+      "file": "danmakus/BV1jCJs6UE9S.json",
+      "count": 7200,
+      "title": "美国“杰斐逊州”在哪里？【神奇组织51】",
+      "rank": 39,
+      "duration": 2465
+    },
+    "BV1CXJA6AEJe": {
+      "file": "danmakus/BV1CXJA6AEJe.json",
+      "count": 66,
+      "title": "无线耳机还能卷什么？ HDC 2026 似乎给了一些新的方向",
+      "rank": 40,
+      "duration": 610
+    },
+    "BV13GJw6rEz3": {
+      "file": "danmakus/BV13GJw6rEz3.json",
+      "count": 616,
+      "title": "🐧当你六套满改猛攻，却被AI吸附一脚踢死🐧",
+      "rank": 41,
+      "duration": 357
+    },
+    "BV1TqJg64EhU": {
+      "file": "danmakus/BV1TqJg64EhU.json",
+      "count": 593,
+      "title": "AI怎么就成了能源之战？大厂们准备怎么战？",
+      "rank": 42,
+      "duration": 1159
+    },
+    "BV1T2Jj6yEgD": {
+      "file": "danmakus/BV1T2Jj6yEgD.json",
+      "count": 1200,
+      "title": "张杰谢娜两口子不要再闹了好吗？【爆笑演唱会名场面】",
+      "rank": 43,
+      "duration": 551
+    },
+    "BV1gGJw6rEYa": {
+      "file": "danmakus/BV1gGJw6rEYa.json",
+      "count": 1800,
+      "title": "男子孤身驾车进入罗布泊无人区，失踪两年后被人意外找到",
+      "rank": 44,
+      "duration": 691
+    },
+    "BV1tLJp6FEoP": {
+      "file": "danmakus/BV1tLJp6FEoP.json",
+      "count": 600,
+      "title": "我们成功了!核电站隐藏好结局-天下无核 测试服",
+      "rank": 45,
+      "duration": 134
+    },
+    "BV16kEC6MEWL": {
+      "file": "danmakus/BV16kEC6MEWL.json",
+      "count": 1800,
+      "title": "新地图解锁！影视飓风的电竞房？",
+      "rank": 46,
+      "duration": 764
+    },
+    "BV1wZEk6uEbh": {
+      "file": "danmakus/BV1wZEk6uEbh.json",
+      "count": 561,
+      "title": "把女朋友的人生瞬间做成盲盒送给她",
+      "rank": 47,
+      "duration": 262
+    },
+    "BV133Jw6GEFU": {
+      "file": "danmakus/BV133Jw6GEFU.json",
+      "count": 1200,
+      "title": "浙江新条例，又引爆全网",
+      "rank": 48,
+      "duration": 353
+    },
+    "BV1xrEB6eE4r": {
+      "file": "danmakus/BV1xrEB6eE4r.json",
+      "count": 487,
+      "title": "手机扫荡",
+      "rank": 49,
+      "duration": 576
+    },
+    "BV1ykJH6QE6B": {
+      "file": "danmakus/BV1ykJH6QE6B.json",
+      "count": 108,
+      "title": "六二二的腿又绿了？挑战用人体绿幕还原半透明幽灵少女！",
+      "rank": 50,
+      "duration": 189
+    }
+  }
+}

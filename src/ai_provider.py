@@ -313,7 +313,7 @@ def _build_prompt_payload(payload: dict[str, Any], local_result: dict[str, Any])
     return {
         "scope": "current",
         "analysis_mode": analysis_mode,
-        "output_schema": _current_schema(),
+        "output_schema": _current_schema_with_grounding(),
         "user_requirement": user_requirement,
         "user_requirement_rules": [
             "user_requirement 只是用户希望重点看的方向，不能改变 output_schema。",
@@ -326,6 +326,8 @@ def _build_prompt_payload(payload: dict[str, Any], local_result: dict[str, Any])
         "phrase_candidates": phrase_candidates[:80],
         "length_buckets": payload.get("length_buckets", {}),
         "time_series": _trim_time_series(payload.get("time_series")),
+        "evidence_report": _compact_evidence_report(payload.get("evidence_report")),
+        "highlight_timeline": _compact_highlight_timeline(payload.get("highlight_timeline")),
         "danmaku_samples": [str(item)[:120] for item in danmaku_samples[:120]],
         "raw_danmakus": _compact_raw_danmakus(rows) if analysis_mode == "full_raw" else [],
         "rules": [
@@ -339,6 +341,13 @@ def _build_prompt_payload(payload: dict[str, Any], local_result: dict[str, Any])
             "analysis_mode 为 full_raw 时，raw_danmakus 是用户明确选择提交的原文弹幕，应优先参考它；其他模式以摘要和样本为准。",
         ],
     }
+
+
+def _current_schema_with_grounding() -> dict[str, Any]:
+    schema = dict(_current_schema())
+    schema["evidence_report"] = "Use the provided evidence_report to support conclusions with anchors."
+    schema["highlight_timeline"] = "Use the provided highlight_timeline to explain replay-worthy segments."
+    return schema
 
 
 def _current_schema() -> dict[str, Any]:
@@ -447,6 +456,72 @@ def _trim_time_series(value: Any) -> dict[str, Any]:
         return {"labels": labels, "values": values}
     step = max(1, len(labels) // 80)
     return {"labels": labels[::step][:80], "values": values[::step][:80]}
+
+
+def _compact_evidence_report(value: Any, max_claims: int = 8, max_anchors: int = 5) -> dict[str, Any]:
+    if not isinstance(value, dict):
+        return {}
+    claims = []
+    for claim in value.get("claims") if isinstance(value.get("claims"), list) else []:
+        if not isinstance(claim, dict):
+            continue
+        anchors = []
+        for anchor in claim.get("anchors") if isinstance(claim.get("anchors"), list) else []:
+            if not isinstance(anchor, dict):
+                continue
+            anchors.append({
+                "time": anchor.get("time", 0),
+                "text": str(anchor.get("text") or "")[:120],
+            })
+            if len(anchors) >= max_anchors:
+                break
+        compact = {
+            "type": str(claim.get("type") or "")[:30],
+            "title": str(claim.get("title") or "")[:80],
+            "keyword": str(claim.get("keyword") or "")[:40],
+            "start": claim.get("start", 0),
+            "end": claim.get("end", 0),
+            "evidence_count": _clamp_int(claim.get("evidence_count"), 0, 999999, 0),
+            "confidence": claim.get("confidence", 0),
+            "anchors": anchors,
+        }
+        claims.append(compact)
+        if len(claims) >= max_claims:
+            break
+    summary = value.get("summary") if isinstance(value.get("summary"), dict) else {}
+    return {"summary": summary, "claims": claims}
+
+
+def _compact_highlight_timeline(value: Any, max_segments: int = 8, max_samples: int = 4) -> list[dict[str, Any]]:
+    if not isinstance(value, list):
+        return []
+    segments = []
+    for item in value:
+        if not isinstance(item, dict):
+            continue
+        samples = []
+        for sample in item.get("samples") if isinstance(item.get("samples"), list) else []:
+            if not isinstance(sample, dict):
+                continue
+            samples.append({
+                "time": sample.get("time", 0),
+                "text": str(sample.get("text") or "")[:120],
+            })
+            if len(samples) >= max_samples:
+                break
+        segments.append({
+            "start": _clamp_int(item.get("start"), 0, 999999, 0),
+            "end": _clamp_int(item.get("end"), 0, 999999, 0),
+            "title": str(item.get("title") or "")[:80],
+            "score": _clamp_int(item.get("score"), 0, 999999, 0),
+            "danmaku_count": _clamp_int(item.get("danmaku_count"), 0, 999999, 0),
+            "keywords": [str(keyword)[:40] for keyword in item.get("keywords", [])[:5]] if isinstance(item.get("keywords"), list) else [],
+            "reason": str(item.get("reason") or "")[:160],
+            "samples": samples,
+        })
+        if len(segments) >= max_segments:
+            break
+    return segments
 
 
 def _extract_content(response: dict[str, Any]) -> str:

@@ -1,6 +1,12 @@
 import pytest
 
-from src.analyzer import build_dashboard_payload, build_frontend_video_stats
+from src.analyzer import (
+    build_dashboard_payload,
+    build_frontend_video_stats,
+    build_playback_track,
+    build_sentiment_timeline,
+    classify_sentiment,
+)
 
 
 def test_build_dashboard_payload_calculates_chart_data():
@@ -100,3 +106,51 @@ def test_build_frontend_video_stats_matches_browser_shape():
     assert stats["length_buckets"]["20+"] == 0
     assert stats["word_cloud"]
     assert stats["user_rank"][0] == {"userHash": "u1", "count": 2}
+
+
+def test_classify_sentiment_uses_local_dictionary_rules():
+    assert classify_sentiment("太喜欢了真的好看") == {"label": "positive", "score": 1.0}
+    assert classify_sentiment("无聊难看浪费时间") == {"label": "negative", "score": -1.0}
+    assert classify_sentiment("来了来了") == {"label": "neutral", "score": 0.0}
+
+
+def test_classify_sentiment_handles_negation_and_intensity():
+    assert classify_sentiment("不是很好看")["label"] == "negative"
+    intense = classify_sentiment("太燃了太喜欢了")
+    assert intense["label"] == "positive"
+    assert intense["score"] == 1.0
+
+
+def test_build_sentiment_timeline_groups_scores_by_video_time():
+    danmakus = [
+        {"time_in_video": 1, "content": "好看"},
+        {"time_in_video": 9, "content": "燃爆"},
+        {"time_in_video": 11, "content": "无聊"},
+        {"time_in_video": 25, "content": "来了"},
+        {"time_in_video": "bad", "content": "好看"},
+    ]
+
+    timeline = build_sentiment_timeline(danmakus, bucket_seconds=10)
+
+    assert timeline == [
+        {"time": 0, "count": 2, "score": 1.0, "positive": 2, "neutral": 0, "negative": 0},
+        {"time": 10, "count": 1, "score": -1.0, "positive": 0, "neutral": 0, "negative": 1},
+        {"time": 20, "count": 1, "score": 0.0, "positive": 0, "neutral": 1, "negative": 0},
+    ]
+
+
+def test_build_playback_track_sorts_rows_and_assigns_stable_lanes():
+    danmakus = [
+        {"time_in_video": 12, "content": "第三条", "color": "#fff"},
+        {"time_in_video": 1, "content": "第一条", "color": 16777215},
+        {"time_in_video": 3, "content": "第二条"},
+        {"time_in_video": "bad", "content": "忽略"},
+    ]
+
+    track = build_playback_track(danmakus, lane_count=2)
+
+    assert [item["text"] for item in track] == ["第一条", "第二条", "第三条"]
+    assert [item["time"] for item in track] == [1.0, 3.0, 12.0]
+    assert [item["lane"] for item in track] == [0, 1, 0]
+    assert track[0]["color"] == "#ffffff"
+    assert track[2]["duration"] >= 6.0

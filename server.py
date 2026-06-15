@@ -44,9 +44,10 @@ from src.ai_provider import (
     provider_status,
     test_deepseek_provider,
 )
-from src.analyzer import build_frontend_video_stats
+from src.analyzer import build_frontend_video_stats, build_playback_track, build_sentiment_timeline
 from src.archive import ArchiveStore
 from src.collector import BilibiliApiError, BilibiliCollector, build_video_url, extract_bvid
+from src.cross_video_analyzer import build_keyword_sankey, build_theme_river
 from src.danmaku_store import (
     DANMAKU_INDEX_FILE,
     VIDEO_STATS_FILE,
@@ -1040,6 +1041,8 @@ class Handler(SimpleHTTPRequestHandler):
             self._handle_video_info(parsed)
         elif parsed.path == "/api/video-danmakus":
             self._handle_video_danmakus(parsed)
+        elif parsed.path == "/api/playback/track":
+            self._handle_playback_track(parsed)
         elif parsed.path == "/api/background-image":
             self._handle_background_image()
         elif parsed.path == "/api/compare":
@@ -1082,6 +1085,8 @@ class Handler(SimpleHTTPRequestHandler):
             self._handle_popular_dates()
         elif parsed.path == "/api/popular-date":
             self._handle_popular_date(parsed)
+        elif parsed.path == "/api/cross-video/keywords":
+            self._handle_cross_video_keywords(parsed)
         else:
             if parsed.path.startswith("/api/"):
                 self._send_json(404, {"ok": False, "error": "未知接口", "path": parsed.path})
@@ -2212,6 +2217,11 @@ class Handler(SimpleHTTPRequestHandler):
     def _handle_create_refresh_popular_job(self):
         if not self._require_admin():
             return
+        try:
+            data = self._read_json_body(SMALL_JSON_BODY_LIMIT)
+        except (json.JSONDecodeError, RequestBodyTooLarge, ValueError):
+            data = {}
+        limit = max(1, min(100, int(data.get("limit", 50) or 50)))
         existing = JOB_MANAGER.latest_running(REFRESH_POPULAR_JOB_TYPE)
         if existing:
             self._send_json(200, {"ok": True, "existing": True, "job": existing})
@@ -2221,11 +2231,11 @@ class Handler(SimpleHTTPRequestHandler):
         job = JOB_MANAGER.create(
             REFRESH_POPULAR_JOB_TYPE,
             account=self._current_account(),
-            message="热门榜单更新任务已创建",
+            message=f"热门榜单更新任务已创建（抓取 {limit} 个视频）",
         )
         thread = threading.Thread(
             target=run_refresh_popular_job,
-            args=(job["job_id"], 50),
+            args=(job["job_id"], limit),
             name=f"refresh-popular-{job['job_id'][:8]}",
             daemon=True,
         )
@@ -2533,6 +2543,52 @@ class Handler(SimpleHTTPRequestHandler):
             "store": store_meta,
         })
 
+    def _handle_playback_track(self, parsed):
+        params = parse_qs(parsed.query)
+        selected = str(params.get("date", ["current"])[0] or "current").strip() or "current"
+        bvid_raw = str(params.get("bvid", [""])[0] or "").strip()
+        if not bvid_raw:
+            self._send_json(400, {"ok": False, "error": "缺少 bvid 参数"})
+            return
+        try:
+            bvid = extract_bvid(bvid_raw)
+            if selected == "current":
+                dashboard, _, _ = self._load_current_popular_dashboard()
+                base = ROOT / "web" / "data"
+                source = "current"
+            else:
+                base, dashboard, _, _ = self._load_archive_popular_dashboard(selected)
+                source = "archive"
+            videos = dashboard.get("raw_videos") if isinstance(dashboard.get("raw_videos"), list) else []
+            video = next((item for item in videos if str(item.get("bvid") or "") == bvid), None)
+            if not video:
+                self._send_json(404, {"ok": False, "error": f"{selected} 榜单中未找到 {bvid}"})
+                return
+            rows, store_meta = read_video_danmakus(base, bvid)
+        except FileNotFoundError as exc:
+            self._send_json(404, {"ok": False, "error": str(exc)})
+            return
+        except (ValueError, json.JSONDecodeError) as exc:
+            self._send_json(400, {"ok": False, "error": str(exc)})
+            return
+
+        track = build_playback_track(rows)
+        sentiment_timeline = build_sentiment_timeline(rows)
+        self._send_json(200, {
+            "ok": True,
+            "date": selected,
+            "source": source,
+            "video": video,
+            "track": track,
+            "sentiment_timeline": sentiment_timeline,
+            "store": store_meta,
+            "meta": {
+                "danmaku_count": len(rows),
+                "track_count": len(track),
+                "sentiment_bucket_seconds": 10,
+            },
+        })
+
     def _archive_dates(self) -> list[str]:
         archive_root = ROOT / "data" / "archive"
         if not archive_root.exists():
@@ -2676,6 +2732,59 @@ class Handler(SimpleHTTPRequestHandler):
             "video_stats": stats,
             "danmakus": [],
         })
+
+    def _handle_cross_video_keywords(self, parsed):
+        params = parse_qs(parsed.query)
+        try:
+            days = max(1, min(14, int(params.get("days", ["14"])[0] or 14)))
+            top_k = max(1, min(50, int(params.get("top_k", ["30"])[0] or 30)))
+            row_limit = max(1, min(50000, int(params.get("row_limit", ["5000"])[0] or 5000)))
+            snapshots = self._load_cross_video_snapshots(days, row_limit=row_limit)
+        except FileNotFoundError as exc:
+            self._send_json(404, {"ok": False, "error": str(exc)})
+            return
+        except (ValueError, json.JSONDecodeError) as exc:
+            self._send_json(400, {"ok": False, "error": str(exc)})
+            return
+
+        stop_words = load_block_words(ROOT / "config" / "stop_words.txt")
+        sankey = build_keyword_sankey(snapshots, top_k=top_k, stop_words=stop_words)
+        theme_river = build_theme_river(snapshots, top_k=min(top_k, 12), stop_words=stop_words)
+        self._send_json(200, {
+            "ok": True,
+            "sankey": {
+                "nodes": sankey["nodes"],
+                "links": sankey["links"],
+            },
+            "theme_river": theme_river,
+            "samples": sankey["samples"],
+            "meta": {
+                "archive_days": len(snapshots),
+                "danmaku_rows": sum(len(snapshot.get("danmakus") or []) for snapshot in snapshots),
+                "days_requested": days,
+                "row_limit": row_limit,
+                "top_k": top_k,
+            },
+        })
+
+    def _load_cross_video_snapshots(self, days: int, *, row_limit: int = 5000) -> list[dict[str, Any]]:
+        snapshots: list[dict[str, Any]] = []
+        for date in self._archive_dates()[:days]:
+            base, dashboard, _, _ = self._load_archive_popular_dashboard(date)
+            videos = dashboard.get("raw_videos") if isinstance(dashboard.get("raw_videos"), list) else []
+            rows: list[dict[str, Any]] = []
+            for video in videos:
+                bvid = str(video.get("bvid") or "").strip()
+                if not bvid:
+                    continue
+                video_rows, _ = read_video_danmakus(base, bvid)
+                remaining = max(0, row_limit - len(rows))
+                if remaining:
+                    rows.extend(video_rows[:remaining])
+                if len(rows) >= row_limit:
+                    break
+            snapshots.append({"date": date, "videos": videos, "danmakus": rows})
+        return snapshots
 
     def _handle_deprecated_refresh_popular(self):
         self._send_json(410, {

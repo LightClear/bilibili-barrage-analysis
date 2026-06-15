@@ -28,6 +28,8 @@ const API_ENDPOINTS = {
   popularDates: "/api/popular-dates",
   popularDate: "/api/popular-date",
   videoDanmakus: "/api/video-danmakus",
+  playbackTrack: "/api/playback/track",
+  crossVideoKeywords: "/api/cross-video/keywords",
   refreshPopularJob: "/api/jobs/refresh-popular",
   searchJob: "/api/jobs/search",
   jobStatus: "/api/jobs/status",
